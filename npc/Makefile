@@ -21,7 +21,7 @@ VERILATOR_FLAGS += -Wall
 # Make waveforms
 VERILATOR_FLAGS += --trace
 # Check SystemVerilog assertions
-#VERILATOR_FLAGS += --assert
+VERILATOR_FLAGS += --assert
 # Generate coverage analysis
 VERILATOR_FLAGS += --coverage
 # Run Verilator in debug mode
