@@ -1,8 +1,8 @@
 	// verilator_coverage annotation
 	module top(
-%000001	  input a,
-%000000	  input b,
-%000001	  output f
+%000007	  input a,
+%000004	  input b,
+%000005	  output f
 	);
 	 assign f = a ^ b;
 %000002	 initial begin

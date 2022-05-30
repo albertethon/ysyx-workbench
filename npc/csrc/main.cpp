@@ -16,14 +16,16 @@ int main(int argc, char** argv, char** env) {
   const std::unique_ptr<Vtop> top{new Vtop{contextp.get(),"TOP"}};
 
   while(!contextp->gotFinish()){
-    contextp->timeInc(1);
-    int a = rand() & 1;
-    int b = rand() & 1;
-    top->a = a;
-    top->b = b;
-    top->eval();
-    printf("a = %d, b = %d, f = %d\n", a, b, top->f);
-    assert(top->f == a ^ b);
+    for(int i=0;i<11;i++){
+        contextp->timeInc(1);
+        int a = rand() & 1;
+        int b = rand() & 1;
+        top->a = a;
+        top->b = b;
+        top->eval();
+        printf("a = %d, b = %d, f = %d\n", a, b, top->f);
+        assert(top->f == a ^ b);
+    }
   }
   top->final();
 #if VM_COVERAGE
