@@ -20,7 +20,14 @@ VL_MODULE(Vtop___024root) {
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
     VL_IN8(sw,1,0);
-    VL_OUT8(ledr,0,0);
+    VL_OUT16(led,15,0);
+
+    // LOCAL SIGNALS
+    SData/*15:0*/ top__DOT__light1__DOT__count;
+
+    // LOCAL VARIABLES
+    CData/*7:0*/ top__DOT____Vcellout__light1__led;
+    CData/*0:0*/ __Vclklast__TOP__clk;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table

@@ -1,6 +1,6 @@
 module led(
   input [1:0] sw,
-  output ledr
+  output led
 );
-  assign ledr = sw[1] ^ sw[0];
+  assign led = sw[1] ^ sw[0];
 endmodule
