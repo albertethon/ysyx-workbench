@@ -1,8 +1,10 @@
 module top(
-  input a,
-  input b,
-  output f
+  input clk,
+  input rst,
+  input [1:0] sw,
+  output ledr
 );
+/**
  assign f = a ^ b;
  initial begin
     if ($test$plusargs("trace") != 0) begin
@@ -13,4 +15,9 @@ module top(
     $display("[%0t] Model running...\n",$time);
     $finish;
  end
+ **/
+ led led1(
+    .sw(sw),
+    .ledr(ledr)
+ );
 endmodule
