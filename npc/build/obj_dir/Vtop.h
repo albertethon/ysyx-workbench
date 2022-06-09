@@ -26,7 +26,7 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rst,0,0);
-    VL_IN8(&sw,1,0);
+    VL_IN16(&sw,9,0);
     VL_OUT16(&led,15,0);
 
     // CELLS
