@@ -3,6 +3,7 @@
 
 #include "Vtop.h"
 #include "Vtop__Syms.h"
+#include "verilated_vcd_c.h"
 
 //============================================================
 // Constructors
@@ -11,8 +12,14 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rst{vlSymsp->TOP.rst}
+    , en{vlSymsp->TOP.en}
     , sw{vlSymsp->TOP.sw}
+    , in_a{vlSymsp->TOP.in_a}
+    , in_b{vlSymsp->TOP.in_b}
+    , btn{vlSymsp->TOP.btn}
+    , out{vlSymsp->TOP.out}
     , led{vlSymsp->TOP.led}
+    , HEX0{vlSymsp->TOP.HEX0}
     , rootp{&(vlSymsp->TOP)}
 {
 }
@@ -47,6 +54,7 @@ static void _eval_initial_loop(Vtop__Syms* __restrict vlSymsp) {
     // Evaluate till stable
     int __VclockLoop = 0;
     QData __Vchange = 1;
+    vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
         Vtop___024root___eval_settle(&(vlSymsp->TOP));
@@ -78,6 +86,7 @@ void Vtop::eval_step() {
     // Evaluate till stable
     int __VclockLoop = 0;
     QData __Vchange = 1;
+    vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
         Vtop___024root___eval(&(vlSymsp->TOP));
@@ -113,4 +122,31 @@ VerilatedContext* Vtop::contextp() const {
 
 const char* Vtop::name() const {
     return vlSymsp->name();
+}
+
+//============================================================
+// Trace configuration
+
+void Vtop___024root__traceInitTop(Vtop___024root* vlSelf, VerilatedVcd* tracep);
+
+static void traceInit(void* voidSelf, VerilatedVcd* tracep, uint32_t code) {
+    // Callback from tracep->open()
+    Vtop___024root* const __restrict vlSelf VL_ATTR_UNUSED = static_cast<Vtop___024root*>(voidSelf);
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    if (!vlSymsp->_vm_contextp__->calcUnusedSigs()) {
+        VL_FATAL_MT(__FILE__, __LINE__, __FILE__,
+            "Turning on wave traces requires Verilated::traceEverOn(true) call before time 0.");
+    }
+    vlSymsp->__Vm_baseCode = code;
+    tracep->module(vlSymsp->name());
+    tracep->scopeEscape(' ');
+    Vtop___024root__traceInitTop(vlSelf, tracep);
+    tracep->scopeEscape('.');
+}
+
+void Vtop___024root__traceRegister(Vtop___024root* vlSelf, VerilatedVcd* tracep);
+
+void Vtop::trace(VerilatedVcdC* tfp, int, int) {
+    tfp->spTrace()->addInitCb(&traceInit, &(vlSymsp->TOP));
+    Vtop___024root__traceRegister(&(vlSymsp->TOP), tfp->spTrace());
 }

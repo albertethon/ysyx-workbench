@@ -12,6 +12,9 @@
 
 class Vtop__Syms;
 class Vtop___024root;
+class VerilatedVcdC;
+class Vtop_VerilatedVcd;
+
 
 // This class is the main interface to the Verilated model
 class Vtop VL_NOT_FINAL {
@@ -26,8 +29,14 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rst,0,0);
+    VL_IN8(&en,0,0);
     VL_IN16(&sw,9,0);
+    VL_IN8(&in_a,3,0);
+    VL_IN8(&in_b,3,0);
+    VL_IN8(&btn,2,0);
+    VL_OUT8(&out,3,0);
     VL_OUT16(&led,15,0);
+    VL_OUT8(&HEX0,7,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.
@@ -60,6 +69,8 @@ class Vtop VL_NOT_FINAL {
     void eval_end_step() {}
     /// Simulation complete, run final blocks.  Application must call on completion.
     void final();
+    /// Trace signals in the model; called by application code
+    void trace(VerilatedVcdC* tfp, int levels, int options = 0);
     /// Return current simulation context for this model.
     /// Used to get to e.g. simulation time via contextp()->time()
     VerilatedContext* contextp() const;

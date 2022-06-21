@@ -35,6 +35,7 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-I/home/max/szy/ysyx-workbench/npc/include \
 	-I/home/max/szy/ysyx-workbench/nvboard/include \
 	-DTOP_NAME="Vtop" \
 
@@ -47,6 +48,7 @@ VM_USER_LDLIBS = \
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	auto_bind \
+	dump \
 	main \
 
 # User .cpp directories (from .cpp's on Verilator command line)
@@ -65,6 +67,8 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 VPATH += $(VM_USER_DIR)
 
 auto_bind.o: /home/max/szy/ysyx-workbench/npc/build/auto_bind.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+dump.o: /home/max/szy/ysyx-workbench/npc/csrc/dump.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 main.o: /home/max/szy/ysyx-workbench/npc/csrc/main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

@@ -10,6 +10,8 @@
 //==========
 
 class Vtop__Syms;
+class Vtop_VerilatedVcd;
+
 
 //----------
 
@@ -19,18 +21,28 @@ VL_MODULE(Vtop___024root) {
     // PORTS
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
+    VL_IN8(en,0,0);
+    VL_IN8(in_a,3,0);
+    VL_IN8(in_b,3,0);
+    VL_IN8(btn,2,0);
+    VL_OUT8(out,3,0);
+    VL_OUT8(HEX0,7,0);
     VL_IN16(sw,9,0);
     VL_OUT16(led,15,0);
 
     // LOCAL SIGNALS
-    SData/*15:0*/ top__DOT__light1__DOT__count;
-    VlUnpacked<CData/*3:0*/, 4> top__DOT__mux41_2test__DOT__i0__DOT__i0__DOT__pair_list;
-    VlUnpacked<CData/*1:0*/, 4> top__DOT__mux41_2test__DOT__i0__DOT__i0__DOT__key_list;
-    VlUnpacked<CData/*1:0*/, 4> top__DOT__mux41_2test__DOT__i0__DOT__i0__DOT__data_list;
+    CData/*3:0*/ top__DOT__alu1__DOT__Result;
+    CData/*0:0*/ top__DOT__alu1__DOT__Cin;
+    CData/*3:0*/ top__DOT__alu1__DOT__t_no_Cin;
+    CData/*3:0*/ top__DOT__alu1__DOT__i0__DOT__i0__DOT__lut_out;
+    CData/*0:0*/ top__DOT__alu1__DOT__i0__DOT__i0__DOT__hit;
+    VlUnpacked<CData/*6:0*/, 8> top__DOT__alu1__DOT__i0__DOT__i0__DOT__pair_list;
+    VlUnpacked<CData/*2:0*/, 8> top__DOT__alu1__DOT__i0__DOT__i0__DOT__key_list;
+    VlUnpacked<CData/*3:0*/, 8> top__DOT__alu1__DOT__i0__DOT__i0__DOT__data_list;
 
     // LOCAL VARIABLES
-    CData/*7:0*/ top__DOT____Vcellout__light1__led;
-    CData/*0:0*/ __Vclklast__TOP__clk;
+    QData/*55:0*/ top__DOT__alu1__DOT____Vcellinp__i0____pinNumber3;
+    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
     Vtop__Syms* vlSymsp;  // Symbol table

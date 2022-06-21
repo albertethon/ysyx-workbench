@@ -11,5 +11,4 @@ MuxKeyWithDefault #(4,2,2) i0 (
         2'b11,in[7:6]
     }
 );
-
 endmodule

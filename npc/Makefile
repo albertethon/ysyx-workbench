@@ -1,8 +1,8 @@
 TOPNAME = top
 NXDC_FILES = constr/top.nxdc
-INC_PATH ?=
+INC_PATH ?=/home/max/szy/ysyx-workbench/npc/include
 
-VERILATOR_CFLAGS += -MMD --build -cc  \
+VERILATOR_CFLAGS += -MMD --build -cc --trace  \
 				-O3 --x-assign fast --x-initial fast --noassert
 
 BUILD_DIR = ./build
@@ -12,7 +12,7 @@ BIN = $(BUILD_DIR)/$(TOPNAME)
 # Check for sanity to avoid later confusion
 
 ifneq ($(words $(CURDIR)),1)
- $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
+    $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
 endif
 ifeq ($(VERILATOR_ROOT),)
 VERILATOR = verilator
@@ -41,7 +41,7 @@ CSRCS += $(SRC_AUTO_BIND)
 include $(NVBOARD_HOME)/scripts/nvboard.mk
 
 # rules for verilator
-INCFLAGS = $(addprefix -I, $(INC_PATH))
+INCFLAGS = $(addprefix -I, $(INC_PATH))# -I means add $(INC_PATH) in search path
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
@@ -51,13 +51,13 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 		--top-module $(TOPNAME) $^ \
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
-
+#	build/$(TOPNAME) +trace
 
 
 
 run: $(BIN)
 	@$^
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+	$(call git_commit, "make nvboard and dump function independently") # DO NOT REMOVE THIS LINE!!!
 
 show-config:
 	$(VERILATOR) -V
