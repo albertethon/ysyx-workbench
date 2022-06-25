@@ -57,7 +57,7 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 
 run: $(BIN)
 	@$^
-	$(call git_commit, "make nvboard and dump function independently") # DO NOT REMOVE THIS LINE!!!
+	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
 show-config:
 	$(VERILATOR) -V

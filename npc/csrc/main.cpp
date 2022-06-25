@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <dump.h>
 #include <nvboard.h>
-#include <iostream>
 
 static TOP_NAME dut;
 
@@ -23,7 +22,7 @@ static void reset(int n){
 
 int main(int argc, char** argv, char** env) {
 
-  dump_and_test();
+  // dump_and_test();
 
   nvboard_bind_all_pins(&dut);
   nvboard_init();

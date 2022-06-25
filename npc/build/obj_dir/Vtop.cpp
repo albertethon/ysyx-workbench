@@ -12,14 +12,25 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : vlSymsp{new Vtop__Syms(_vcontextp__, _vcname__, this)}
     , clk{vlSymsp->TOP.clk}
     , rst{vlSymsp->TOP.rst}
-    , en{vlSymsp->TOP.en}
+    , clrn{vlSymsp->TOP.clrn}
+    , ps2_clk{vlSymsp->TOP.ps2_clk}
+    , ps2_data{vlSymsp->TOP.ps2_data}
+    , we{vlSymsp->TOP.we}
+    , din{vlSymsp->TOP.din}
     , sw{vlSymsp->TOP.sw}
-    , in_a{vlSymsp->TOP.in_a}
-    , in_b{vlSymsp->TOP.in_b}
     , btn{vlSymsp->TOP.btn}
+    , scancode{vlSymsp->TOP.scancode}
+    , asciicode{vlSymsp->TOP.asciicode}
+    , ready{vlSymsp->TOP.ready}
+    , overflow{vlSymsp->TOP.overflow}
     , out{vlSymsp->TOP.out}
     , led{vlSymsp->TOP.led}
     , HEX0{vlSymsp->TOP.HEX0}
+    , HEX1{vlSymsp->TOP.HEX1}
+    , HEX2{vlSymsp->TOP.HEX2}
+    , HEX3{vlSymsp->TOP.HEX3}
+    , HEX4{vlSymsp->TOP.HEX4}
+    , HEX5{vlSymsp->TOP.HEX5}
     , rootp{&(vlSymsp->TOP)}
 {
 }
