@@ -40,6 +40,13 @@ class Vtop VL_NOT_FINAL {
     VL_OUT8(&asciicode,7,0);
     VL_OUT8(&ready,0,0);
     VL_OUT8(&overflow,0,0);
+    VL_OUT8(&VGA_CLK,0,0);
+    VL_OUT8(&VGA_HSYNC,0,0);
+    VL_OUT8(&VGA_VSYNC,0,0);
+    VL_OUT8(&VGA_VALID,0,0);
+    VL_OUT8(&VGA_R,7,0);
+    VL_OUT8(&VGA_G,7,0);
+    VL_OUT8(&VGA_B,7,0);
     VL_OUT8(&out,3,0);
     VL_OUT16(&led,15,0);
     VL_OUT8(&HEX0,7,0);

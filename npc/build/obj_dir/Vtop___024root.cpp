@@ -7,10 +7,10 @@
 
 //==========
 
-VL_INLINE_OPT void Vtop___024root___sequent__TOP__2(Vtop___024root* vlSelf) {
+VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__3\n"); );
     // Variables
     CData/*2:0*/ __Vdly__top__DOT__pkb__DOT__ps2_clk_sync;
     CData/*3:0*/ __Vdly__top__DOT__pkb__DOT__count;
@@ -1217,17 +1217,136 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__2(Vtop___024root* vlSelf) {
                      << 1U));
 }
 
+VL_INLINE_OPT void Vtop___024root___combo__TOP__4(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___combo__TOP__4\n"); );
+    // Body
+    vlSelf->VGA_CLK = vlSelf->clk;
+}
+
+VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__5\n"); );
+    // Variables
+    CData/*3:0*/ __Vdly__top__DOT__vgac__DOT__x_ascii;
+    CData/*3:0*/ __Vdly__top__DOT__vgac__DOT__y_ascii;
+    CData/*4:0*/ __Vdly__top__DOT__vgac__DOT__h_count_n;
+    CData/*6:0*/ __Vdly__top__DOT__vgac__DOT__v_count_n;
+    SData/*9:0*/ __Vdly__top__DOT__vgac__DOT__y_cnt;
+    SData/*9:0*/ __Vdly__top__DOT__vgac__DOT__x_cnt;
+    SData/*9:0*/ __Vdly__top__DOT__vgac__DOT__flash_cnt;
+    // Body
+    __Vdly__top__DOT__vgac__DOT__x_cnt = vlSelf->top__DOT__vgac__DOT__x_cnt;
+    __Vdly__top__DOT__vgac__DOT__y_cnt = vlSelf->top__DOT__vgac__DOT__y_cnt;
+    __Vdly__top__DOT__vgac__DOT__flash_cnt = vlSelf->top__DOT__vgac__DOT__flash_cnt;
+    __Vdly__top__DOT__vgac__DOT__x_ascii = vlSelf->top__DOT__vgac__DOT__x_ascii;
+    __Vdly__top__DOT__vgac__DOT__v_count_n = vlSelf->top__DOT__vgac__DOT__v_count_n;
+    __Vdly__top__DOT__vgac__DOT__h_count_n = vlSelf->top__DOT__vgac__DOT__h_count_n;
+    __Vdly__top__DOT__vgac__DOT__y_ascii = vlSelf->top__DOT__vgac__DOT__y_ascii;
+    if (vlSelf->rst) {
+        __Vdly__top__DOT__vgac__DOT__y_cnt = 1U;
+        __Vdly__top__DOT__vgac__DOT__x_cnt = 1U;
+    } else if ((0x320U == (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) {
+        __Vdly__top__DOT__vgac__DOT__y_cnt = ((0x20dU 
+                                               == (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))
+                                               ? 1U
+                                               : (0x3ffU 
+                                                  & ((IData)(1U) 
+                                                     + (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))));
+        __Vdly__top__DOT__vgac__DOT__x_cnt = 1U;
+    } else {
+        __Vdly__top__DOT__vgac__DOT__x_cnt = (0x3ffU 
+                                              & ((IData)(1U) 
+                                                 + (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)));
+    }
+    if (vlSelf->rst) {
+        __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
+        __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;
+        __Vdly__top__DOT__vgac__DOT__h_count_n = 0U;
+        __Vdly__top__DOT__vgac__DOT__v_count_n = 0U;
+    } else if ((0x306U == (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) {
+        if (VL_UNLIKELY((0x203U == (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)))) {
+            __Vdly__top__DOT__vgac__DOT__flash_cnt 
+                = (0x3ffU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__flash_cnt)));
+            VL_WRITEF("%4#\n",10,vlSelf->top__DOT__vgac__DOT__flash_cnt);
+            __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;
+            __Vdly__top__DOT__vgac__DOT__h_count_n = 0U;
+        } else if (((0xfU == (IData)(vlSelf->top__DOT__vgac__DOT__y_ascii)) 
+                    & (0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)))) {
+            __Vdly__top__DOT__vgac__DOT__h_count_n 
+                = (0x1fU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__h_count_n)));
+            __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;
+        } else {
+            __Vdly__top__DOT__vgac__DOT__y_ascii = 
+                (0xfU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__y_ascii)));
+        }
+        __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
+        __Vdly__top__DOT__vgac__DOT__v_count_n = 0U;
+    } else if (((8U == (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)) 
+                & (0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)))) {
+        __Vdly__top__DOT__vgac__DOT__v_count_n = (0x7fU 
+                                                  & ((IData)(1U) 
+                                                     + (IData)(vlSelf->top__DOT__vgac__DOT__v_count_n)));
+        __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
+    } else if ((0x306U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) {
+        __Vdly__top__DOT__vgac__DOT__x_ascii = (0xfU 
+                                                & ((IData)(1U) 
+                                                   + (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)));
+    }
+    vlSelf->top__DOT__vgac__DOT__flash_cnt = __Vdly__top__DOT__vgac__DOT__flash_cnt;
+    vlSelf->top__DOT__vgac__DOT__x_cnt = __Vdly__top__DOT__vgac__DOT__x_cnt;
+    vlSelf->top__DOT__vgac__DOT__y_cnt = __Vdly__top__DOT__vgac__DOT__y_cnt;
+    vlSelf->top__DOT__vgac__DOT__x_ascii = __Vdly__top__DOT__vgac__DOT__x_ascii;
+    vlSelf->top__DOT__vgac__DOT__y_ascii = __Vdly__top__DOT__vgac__DOT__y_ascii;
+    vlSelf->top__DOT__vgac__DOT__h_count_n = __Vdly__top__DOT__vgac__DOT__h_count_n;
+    vlSelf->top__DOT__vgac__DOT__v_count_n = __Vdly__top__DOT__vgac__DOT__v_count_n;
+    vlSelf->VGA_HSYNC = (0x60U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt));
+    vlSelf->VGA_VSYNC = (2U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt));
+    vlSelf->VGA_VALID = (((0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)) 
+                          & (0x310U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) 
+                         & ((0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)) 
+                            & (0x203U >= (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))));
+    vlSelf->top__DOT__asci2dot0__DOT__y_dot = (0xfffU 
+                                               & ((vlSelf->top__DOT__fmem0__DOT__test_font_mem
+                                                   [
+                                                   (((IData)(vlSelf->top__DOT__vgac__DOT__h_count_n) 
+                                                     << 7U) 
+                                                    | (IData)(vlSelf->top__DOT__vgac__DOT__v_count_n))] 
+                                                   << 4U) 
+                                                  + (IData)(vlSelf->top__DOT__vgac__DOT__y_ascii)));
+    vlSelf->top__DOT__vga_data = (((8U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)) 
+                                   & (vlSelf->top__DOT__asci2dot0__DOT__lattice
+                                      [vlSelf->top__DOT__asci2dot0__DOT__y_dot] 
+                                      >> (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)))
+                                   ? 0xffffffU : 0U);
+    vlSelf->VGA_R = (0xffU & (vlSelf->top__DOT__vga_data 
+                              >> 0x10U));
+    vlSelf->VGA_G = (0xffU & (vlSelf->top__DOT__vga_data 
+                              >> 8U));
+    vlSelf->VGA_B = (0xffU & vlSelf->top__DOT__vga_data);
+}
+
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval\n"); );
     // Body
     if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
-        Vtop___024root___sequent__TOP__2(vlSelf);
+        Vtop___024root___sequent__TOP__3(vlSelf);
         vlSelf->__Vm_traceActivity[1U] = 1U;
+    }
+    Vtop___024root___combo__TOP__4(vlSelf);
+    if ((((IData)(vlSelf->VGA_CLK) & (~ (IData)(vlSelf->__Vclklast__TOP__VGA_CLK))) 
+         | ((IData)(vlSelf->rst) & (~ (IData)(vlSelf->__Vclklast__TOP__rst))))) {
+        Vtop___024root___sequent__TOP__5(vlSelf);
+        vlSelf->__Vm_traceActivity[2U] = 1U;
     }
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
+    vlSelf->__Vclklast__TOP__VGA_CLK = vlSelf->VGA_CLK;
+    vlSelf->__Vclklast__TOP__rst = vlSelf->rst;
 }
 
 QData Vtop___024root___change_request_1(Vtop___024root* vlSelf);

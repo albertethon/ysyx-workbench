@@ -23,6 +23,13 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , asciicode{vlSymsp->TOP.asciicode}
     , ready{vlSymsp->TOP.ready}
     , overflow{vlSymsp->TOP.overflow}
+    , VGA_CLK{vlSymsp->TOP.VGA_CLK}
+    , VGA_HSYNC{vlSymsp->TOP.VGA_HSYNC}
+    , VGA_VSYNC{vlSymsp->TOP.VGA_VSYNC}
+    , VGA_VALID{vlSymsp->TOP.VGA_VALID}
+    , VGA_R{vlSymsp->TOP.VGA_R}
+    , VGA_G{vlSymsp->TOP.VGA_G}
+    , VGA_B{vlSymsp->TOP.VGA_B}
     , out{vlSymsp->TOP.out}
     , led{vlSymsp->TOP.led}
     , HEX0{vlSymsp->TOP.HEX0}

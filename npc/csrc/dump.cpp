@@ -58,12 +58,12 @@ void sim_exit(){
 void dump_and_test(){
     Verilated::mkdir("logs");
     sim_init();
-    passtime(10);
-    dutptr->we=0;
+    passtime(2000000);
+    // dutptr->we=0;
     // dutptr->inaddr=0;
-    dutptr->din=0;
+    // dutptr->din=0;
     
-    dutptr->ps2_clk=1;
+    // dutptr->ps2_clk=1;
     // dutptr->nextdata_n=1;
 
 /*     dutptr->clrn=0b0;passtime(20);

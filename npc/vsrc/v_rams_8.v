@@ -10,7 +10,7 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
 
     initial
     begin
-        $readmemh("/home/max/szy/ysyx-workbench/npc/include/scancode.txt", ram);
+        $readmemh("include/scancode.txt", ram);
     end
 
     always @(posedge clk)
