@@ -60,7 +60,6 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_READMEM_N(true, 8, 256, 0, VL_CVT_PACK_STR_NW(5, __Vtemp3)
                  ,  &(vlSelf->top__DOT__vram__DOT__ram)
                  , 0, ~0ULL);
-    vlSelf->top__DOT__vgac__DOT__flash_cnt = 0U;
     vlSelf->top__DOT__count = 0U;
     vlSelf->top__DOT__sigwe = 0U;
 }
@@ -4177,7 +4176,6 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     for (int __Vi0=0; __Vi0<4096; ++__Vi0) {
         vlSelf->top__DOT__asci2dot0__DOT__lattice[__Vi0] = 0;
     }
-    vlSelf->top__DOT__vgac__DOT__flash_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__x_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__y_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__x_ascii = 0;

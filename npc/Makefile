@@ -1,6 +1,6 @@
 TOPNAME = top
 NXDC_FILES = constr/top.nxdc
-INC_PATH ?=/home/max/szy/ysyx-workbench/npc/include
+INC_PATH ?=$(NPC_HOME)/include
 
 VERILATOR_CFLAGS += -MMD --build -cc --trace  \
 				-O3 --x-assign fast --x-initial fast --noassert

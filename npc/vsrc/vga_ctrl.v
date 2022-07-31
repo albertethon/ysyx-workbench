@@ -37,9 +37,6 @@ module vga_ctrl(
     wire         h_valid;
     wire         v_valid;
 
-    initial begin
-        flash_cnt = 0;
-    end
 
     always @(posedge reset or posedge pclk)begin// 800*525信号产生
         if (reset == 1'b1)begin
