@@ -30,7 +30,7 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
                 if(w_ptr==r_ptr+1'b1) //empty
                     ready <= 1'b0;
                 data <= fifo[r_ptr];
-                $display(data);
+                $display("%h",data);
                 r_ptr <= r_ptr+1'b1;
                 if(fifo[r_ptr]==8'hf0)cnt <= cnt+1;
             end

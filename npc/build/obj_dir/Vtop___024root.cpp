@@ -57,7 +57,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         __Vdly__top__DOT__count = 0U;
     } else {
         if (VL_UNLIKELY(vlSelf->ready)) {
-            VL_WRITEF("%3#\n",8,vlSelf->scancode);
+            VL_WRITEF("%x\n",8,vlSelf->scancode);
             if (((IData)(vlSelf->top__DOT__pkb__DOT__w_ptr) 
                  == (7U & ((IData)(1U) + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr))))) {
                 __Vdly__ready = 0U;
