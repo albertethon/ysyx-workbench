@@ -27,8 +27,10 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
         end
         else begin
             if (ready) begin // read to output next data
-                if(w_ptr==r_ptr+1'b1) //empty
+                if(w_ptr==r_ptr+1'b1)begin //empty
                     ready <= 1'b0;
+                    $display("ready=0,fifo[w_ptr]:%h",fifo[w_ptr]);
+                end
                 data <= fifo[r_ptr];
                 $display("%h",data);
                 r_ptr <= r_ptr+1'b1;

@@ -19,6 +19,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     CData/*0:0*/ __Vdly__overflow;
     CData/*0:0*/ __Vdly__ready;
     CData/*7:0*/ __Vdly__top__DOT__count;
+    CData/*7:0*/ __Vdly__scancode;
     CData/*2:0*/ __Vdlyvdim0__top__DOT__pkb__DOT__fifo__v0;
     CData/*7:0*/ __Vdlyvval__top__DOT__pkb__DOT__fifo__v0;
     CData/*0:0*/ __Vdlyvset__top__DOT__pkb__DOT__fifo__v0;
@@ -34,6 +35,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     __Vdlyvset__top__DOT__pkb__DOT__fifo__v0 = 0U;
     __Vdly__ready = vlSelf->ready;
     __Vdly__overflow = vlSelf->overflow;
+    __Vdly__scancode = vlSelf->scancode;
     __Vdly__top__DOT__count = vlSelf->top__DOT__count;
     __Vdly__top__DOT__pkb__DOT__ps2_clk_sync = ((6U 
                                                  & ((IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync) 
@@ -57,13 +59,17 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         __Vdly__top__DOT__count = 0U;
     } else {
         if (VL_UNLIKELY(vlSelf->ready)) {
-            VL_WRITEF("%x\n",8,vlSelf->scancode);
-            if (((IData)(vlSelf->top__DOT__pkb__DOT__w_ptr) 
-                 == (7U & ((IData)(1U) + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr))))) {
+            if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__pkb__DOT__w_ptr) 
+                             == (7U & ((IData)(1U) 
+                                       + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr)))))) {
+                VL_WRITEF("ready=0,fifo[w_ptr]:%x\n",
+                          8,vlSelf->top__DOT__pkb__DOT__fifo
+                          [vlSelf->top__DOT__pkb__DOT__w_ptr]);
                 __Vdly__ready = 0U;
             }
-            vlSelf->scancode = vlSelf->top__DOT__pkb__DOT__fifo
+            __Vdly__scancode = vlSelf->top__DOT__pkb__DOT__fifo
                 [vlSelf->top__DOT__pkb__DOT__r_ptr];
+            VL_WRITEF("%x\n",8,vlSelf->scancode);
             __Vdly__top__DOT__pkb__DOT__r_ptr = (7U 
                                                  & ((IData)(1U) 
                                                     + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr)));
@@ -128,6 +134,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     }
     vlSelf->overflow = __Vdly__overflow;
     vlSelf->ready = __Vdly__ready;
+    vlSelf->scancode = __Vdly__scancode;
     vlSelf->top__DOT__count = __Vdly__top__DOT__count;
     vlSelf->top__DOT__b2seg2__DOT__i0__DOT__i0__DOT__lut_out 
         = ((- (IData)(((0xfU & (IData)(vlSelf->asciicode)) 
