@@ -34,7 +34,7 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
                 data <= fifo[r_ptr];
                 r_ptr <= r_ptr+1'b1;
                 // if(fifo[r_ptr]==8'hf0)cnt <= cnt+1;
-                if(fifo[r_ptr]!=8'hf0 || fifo[r_ptr-1]!=8'hf0)cnt <= cnt+1;//接受连续同字输出
+                if(fifo[r_ptr]!=8'hf0 && fifo[r_ptr-1]!=8'hf0)cnt <= cnt+1;//接受连续同字输出
             end
             if (sampling) begin
                 if (count == 4'd10) begin
