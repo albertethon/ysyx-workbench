@@ -56,8 +56,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__pkb__DOT__w_ptr) 
                              == (7U & ((IData)(1U) 
                                        + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr)))))) {
-                VL_WRITEF("fifo[w_ptr]:%x\n",8,vlSelf->top__DOT__pkb__DOT__fifo
-                          [vlSelf->top__DOT__pkb__DOT__w_ptr]);
+                VL_WRITEF("fifo[r_ptr]:%x\n",8,vlSelf->top__DOT__pkb__DOT__fifo
+                          [vlSelf->top__DOT__pkb__DOT__r_ptr]);
                 __Vdly__ready = 0U;
             }
             __Vdly__scancode = vlSelf->top__DOT__pkb__DOT__fifo
