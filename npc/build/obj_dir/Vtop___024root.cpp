@@ -14,7 +14,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     // Variables
     CData/*2:0*/ __Vdly__top__DOT__pkb__DOT__ps2_clk_sync;
     CData/*3:0*/ __Vdly__top__DOT__pkb__DOT__count;
-    CData/*2:0*/ __Vdly__top__DOT__pkb__DOT__w_ptr;
     CData/*2:0*/ __Vdly__top__DOT__pkb__DOT__r_ptr;
     CData/*0:0*/ __Vdly__overflow;
     CData/*0:0*/ __Vdly__ready;
@@ -27,7 +26,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     __Vdly__top__DOT__pkb__DOT__ps2_clk_sync = vlSelf->top__DOT__pkb__DOT__ps2_clk_sync;
     __Vdlyvset__top__DOT__vram__DOT__ram__v0 = 0U;
     __Vdly__top__DOT__pkb__DOT__r_ptr = vlSelf->top__DOT__pkb__DOT__r_ptr;
-    __Vdly__top__DOT__pkb__DOT__w_ptr = vlSelf->top__DOT__pkb__DOT__w_ptr;
     __Vdly__top__DOT__pkb__DOT__count = vlSelf->top__DOT__pkb__DOT__count;
     __Vdly__ready = vlSelf->ready;
     __Vdly__overflow = vlSelf->overflow;
@@ -47,8 +45,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             [vlSelf->scancode];
     }
     if (vlSelf->rst) {
+        vlSelf->top__DOT__pkb__DOT__w_ptr = 0U;
         __Vdly__top__DOT__pkb__DOT__count = 0U;
-        __Vdly__top__DOT__pkb__DOT__w_ptr = 0U;
         __Vdly__top__DOT__pkb__DOT__r_ptr = 0U;
         __Vdly__overflow = 0U;
         __Vdly__ready = 0U;
@@ -77,20 +75,17 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         }
         if ((IData)((4U == (6U & (IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync))))) {
             if ((0xaU == (IData)(vlSelf->top__DOT__pkb__DOT__count))) {
-                if ((((~ (IData)(vlSelf->top__DOT__pkb__DOT__buffer)) 
-                      & (IData)(vlSelf->ps2_data)) 
-                     & VL_REDXOR_32((0x1ffU & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
-                                               >> 1U))))) {
-                    VL_WRITEF("before,w_ptr:%x,fifo[w_ptr]:%x\n",
-                              3,vlSelf->top__DOT__pkb__DOT__w_ptr,
-                              8,vlSelf->top__DOT__pkb__DOT__fifo
-                              [vlSelf->top__DOT__pkb__DOT__w_ptr]);
+                if (VL_LIKELY((((~ (IData)(vlSelf->top__DOT__pkb__DOT__buffer)) 
+                                & (IData)(vlSelf->ps2_data)) 
+                               & VL_REDXOR_32((0x1ffU 
+                                               & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
+                                                  >> 1U)))))) {
                     vlSelf->top__DOT__pkb__DOT__fifo[vlSelf->top__DOT__pkb__DOT__w_ptr] 
                         = (0xffU & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
                                     >> 1U));
-                    __Vdly__ready = 1U;
-                    __Vdly__top__DOT__pkb__DOT__w_ptr 
+                    vlSelf->top__DOT__pkb__DOT__w_ptr 
                         = (7U & ((IData)(1U) + (IData)(vlSelf->top__DOT__pkb__DOT__w_ptr)));
+                    __Vdly__ready = 1U;
                     __Vdly__overflow = ((IData)(vlSelf->overflow) 
                                         | ((IData)(vlSelf->top__DOT__pkb__DOT__r_ptr) 
                                            == (7U & 
@@ -120,7 +115,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             = __Vdlyvval__top__DOT__vram__DOT__ram__v0;
     }
     vlSelf->top__DOT__pkb__DOT__count = __Vdly__top__DOT__pkb__DOT__count;
-    vlSelf->top__DOT__pkb__DOT__w_ptr = __Vdly__top__DOT__pkb__DOT__w_ptr;
     vlSelf->top__DOT__pkb__DOT__r_ptr = __Vdly__top__DOT__pkb__DOT__r_ptr;
     vlSelf->top__DOT__pkb__DOT__ps2_clk_sync = __Vdly__top__DOT__pkb__DOT__ps2_clk_sync;
     vlSelf->overflow = __Vdly__overflow;
