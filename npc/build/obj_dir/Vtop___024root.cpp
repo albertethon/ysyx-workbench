@@ -422,8 +422,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             __Vdly__top__DOT__pkb__DOT__r_ptr = (7U 
                                                  & ((IData)(1U) 
                                                     + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr)));
-            if ((0xf0U == vlSelf->top__DOT__pkb__DOT__fifo
-                 [vlSelf->top__DOT__pkb__DOT__r_ptr])) {
+            if (((0xf0U != vlSelf->top__DOT__pkb__DOT__fifo
+                  [vlSelf->top__DOT__pkb__DOT__r_ptr]) 
+                 | (0xf0U != vlSelf->top__DOT__pkb__DOT__fifo
+                    [(7U & ((IData)(vlSelf->top__DOT__pkb__DOT__r_ptr) 
+                            - (IData)(1U)))]))) {
                 __Vdly__top__DOT__count = (0xffU & 
                                            ((IData)(1U) 
                                             + (IData)(vlSelf->top__DOT__count)));
