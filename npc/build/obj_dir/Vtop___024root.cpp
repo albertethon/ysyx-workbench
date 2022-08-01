@@ -62,8 +62,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__pkb__DOT__w_ptr) 
                              == (7U & ((IData)(1U) 
                                        + (IData)(vlSelf->top__DOT__pkb__DOT__r_ptr)))))) {
-                VL_WRITEF("ready=0,fifo[w_ptr]:%x\n",
-                          8,vlSelf->top__DOT__pkb__DOT__fifo
+                VL_WRITEF("fifo[w_ptr]:%x\n",8,vlSelf->top__DOT__pkb__DOT__fifo
                           [vlSelf->top__DOT__pkb__DOT__w_ptr]);
                 __Vdly__ready = 0U;
             }
@@ -82,11 +81,10 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         }
         if ((IData)((4U == (6U & (IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync))))) {
             if ((0xaU == (IData)(vlSelf->top__DOT__pkb__DOT__count))) {
-                if (VL_LIKELY((((~ (IData)(vlSelf->top__DOT__pkb__DOT__buffer)) 
-                                & (IData)(vlSelf->ps2_data)) 
-                               & VL_REDXOR_32((0x1ffU 
-                                               & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
-                                                  >> 1U)))))) {
+                if ((((~ (IData)(vlSelf->top__DOT__pkb__DOT__buffer)) 
+                      & (IData)(vlSelf->ps2_data)) 
+                     & VL_REDXOR_32((0x1ffU & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
+                                               >> 1U))))) {
                     __Vdlyvval__top__DOT__pkb__DOT__fifo__v0 
                         = (0xffU & ((IData)(vlSelf->top__DOT__pkb__DOT__buffer) 
                                     >> 1U));
@@ -96,6 +94,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                     __Vdly__ready = 1U;
                     __Vdly__top__DOT__pkb__DOT__w_ptr 
                         = (7U & ((IData)(1U) + (IData)(vlSelf->top__DOT__pkb__DOT__w_ptr)));
+                    VL_WRITEF("in 1,w_ptr:%x\n",3,vlSelf->top__DOT__pkb__DOT__w_ptr);
                     __Vdly__overflow = ((IData)(vlSelf->overflow) 
                                         | ((IData)(vlSelf->top__DOT__pkb__DOT__r_ptr) 
                                            == (7U & 

@@ -29,7 +29,7 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
             if (ready) begin // read to output next data
                 if(w_ptr==r_ptr+1'b1)begin //empty
                     ready <= 1'b0;
-                    $display("ready=0,fifo[w_ptr]:%h",fifo[w_ptr]);
+                    $display("fifo[w_ptr]:%h",fifo[w_ptr]);
                 end
                 data <= fifo[r_ptr];
                 $display("%h",data);
@@ -43,6 +43,7 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
                     (^buffer[9:1])) begin      // odd  parity
                     fifo[w_ptr] <= buffer[8:1];  // kbd scan code
                     w_ptr <= w_ptr+3'b1;
+                    $display("in 1,w_ptr:%h",w_ptr);
                     ready <= 1'b1;
                     overflow <= overflow | (r_ptr == (w_ptr + 3'b1));
                     end else begin
