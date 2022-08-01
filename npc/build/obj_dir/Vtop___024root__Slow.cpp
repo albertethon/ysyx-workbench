@@ -173,15 +173,15 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__b2seg5__DOT__chars[0xeU] = 0x30U;
     vlSelf->top__DOT__b2seg5__DOT__chars[0xfU] = 0x38U;
     vlSelf->VGA_CLK = vlSelf->clk;
+    vlSelf->led = ((0xfffcU & (IData)(vlSelf->led)) 
+                   | (((IData)(vlSelf->ready) << 1U) 
+                      | (IData)(vlSelf->overflow)));
     vlSelf->VGA_HSYNC = (0x60U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt));
     vlSelf->VGA_VSYNC = (2U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt));
     vlSelf->VGA_VALID = (((0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)) 
                           & (0x310U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) 
                          & ((0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)) 
                             & (0x203U >= (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))));
-    vlSelf->led = ((0xfffcU & (IData)(vlSelf->led)) 
-                   | (((IData)(vlSelf->ready) << 1U) 
-                      | (IData)(vlSelf->overflow)));
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = (0xfffU 
                                                & ((vlSelf->top__DOT__fmem0__DOT__test_font_mem
                                                    [

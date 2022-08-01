@@ -46,7 +46,7 @@ assign led[0]=overflow;
 // 读取键盘输入流并输出scancode
 ps2_keyboard pkb(
    clk,~rst,ps2_clk,ps2_data,scancode,
-   ready,overflow,count
+   ready,overflow,count         
 );
 // 读取scancode并输出对应asciicode
 v_rams_8 vram(
