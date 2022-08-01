@@ -42,11 +42,10 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
                     (ps2_data)       &&  // stop bit
                     (^buffer[9:1])) begin      // odd  parity
                     $display("before,w_ptr:%h,fifo[w_ptr]:%h",w_ptr,fifo[w_ptr]);
-                    fifo[w_ptr] <= buffer[8:1];  // kbd scan code
+                    fifo[w_ptr] = buffer[8:1];  // kbd scan code
                     w_ptr <= w_ptr+3'b1;
                     ready <= 1'b1;
                     overflow <= overflow | (r_ptr == (w_ptr + 3'b1));
-                    $display("after,%h,%h",w_ptr,fifo[w_ptr]);
                     end else begin
                         $display("failed"); 
                     end
