@@ -24,16 +24,13 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
 
     always @(posedge clk)
     begin
-        key_addr = 12'h080+{4'h0,inaddr};
-
         if (we && oldaddr!=inaddr)begin
-            if(line_cnt != 8'd69)begin
+            if(inaddr % 70 == 0)begin
                 line_cnt = line_cnt + 1;
+                key_addr -= 70;
             end
-            else begin
-                line_cnt = 0;
-                key_addr += 12'h080;
-            end
+            else line_cnt = line_cnt;
+            key_addr += line_cnt * 12'h080 + {4'h0,inaddr};
             key_ram[key_addr] = ram[din];
             oldaddr = inaddr;
             $display("key_ram[%h]:%h",inaddr,key_ram[key_addr]);
