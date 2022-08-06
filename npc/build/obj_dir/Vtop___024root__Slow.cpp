@@ -4081,6 +4081,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__vram__DOT__key_ram[__Vi0] = 0;
     }
     vlSelf->top__DOT__vram__DOT__oldaddr = 0;
+    vlSelf->top__DOT__vram__DOT__key_cnt = 0;
     for (int __Vi0=0; __Vi0<16; ++__Vi0) {
         vlSelf->top__DOT__b2seg0__DOT__chars[__Vi0] = 0;
     }

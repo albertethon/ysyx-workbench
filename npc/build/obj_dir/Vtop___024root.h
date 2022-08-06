@@ -73,6 +73,7 @@ VL_MODULE(Vtop___024root) {
     CData/*4:0*/ top__DOT__vgac__DOT__h_count_n;
     CData/*6:0*/ top__DOT__vgac__DOT__v_count_n;
     SData/*9:0*/ top__DOT__pkb__DOT__buffer;
+    SData/*11:0*/ top__DOT__vram__DOT__key_cnt;
     SData/*11:0*/ top__DOT__asci2dot0__DOT__y_dot;
     SData/*9:0*/ top__DOT__vgac__DOT__x_cnt;
     SData/*9:0*/ top__DOT__vgac__DOT__y_cnt;
