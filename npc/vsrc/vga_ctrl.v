@@ -81,7 +81,7 @@ module vga_ctrl(
                 end
             end
             else if(x_cnt > h_active && x_cnt < h_backporch-10)begin
-                if(x_ascii == 4'h8 )begin
+                if(x_ascii == 4'h7 )begin
                     x_ascii <= 0;
                     v_count_n <= v_count_n + 1;
                 end
