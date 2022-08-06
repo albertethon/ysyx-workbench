@@ -28,10 +28,13 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
 
         if (we && oldaddr!=inaddr)begin
             if(line_cnt != 8'd69)begin
-                key_ram[key_addr] = ram[din];
                 line_cnt = line_cnt + 1;
             end
-            else line_cnt = 0;
+            else begin
+                line_cnt = 0;
+                key_addr += 12'h080;
+            end
+            key_ram[key_addr] = ram[din];
             oldaddr = inaddr;
             $display("key_ram[%h]:%h",inaddr,key_ram[key_addr]);
         end
