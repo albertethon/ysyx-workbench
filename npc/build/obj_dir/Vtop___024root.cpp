@@ -1289,8 +1289,15 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
                           & (0x310U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) 
                          & ((0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)) 
                             & (0x203U >= (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))));
+}
+
+VL_INLINE_OPT void Vtop___024root___multiclk__TOP__6(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___multiclk__TOP__6\n"); );
+    // Body
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = (0xfffU 
-                                               & ((vlSelf->top__DOT__fmem0__DOT__test_font_mem
+                                               & ((vlSelf->top__DOT__vram__DOT__key_ram
                                                    [
                                                    (((IData)(vlSelf->top__DOT__vgac__DOT__h_count_n) 
                                                      << 7U) 
@@ -1323,6 +1330,11 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
          | ((IData)(vlSelf->rst) & (~ (IData)(vlSelf->__Vclklast__TOP__rst))))) {
         Vtop___024root___sequent__TOP__5(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
+    }
+    if (((((IData)(vlSelf->VGA_CLK) & (~ (IData)(vlSelf->__Vclklast__TOP__VGA_CLK))) 
+          | ((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) 
+         | ((IData)(vlSelf->rst) & (~ (IData)(vlSelf->__Vclklast__TOP__rst))))) {
+        Vtop___024root___multiclk__TOP__6(vlSelf);
     }
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;

@@ -79,7 +79,7 @@ VL_MODULE(Vtop___024root) {
     IData/*23:0*/ top__DOT__vga_data;
     VlUnpacked<CData/*7:0*/, 8> top__DOT__pkb__DOT__fifo;
     VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__ram;
-    VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__key_ram;
+    VlUnpacked<CData/*7:0*/, 4096> top__DOT__vram__DOT__key_ram;
     VlUnpacked<CData/*6:0*/, 16> top__DOT__b2seg0__DOT__chars;
     VlUnpacked<SData/*10:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__key_list;
@@ -104,7 +104,6 @@ VL_MODULE(Vtop___024root) {
     VlUnpacked<SData/*10:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__key_list;
     VlUnpacked<CData/*6:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__data_list;
-    VlUnpacked<CData/*7:0*/, 4096> top__DOT__fmem0__DOT__test_font_mem;
     VlUnpacked<SData/*8:0*/, 4096> top__DOT__asci2dot0__DOT__lattice;
 
     // LOCAL VARIABLES
