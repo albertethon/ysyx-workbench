@@ -1267,16 +1267,16 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
     } else if ((0x306U == (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) {
         __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
         __Vdly__top__DOT__vgac__DOT__v_count_n = 0U;
-    } else if (((8U == (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)) 
-                & (0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)))) {
-        __Vdly__top__DOT__vgac__DOT__v_count_n = (0x7fU 
-                                                  & ((IData)(1U) 
-                                                     + (IData)(vlSelf->top__DOT__vgac__DOT__v_count_n)));
-        __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
-    } else if ((0x306U >= (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt))) {
-        __Vdly__top__DOT__vgac__DOT__x_ascii = (0xfU 
-                                                & ((IData)(1U) 
-                                                   + (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)));
+    } else if (((0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)) 
+                & (0x306U > (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)))) {
+        if ((8U == (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii))) {
+            __Vdly__top__DOT__vgac__DOT__v_count_n 
+                = (0x7fU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__v_count_n)));
+            __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
+        } else {
+            __Vdly__top__DOT__vgac__DOT__x_ascii = 
+                (0xfU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii)));
+        }
     }
     if (vlSelf->rst) {
         __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;

@@ -80,13 +80,12 @@ module vga_ctrl(
                     else y_ascii <= y_ascii + 1;
                 end
             end
-            else begin
-                if(x_ascii == 4'h8 && x_cnt > h_active)begin
+            else if(x_cnt > h_active && x_cnt < h_backporch-10)begin
+                if(x_ascii == 4'h8 )begin
                     x_ascii <= 0;
                     v_count_n <= v_count_n + 1;
                 end
-                else if(x_cnt <= h_backporch-10)
-                    x_ascii <= x_ascii + 1;
+                else x_ascii <= x_ascii + 1;
             end
         end
 
