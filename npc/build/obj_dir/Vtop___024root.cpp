@@ -18,9 +18,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     CData/*0:0*/ __Vdly__overflow;
     CData/*0:0*/ __Vdly__ready;
     CData/*7:0*/ __Vdly__top__DOT__count;
-    CData/*7:0*/ __Vdlyvdim0__top__DOT__vram__DOT__key_ram__v0;
-    CData/*7:0*/ __Vdlyvval__top__DOT__vram__DOT__key_ram__v0;
-    CData/*0:0*/ __Vdlyvset__top__DOT__vram__DOT__key_ram__v0;
     // Body
     __Vdly__top__DOT__pkb__DOT__ps2_clk_sync = vlSelf->top__DOT__pkb__DOT__ps2_clk_sync;
     __Vdly__top__DOT__pkb__DOT__r_ptr = vlSelf->top__DOT__pkb__DOT__r_ptr;
@@ -28,29 +25,21 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     __Vdly__ready = vlSelf->ready;
     __Vdly__overflow = vlSelf->overflow;
     __Vdly__top__DOT__count = vlSelf->top__DOT__count;
-    __Vdlyvset__top__DOT__vram__DOT__key_ram__v0 = 0U;
     __Vdly__top__DOT__pkb__DOT__ps2_clk_sync = ((6U 
                                                  & ((IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync) 
                                                     << 1U)) 
                                                 | (IData)(vlSelf->ps2_clk));
     if (VL_UNLIKELY(((IData)(vlSelf->ready) & ((IData)(vlSelf->top__DOT__vram__DOT__oldaddr) 
                                                != (IData)(vlSelf->top__DOT__count))))) {
+        vlSelf->top__DOT__vram__DOT__key_ram[vlSelf->top__DOT__count] 
+            = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
+        vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
         VL_WRITEF("key_ram[%x]:%x\n",8,vlSelf->top__DOT__count,
                   8,vlSelf->top__DOT__vram__DOT__key_ram
                   [vlSelf->top__DOT__count]);
-        vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
-        __Vdlyvval__top__DOT__vram__DOT__key_ram__v0 
-            = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
-        __Vdlyvset__top__DOT__vram__DOT__key_ram__v0 = 1U;
-        __Vdlyvdim0__top__DOT__vram__DOT__key_ram__v0 
-            = vlSelf->top__DOT__count;
     } else {
         vlSelf->asciicode = vlSelf->top__DOT__vram__DOT__ram
             [vlSelf->scancode];
-    }
-    if (__Vdlyvset__top__DOT__vram__DOT__key_ram__v0) {
-        vlSelf->top__DOT__vram__DOT__key_ram[__Vdlyvdim0__top__DOT__vram__DOT__key_ram__v0] 
-            = __Vdlyvval__top__DOT__vram__DOT__key_ram__v0;
     }
     vlSelf->top__DOT__b2seg2__DOT__i0__DOT__i0__DOT__lut_out 
         = ((- (IData)(((0xfU & (IData)(vlSelf->asciicode)) 

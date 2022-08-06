@@ -19,8 +19,8 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
     always @(posedge clk)
     begin
         if (we && oldaddr!=inaddr)begin
-            key_ram[inaddr] <= ram[din];
-            oldaddr <= inaddr;
+            key_ram[inaddr] = ram[din];
+            oldaddr = inaddr;
             $display("key_ram[%h]:%h",inaddr,key_ram[inaddr]);
         end
         else
