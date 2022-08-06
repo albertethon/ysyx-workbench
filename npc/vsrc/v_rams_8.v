@@ -11,20 +11,21 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
     reg [7:0] oldaddr;
     initial
     begin
+        oldaddr = 8'hFF;
         $readmemh("include/scancode.hex", ram);
         $readmemh("include/keyin.hex",key_ram);
     end
 
     always @(posedge clk)
     begin
-        if (we && oldaddr!=outaddr)begin
+        if (we && oldaddr!=inaddr)begin
             key_ram[inaddr] <= ram[din];
             $display("key_ram[%h]:%h",inaddr,key_ram[inaddr]);
         end
         else
             dout <= ram[outaddr];
             
-        oldaddr <= outaddr;
+        oldaddr = inaddr;
     end
 
 endmodule

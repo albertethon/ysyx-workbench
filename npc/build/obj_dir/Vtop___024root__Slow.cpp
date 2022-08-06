@@ -52,6 +52,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_READMEM_N(true, 8, 4096, 0, VL_CVT_PACK_STR_NW(5, __Vtemp2)
                  ,  &(vlSelf->top__DOT__fmem0__DOT__test_font_mem)
                  , 0, ~0ULL);
+    vlSelf->top__DOT__vram__DOT__oldaddr = 0xffU;
     __Vtemp3[0U] = 0x2e686578U;
     __Vtemp3[1U] = 0x636f6465U;
     __Vtemp3[2U] = 0x7363616eU;

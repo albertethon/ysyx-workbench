@@ -34,7 +34,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                     << 1U)) 
                                                 | (IData)(vlSelf->ps2_clk));
     if (VL_UNLIKELY(((IData)(vlSelf->ready) & ((IData)(vlSelf->top__DOT__vram__DOT__oldaddr) 
-                                               != (IData)(vlSelf->scancode))))) {
+                                               != (IData)(vlSelf->top__DOT__count))))) {
         VL_WRITEF("key_ram[%x]:%x\n",8,vlSelf->top__DOT__count,
                   8,vlSelf->top__DOT__vram__DOT__key_ram
                   [vlSelf->top__DOT__count]);
@@ -47,6 +47,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         vlSelf->asciicode = vlSelf->top__DOT__vram__DOT__ram
             [vlSelf->scancode];
     }
+    vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
     if (__Vdlyvset__top__DOT__vram__DOT__key_ram__v0) {
         vlSelf->top__DOT__vram__DOT__key_ram[__Vdlyvdim0__top__DOT__vram__DOT__key_ram__v0] 
             = __Vdlyvval__top__DOT__vram__DOT__key_ram__v0;
@@ -406,13 +407,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         ((IData)(vlSelf->top__DOT__b2seg3__DOT__i0__DOT__i0__DOT__hit)
           ? (IData)(vlSelf->top__DOT__b2seg3__DOT__i0__DOT__i0__DOT__lut_out)
           : vlSelf->top__DOT__b2seg3__DOT__chars[0U]);
-    vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->scancode;
-    vlSelf->HEX2 = ((1U & (IData)(vlSelf->HEX2)) | 
-                    ((IData)(vlSelf->top__DOT____Vcellout__b2seg2__seg_out) 
-                     << 1U));
-    vlSelf->HEX3 = ((1U & (IData)(vlSelf->HEX3)) | 
-                    ((IData)(vlSelf->top__DOT____Vcellout__b2seg3__seg_out) 
-                     << 1U));
     if (vlSelf->rst) {
         vlSelf->top__DOT__pkb__DOT__w_ptr = 0U;
         __Vdly__top__DOT__pkb__DOT__count = 0U;
@@ -478,6 +472,12 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             }
         }
     }
+    vlSelf->HEX2 = ((1U & (IData)(vlSelf->HEX2)) | 
+                    ((IData)(vlSelf->top__DOT____Vcellout__b2seg2__seg_out) 
+                     << 1U));
+    vlSelf->HEX3 = ((1U & (IData)(vlSelf->HEX3)) | 
+                    ((IData)(vlSelf->top__DOT____Vcellout__b2seg3__seg_out) 
+                     << 1U));
     vlSelf->top__DOT__pkb__DOT__count = __Vdly__top__DOT__pkb__DOT__count;
     vlSelf->top__DOT__pkb__DOT__r_ptr = __Vdly__top__DOT__pkb__DOT__r_ptr;
     vlSelf->top__DOT__pkb__DOT__ps2_clk_sync = __Vdly__top__DOT__pkb__DOT__ps2_clk_sync;
