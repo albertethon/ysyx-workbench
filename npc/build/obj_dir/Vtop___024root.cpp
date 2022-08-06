@@ -29,15 +29,24 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                  & ((IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync) 
                                                     << 1U)) 
                                                 | (IData)(vlSelf->ps2_clk));
+    vlSelf->top__DOT__vram__DOT__key_addr = (0xfffU 
+                                             & (((((IData)(1U) 
+                                                   + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)) 
+                                                  << 7U) 
+                                                 + (IData)(vlSelf->top__DOT__count)) 
+                                                - ((IData)(0x46U) 
+                                                   * (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))));
     if (VL_UNLIKELY(((IData)(vlSelf->ready) & ((IData)(vlSelf->top__DOT__vram__DOT__oldaddr) 
                                                != (IData)(vlSelf->top__DOT__count))))) {
-        if ((0U == VL_MODDIV_III(32, (IData)(vlSelf->top__DOT__count), (IData)(0x46U)))) {
-            vlSelf->top__DOT__vram__DOT__line_cnt = 
-                (0xffU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)));
-            vlSelf->top__DOT__vram__DOT__key_addr = 
-                (0xfffU & ((IData)(vlSelf->top__DOT__vram__DOT__key_addr) 
-                           - (IData)(0x46U)));
-        }
+        vlSelf->top__DOT__vram__DOT__line_cnt = (0xffU 
+                                                 & ((0U 
+                                                     == 
+                                                     (0xffU 
+                                                      & VL_MODDIV_III(8, (IData)(vlSelf->top__DOT__count), (IData)(0x46U))))
+                                                     ? 
+                                                    ((IData)(1U) 
+                                                     + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))
+                                                     : (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)));
         vlSelf->top__DOT__vram__DOT__key_addr = (0xfffU 
                                                  & ((IData)(vlSelf->top__DOT__vram__DOT__key_addr) 
                                                     + 

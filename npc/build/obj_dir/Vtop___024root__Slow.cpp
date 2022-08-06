@@ -45,6 +45,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
                  , 0, ~0ULL);
     vlSelf->top__DOT__vram__DOT__oldaddr = 0xffU;
     vlSelf->top__DOT__vram__DOT__line_cnt = 0U;
+    vlSelf->top__DOT__vram__DOT__key_addr = 0U;
     __Vtemp2[0U] = 0x2e686578U;
     __Vtemp2[1U] = 0x636f6465U;
     __Vtemp2[2U] = 0x7363616eU;

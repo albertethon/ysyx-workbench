@@ -18,16 +18,17 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
     begin
         oldaddr = 8'hFF;
         line_cnt = 8'h00;
+        key_addr = 0;
         $readmemh("include/scancode.hex", ram);
         $readmemh("include/keyin.hex",key_ram);
     end
 
     always @(posedge clk)
     begin
+        key_addr = 12'h080 * (12'h1 + {4'h0,line_cnt}) + {4'h0,inaddr} - 12'd70 * line_cnt;
         if (we && oldaddr!=inaddr)begin
-            if(inaddr % 70 == 0)begin
+            if(inaddr % 8'd70 == 8'd0)begin
                 line_cnt = line_cnt + 1;
-                key_addr -= 70;
             end
             else line_cnt = line_cnt;
             key_addr += line_cnt * 12'h080 + {4'h0,inaddr};
