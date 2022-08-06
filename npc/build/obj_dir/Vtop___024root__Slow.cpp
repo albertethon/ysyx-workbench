@@ -31,7 +31,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___initial__TOP__1\n"); );
     // Variables
     VlWide<5>/*159:0*/ __Vtemp1;
-    VlWide<6>/*191:0*/ __Vtemp2;
+    VlWide<5>/*159:0*/ __Vtemp2;
     VlWide<5>/*159:0*/ __Vtemp3;
     VlWide<5>/*159:0*/ __Vtemp4;
     VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__key_ram;
@@ -46,15 +46,14 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
                  ,  &(vlSelf->top__DOT__asci2dot0__DOT__lattice)
                  , 0, ~0ULL);
     __Vtemp2[0U] = 0x2e686578U;
-    __Vtemp2[1U] = 0x666f6e74U;
-    __Vtemp2[2U] = 0x6573745fU;
-    __Vtemp2[3U] = 0x64652f74U;
-    __Vtemp2[4U] = 0x6e636c75U;
-    __Vtemp2[5U] = 0x69U;
-    VL_READMEM_N(true, 8, 4096, 0, VL_CVT_PACK_STR_NW(6, __Vtemp2)
+    __Vtemp2[1U] = 0x6579696eU;
+    __Vtemp2[2U] = 0x64652f6bU;
+    __Vtemp2[3U] = 0x6e636c75U;
+    __Vtemp2[4U] = 0x69U;
+    VL_READMEM_N(true, 8, 4096, 0, VL_CVT_PACK_STR_NW(5, __Vtemp2)
                  ,  &(vlSelf->top__DOT__fmem0__DOT__test_font_mem)
                  , 0, ~0ULL);
-    __Vtemp3[0U] = 0x2e747874U;
+    __Vtemp3[0U] = 0x2e686578U;
     __Vtemp3[1U] = 0x636f6465U;
     __Vtemp3[2U] = 0x7363616eU;
     __Vtemp3[3U] = 0x7564652fU;
@@ -62,7 +61,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_READMEM_N(true, 8, 256, 0, VL_CVT_PACK_STR_NW(5, __Vtemp3)
                  ,  &(vlSelf->top__DOT__vram__DOT__ram)
                  , 0, ~0ULL);
-    __Vtemp4[0U] = 0x2e747874U;
+    __Vtemp4[0U] = 0x2e686578U;
     __Vtemp4[1U] = 0x6579696eU;
     __Vtemp4[2U] = 0x64652f6bU;
     __Vtemp4[3U] = 0x6e636c75U;

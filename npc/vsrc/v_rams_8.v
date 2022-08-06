@@ -11,8 +11,8 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
 
     initial
     begin
-        $readmemh("include/scancode.txt", ram);
-        $readmemh("include/keyin.txt",key_ram);
+        $readmemh("include/scancode.hex", ram);
+        $readmemh("include/keyin.hex",key_ram);
     end
 
     always @(posedge clk)
