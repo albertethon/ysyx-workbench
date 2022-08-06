@@ -34,7 +34,6 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VlWide<5>/*159:0*/ __Vtemp2;
     VlWide<5>/*159:0*/ __Vtemp3;
     VlWide<5>/*159:0*/ __Vtemp4;
-    VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__key_ram;
     // Body
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = 0U;
     __Vtemp1[0U] = 0x2e686578U;
@@ -67,7 +66,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     __Vtemp4[3U] = 0x6e636c75U;
     __Vtemp4[4U] = 0x69U;
     VL_READMEM_N(true, 8, 256, 0, VL_CVT_PACK_STR_NW(5, __Vtemp4)
-                 ,  &(top__DOT__vram__DOT__key_ram)
+                 ,  &(vlSelf->top__DOT__vram__DOT__key_ram)
                  , 0, ~0ULL);
     vlSelf->top__DOT__count = 0U;
     vlSelf->top__DOT__sigwe = 0U;
@@ -4085,6 +4084,9 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__pkb__DOT____Vlvbound1 = 0;
     for (int __Vi0=0; __Vi0<256; ++__Vi0) {
         vlSelf->top__DOT__vram__DOT__ram[__Vi0] = 0;
+    }
+    for (int __Vi0=0; __Vi0<256; ++__Vi0) {
+        vlSelf->top__DOT__vram__DOT__key_ram[__Vi0] = 0;
     }
     for (int __Vi0=0; __Vi0<16; ++__Vi0) {
         vlSelf->top__DOT__b2seg0__DOT__chars[__Vi0] = 0;

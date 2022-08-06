@@ -19,6 +19,7 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
     begin
         if (we)begin
             key_ram[inaddr] <= ram[din];
+            $display("key_ram[%h]:%h",inaddr,key_ram[inaddr]);
         end
         else
             dout <= ram[outaddr];

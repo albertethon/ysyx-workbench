@@ -78,6 +78,7 @@ VL_MODULE(Vtop___024root) {
     IData/*23:0*/ top__DOT__vga_data;
     VlUnpacked<CData/*7:0*/, 8> top__DOT__pkb__DOT__fifo;
     VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__ram;
+    VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__key_ram;
     VlUnpacked<CData/*6:0*/, 16> top__DOT__b2seg0__DOT__chars;
     VlUnpacked<SData/*10:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__key_list;
