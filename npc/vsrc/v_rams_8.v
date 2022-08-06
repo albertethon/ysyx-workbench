@@ -12,13 +12,15 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
     reg [7:0] ram [8'hFF:0];
     reg [7:0] key_ram [4095:0];
     reg [7:0] oldaddr;
-    reg [7:0] line_cnt;
+    reg [11:0] all_cnt;
+    reg [11:0] line_cnt;
     reg [11:0] key_addr;
     initial
     begin
         oldaddr = 8'hFF;
-        line_cnt = 8'h00;
-        key_addr = 0;
+        all_cnt = 12'h0;
+        line_cnt = 12'h0;
+        key_addr = 12'h0;
         $readmemh("include/scancode.hex", ram);
         $readmemh("include/keyin.hex",key_ram);
     end
@@ -26,11 +28,12 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
     always @(posedge clk)
     begin
         if (we && oldaddr!=inaddr)begin
-            if(((inaddr+1) % 8'd71) == 8'd0)begin
+            all_cnt += 1;
+            if(((all_cnt+1) % 12'd71) == 12'd0)begin
                 line_cnt = line_cnt + 1;
             end
             else line_cnt = line_cnt;
-            key_addr = 12'h080 * (12'h1 + {4'h0,line_cnt}) + {4'h0,inaddr} - 12'd70 * line_cnt;
+            key_addr = 12'h080 * (12'h1 + line_cnt) + all_cnt - 12'd70 * line_cnt;
             key_ram[key_addr] = ram[din];
             oldaddr = inaddr;
             $display("key_ram[%h]:%h",inaddr,key_ram[key_addr]);

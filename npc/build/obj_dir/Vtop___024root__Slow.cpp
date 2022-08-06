@@ -44,6 +44,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
                  ,  &(vlSelf->top__DOT__asci2dot0__DOT__lattice)
                  , 0, ~0ULL);
     vlSelf->top__DOT__vram__DOT__oldaddr = 0xffU;
+    vlSelf->top__DOT__vram__DOT__all_cnt = 0U;
     vlSelf->top__DOT__vram__DOT__line_cnt = 0U;
     vlSelf->top__DOT__vram__DOT__key_addr = 0U;
     __Vtemp2[0U] = 0x2e686578U;
@@ -4083,6 +4084,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__vram__DOT__key_ram[__Vi0] = 0;
     }
     vlSelf->top__DOT__vram__DOT__oldaddr = 0;
+    vlSelf->top__DOT__vram__DOT__all_cnt = 0;
     vlSelf->top__DOT__vram__DOT__line_cnt = 0;
     vlSelf->top__DOT__vram__DOT__key_addr = 0;
     for (int __Vi0=0; __Vi0<16; ++__Vi0) {

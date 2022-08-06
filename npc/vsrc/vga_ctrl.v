@@ -73,7 +73,7 @@ module vga_ctrl(
                     h_count_n <= 0;//h边界重置
                     
                 end else begin
-                    if(y_ascii == 4'hF && y_cnt > v_active)begin
+                    if(y_ascii == 4'hF && y_cnt > v_active && y_cnt < v_backporch)begin
                         y_ascii <= 0;
                         h_count_n <= h_count_n + 1;
                     end
@@ -81,7 +81,7 @@ module vga_ctrl(
                 end
             end
             else if(x_cnt > h_active && x_cnt < h_backporch-10)begin
-                if(x_ascii == 4'h7 )begin
+                if(x_ascii == 4'h8 )begin
                     x_ascii <= 0;
                     v_count_n <= v_count_n + 1;
                 end

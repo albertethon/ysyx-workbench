@@ -31,25 +31,28 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                 | (IData)(vlSelf->ps2_clk));
     if (VL_UNLIKELY(((IData)(vlSelf->ready) & ((IData)(vlSelf->top__DOT__vram__DOT__oldaddr) 
                                                != (IData)(vlSelf->top__DOT__count))))) {
-        vlSelf->top__DOT__vram__DOT__line_cnt = (0xffU 
+        vlSelf->top__DOT__vram__DOT__all_cnt = (0xfffU 
+                                                & ((IData)(1U) 
+                                                   + (IData)(vlSelf->top__DOT__vram__DOT__all_cnt)));
+        vlSelf->top__DOT__vram__DOT__line_cnt = (0xfffU 
                                                  & ((0U 
                                                      == 
                                                      VL_MODDIV_III(32, 
                                                                    ((IData)(1U) 
-                                                                    + (IData)(vlSelf->top__DOT__count)), (IData)(0x47U)))
+                                                                    + (IData)(vlSelf->top__DOT__vram__DOT__all_cnt)), (IData)(0x47U)))
                                                      ? 
                                                     ((IData)(1U) 
                                                      + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))
                                                      : (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)));
+        vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
         vlSelf->top__DOT__vram__DOT__key_addr = (0xfffU 
                                                  & (((((IData)(1U) 
                                                        + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)) 
                                                       << 7U) 
-                                                     + (IData)(vlSelf->top__DOT__count)) 
+                                                     + (IData)(vlSelf->top__DOT__vram__DOT__all_cnt)) 
                                                     - 
                                                     ((IData)(0x46U) 
                                                      * (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))));
-        vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
         vlSelf->top__DOT__vram__DOT__key_ram[vlSelf->top__DOT__vram__DOT__key_addr] 
             = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
         VL_WRITEF("key_ram[%x]:%x\n",8,vlSelf->top__DOT__count,
@@ -1269,7 +1272,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
         __Vdly__top__DOT__vgac__DOT__v_count_n = 0U;
     } else if (((0x90U < (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)) 
                 & (0x306U > (IData)(vlSelf->top__DOT__vgac__DOT__x_cnt)))) {
-        if ((7U == (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii))) {
+        if ((8U == (IData)(vlSelf->top__DOT__vgac__DOT__x_ascii))) {
             __Vdly__top__DOT__vgac__DOT__v_count_n 
                 = (0x7fU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__v_count_n)));
             __Vdly__top__DOT__vgac__DOT__x_ascii = 0U;
@@ -1285,8 +1288,9 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__5(Vtop___024root* vlSelf) {
         if ((0x203U == (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))) {
             __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;
             __Vdly__top__DOT__vgac__DOT__h_count_n = 0U;
-        } else if (((0xfU == (IData)(vlSelf->top__DOT__vgac__DOT__y_ascii)) 
-                    & (0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)))) {
+        } else if ((((0xfU == (IData)(vlSelf->top__DOT__vgac__DOT__y_ascii)) 
+                     & (0x23U < (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt))) 
+                    & (0x203U > (IData)(vlSelf->top__DOT__vgac__DOT__y_cnt)))) {
             __Vdly__top__DOT__vgac__DOT__h_count_n 
                 = (0x1fU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vgac__DOT__h_count_n)));
             __Vdly__top__DOT__vgac__DOT__y_ascii = 0U;

@@ -56,7 +56,6 @@ VL_MODULE(Vtop___024root) {
     CData/*3:0*/ top__DOT__pkb__DOT__count;
     CData/*2:0*/ top__DOT__pkb__DOT__ps2_clk_sync;
     CData/*7:0*/ top__DOT__vram__DOT__oldaddr;
-    CData/*7:0*/ top__DOT__vram__DOT__line_cnt;
     CData/*6:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__lut_out;
     CData/*0:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__hit;
     CData/*6:0*/ top__DOT__b2seg1__DOT__i0__DOT__i0__DOT__lut_out;
@@ -74,6 +73,8 @@ VL_MODULE(Vtop___024root) {
     CData/*4:0*/ top__DOT__vgac__DOT__h_count_n;
     CData/*6:0*/ top__DOT__vgac__DOT__v_count_n;
     SData/*9:0*/ top__DOT__pkb__DOT__buffer;
+    SData/*11:0*/ top__DOT__vram__DOT__all_cnt;
+    SData/*11:0*/ top__DOT__vram__DOT__line_cnt;
     SData/*11:0*/ top__DOT__vram__DOT__key_addr;
     SData/*11:0*/ top__DOT__asci2dot0__DOT__y_dot;
     SData/*9:0*/ top__DOT__vgac__DOT__x_cnt;
