@@ -29,14 +29,14 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
     begin
         if (we && oldaddr!=inaddr)begin
             all_cnt += 1;
-            if(((all_cnt+1) % 12'd71) == 12'd0)begin
+            if((all_cnt % 12'd70) == 12'd0)begin
                 line_cnt = line_cnt + 1;
             end
             else line_cnt = line_cnt;
             key_addr = 12'h080 * (12'h1 + line_cnt) + all_cnt - 12'd70 * line_cnt;
             key_ram[key_addr] = ram[din];
             oldaddr = inaddr;
-            $display("key_ram[%h]:%h",inaddr,key_ram[key_addr]);
+            $display("key_ram[%h]:%h",key_addr,key_ram[key_addr]);
         end
         else
             dout <= ram[outaddr];

@@ -37,9 +37,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__vram__DOT__line_cnt = (0xfffU 
                                                  & ((0U 
                                                      == 
-                                                     VL_MODDIV_III(32, 
-                                                                   ((IData)(1U) 
-                                                                    + (IData)(vlSelf->top__DOT__vram__DOT__all_cnt)), (IData)(0x47U)))
+                                                     (0xfffU 
+                                                      & VL_MODDIV_III(12, (IData)(vlSelf->top__DOT__vram__DOT__all_cnt), (IData)(0x46U))))
                                                      ? 
                                                     ((IData)(1U) 
                                                      + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))
@@ -55,7 +54,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                      * (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))));
         vlSelf->top__DOT__vram__DOT__key_ram[vlSelf->top__DOT__vram__DOT__key_addr] 
             = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
-        VL_WRITEF("key_ram[%x]:%x\n",8,vlSelf->top__DOT__count,
+        VL_WRITEF("key_ram[%x]:%x\n",12,vlSelf->top__DOT__vram__DOT__key_addr,
                   8,vlSelf->top__DOT__vram__DOT__key_ram
                   [vlSelf->top__DOT__vram__DOT__key_addr]);
     } else {
