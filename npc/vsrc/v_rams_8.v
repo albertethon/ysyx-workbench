@@ -26,7 +26,7 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
     always @(posedge clk)
     begin
         if (we && oldaddr!=inaddr)begin
-            if(((inaddr+1) % 8'd70) == 8'd0)begin
+            if(((inaddr+1) % 8'd71) == 8'd0)begin
                 line_cnt = line_cnt + 1;
             end
             else line_cnt = line_cnt;

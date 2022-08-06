@@ -36,7 +36,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                      == 
                                                      VL_MODDIV_III(32, 
                                                                    ((IData)(1U) 
-                                                                    + (IData)(vlSelf->top__DOT__count)), (IData)(0x46U)))
+                                                                    + (IData)(vlSelf->top__DOT__count)), (IData)(0x47U)))
                                                      ? 
                                                     ((IData)(1U) 
                                                      + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))
