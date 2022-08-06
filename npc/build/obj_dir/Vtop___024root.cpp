@@ -29,17 +29,23 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                  & ((IData)(vlSelf->top__DOT__pkb__DOT__ps2_clk_sync) 
                                                     << 1U)) 
                                                 | (IData)(vlSelf->ps2_clk));
-    vlSelf->top__DOT__vram__DOT__key_cnt = (0xfffU 
-                                            & ((IData)(0x80U) 
-                                               + (IData)(vlSelf->top__DOT__count)));
+    vlSelf->top__DOT__vram__DOT__key_addr = (0xfffU 
+                                             & ((IData)(0x80U) 
+                                                + (IData)(vlSelf->top__DOT__count)));
     if (VL_UNLIKELY(((IData)(vlSelf->ready) & ((IData)(vlSelf->top__DOT__vram__DOT__oldaddr) 
                                                != (IData)(vlSelf->top__DOT__count))))) {
-        vlSelf->top__DOT__vram__DOT__key_ram[vlSelf->top__DOT__vram__DOT__key_cnt] 
-            = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
+        if ((0x45U != (IData)(vlSelf->top__DOT__vram__DOT__line_cnt))) {
+            vlSelf->top__DOT__vram__DOT__line_cnt = 
+                (0xffU & ((IData)(1U) + (IData)(vlSelf->top__DOT__vram__DOT__line_cnt)));
+            vlSelf->top__DOT__vram__DOT__key_ram[vlSelf->top__DOT__vram__DOT__key_addr] 
+                = vlSelf->top__DOT__vram__DOT__ram[vlSelf->scancode];
+        } else {
+            vlSelf->top__DOT__vram__DOT__line_cnt = 0U;
+        }
         vlSelf->top__DOT__vram__DOT__oldaddr = vlSelf->top__DOT__count;
         VL_WRITEF("key_ram[%x]:%x\n",8,vlSelf->top__DOT__count,
                   8,vlSelf->top__DOT__vram__DOT__key_ram
-                  [vlSelf->top__DOT__vram__DOT__key_cnt]);
+                  [vlSelf->top__DOT__vram__DOT__key_addr]);
     } else {
         vlSelf->asciicode = vlSelf->top__DOT__vram__DOT__ram
             [vlSelf->scancode];
