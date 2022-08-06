@@ -55,6 +55,7 @@ VL_MODULE(Vtop___024root) {
     CData/*2:0*/ top__DOT__pkb__DOT__r_ptr;
     CData/*3:0*/ top__DOT__pkb__DOT__count;
     CData/*2:0*/ top__DOT__pkb__DOT__ps2_clk_sync;
+    CData/*7:0*/ top__DOT__vram__DOT__oldaddr;
     CData/*6:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__lut_out;
     CData/*0:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__hit;
     CData/*6:0*/ top__DOT__b2seg1__DOT__i0__DOT__i0__DOT__lut_out;

@@ -8,7 +8,7 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
 
     reg [7:0] ram [8'hFF:0];
     reg [7:0] key_ram [8'hFF:0];
-
+    reg [7:0] oldaddr;
     initial
     begin
         $readmemh("include/scancode.hex", ram);
@@ -17,12 +17,14 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
 
     always @(posedge clk)
     begin
-        if (we)begin
+        if (we && oldaddr!=outaddr)begin
             key_ram[inaddr] <= ram[din];
             $display("key_ram[%h]:%h",inaddr,key_ram[inaddr]);
         end
         else
             dout <= ram[outaddr];
+            
+        oldaddr <= outaddr;
     end
 
 endmodule
