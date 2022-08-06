@@ -58,18 +58,3 @@ module ps2_keyboard(clk,clrn,ps2_clk,ps2_data,data,
     end
 
 endmodule
-module font_mem (
-   input [4:0] h_count,
-   input [6:0] v_count,
-   output [7:0] asci_data
-);
-
-reg [7:0] test_font_mem [4095:0];
-
-initial begin
-   $readmemh("include/test_font.hex", test_font_mem);
-end
-
-assign asci_data = test_font_mem[{h_count, v_count}];
-
-endmodule

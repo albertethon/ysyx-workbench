@@ -151,21 +151,21 @@ assign led[4] = (sw & 10'h0ff)>0?1&sw[8]:0;
 
 endmodule
 // 输入行列信息，输出对应的字符ascii码
-// module font_mem (
-//    input [4:0] h_count,
-//    input [6:0] v_count,
-//    output [7:0] asci_data
-// );
+module font_mem (
+   input [4:0] h_count,
+   input [6:0] v_count,
+   output [7:0] asci_data
+);
 
-// reg [7:0] test_font_mem [4095:0];
+reg [7:0] test_font_mem [4095:0];
 
-// initial begin
-//    $readmemh("include/test_font.hex", test_font_mem);
-// end
+initial begin
+   $readmemh("include/test_font.hex", test_font_mem);
+end
 
-// assign asci_data = test_font_mem[{h_count, v_count}];
+assign asci_data = test_font_mem[{h_count, v_count}];
 
-// endmodule
+endmodule
 // 根据ascii码与字符内行内信息得到点阵
 module asci2dot(
    input [7:0] asci_data,
