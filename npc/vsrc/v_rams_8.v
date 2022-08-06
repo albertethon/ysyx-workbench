@@ -31,7 +31,6 @@ module v_rams_8 (clk, we, h_count, v_count, inaddr, outaddr, din, dout, key_data
                 line_cnt = line_cnt + 1;
             end
             else line_cnt = line_cnt;
-            key_addr += line_cnt * 12'h080 + {4'h0,inaddr};
             key_ram[key_addr] = ram[din];
             oldaddr = inaddr;
             $display("key_ram[%h]:%h",inaddr,key_ram[key_addr]);
