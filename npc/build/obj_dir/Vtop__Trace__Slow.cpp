@@ -105,31 +105,31 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+441,"top pkb ps2_clk_sync", false,-1, 2,0);
         tracep->declBit(c+442,"top pkb sampling", false,-1);
         tracep->declBit(c+476,"top vram clk", false,-1);
-        tracep->declBit(c+1,"top vram we", false,-1);
-        tracep->declBus(c+509,"top vram inaddr", false,-1, 7,0);
+        tracep->declBit(c+487,"top vram we", false,-1);
+        tracep->declBus(c+428,"top vram inaddr", false,-1, 7,0);
         tracep->declBus(c+485,"top vram outaddr", false,-1, 7,0);
-        tracep->declBus(c+510,"top vram din", false,-1, 7,0);
+        tracep->declBus(c+485,"top vram din", false,-1, 7,0);
         tracep->declBus(c+486,"top vram dout", false,-1, 7,0);
         tracep->declBus(c+505,"top b2seg0 bcd_in", false,-1, 3,0);
         tracep->declBus(c+443,"top b2seg0 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+2+i*1,"top b2seg0 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg0 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+443,"top b2seg0 i0 out", false,-1, 6,0);
         tracep->declBus(c+505,"top b2seg0 i0 key", false,-1, 3,0);
         tracep->declBus(c+18,"top b2seg0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+19,"top b2seg0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg0 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg0 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg0 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg0 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg0 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg0 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg0 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg0 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+443,"top b2seg0 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+505,"top b2seg0 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+18,"top b2seg0 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+19,"top b2seg0 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg0 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg0 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+25+i*1,"top b2seg0 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -138,27 +138,27 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+57+i*1,"top b2seg0 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+444,"top b2seg0 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+445,"top b2seg0 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg0 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg0 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+506,"top b2seg1 bcd_in", false,-1, 3,0);
         tracep->declBus(c+446,"top b2seg1 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+73+i*1,"top b2seg1 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg1 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg1 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg1 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg1 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg1 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg1 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+446,"top b2seg1 i0 out", false,-1, 6,0);
         tracep->declBus(c+506,"top b2seg1 i0 key", false,-1, 3,0);
         tracep->declBus(c+89,"top b2seg1 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+90,"top b2seg1 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg1 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg1 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg1 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg1 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg1 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg1 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg1 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg1 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+446,"top b2seg1 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+506,"top b2seg1 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+89,"top b2seg1 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+90,"top b2seg1 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg1 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg1 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+96+i*1,"top b2seg1 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -167,27 +167,27 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+128+i*1,"top b2seg1 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+447,"top b2seg1 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+448,"top b2seg1 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg1 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg1 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+507,"top b2seg2 bcd_in", false,-1, 3,0);
         tracep->declBus(c+449,"top b2seg2 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+144+i*1,"top b2seg2 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg2 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg2 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg2 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg2 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg2 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg2 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+449,"top b2seg2 i0 out", false,-1, 6,0);
         tracep->declBus(c+507,"top b2seg2 i0 key", false,-1, 3,0);
         tracep->declBus(c+160,"top b2seg2 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+161,"top b2seg2 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg2 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg2 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg2 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg2 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg2 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg2 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg2 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg2 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+449,"top b2seg2 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+507,"top b2seg2 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+160,"top b2seg2 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+161,"top b2seg2 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg2 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg2 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+167+i*1,"top b2seg2 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -196,27 +196,27 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+199+i*1,"top b2seg2 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+450,"top b2seg2 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+451,"top b2seg2 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg2 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg2 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+508,"top b2seg3 bcd_in", false,-1, 3,0);
         tracep->declBus(c+452,"top b2seg3 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+215+i*1,"top b2seg3 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg3 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg3 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg3 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg3 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg3 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg3 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+452,"top b2seg3 i0 out", false,-1, 6,0);
         tracep->declBus(c+508,"top b2seg3 i0 key", false,-1, 3,0);
         tracep->declBus(c+231,"top b2seg3 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+232,"top b2seg3 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg3 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg3 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg3 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg3 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg3 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg3 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg3 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg3 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+452,"top b2seg3 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+508,"top b2seg3 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+231,"top b2seg3 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+232,"top b2seg3 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg3 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg3 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+238+i*1,"top b2seg3 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -225,27 +225,27 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+270+i*1,"top b2seg3 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+453,"top b2seg3 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+454,"top b2seg3 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg3 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg3 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+455,"top b2seg4 bcd_in", false,-1, 3,0);
         tracep->declBus(c+456,"top b2seg4 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+286+i*1,"top b2seg4 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg4 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg4 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg4 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg4 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg4 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg4 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+456,"top b2seg4 i0 out", false,-1, 6,0);
         tracep->declBus(c+455,"top b2seg4 i0 key", false,-1, 3,0);
         tracep->declBus(c+302,"top b2seg4 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+303,"top b2seg4 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg4 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg4 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg4 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg4 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg4 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg4 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg4 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg4 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+456,"top b2seg4 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+455,"top b2seg4 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+302,"top b2seg4 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+303,"top b2seg4 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg4 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg4 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+309+i*1,"top b2seg4 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -254,27 +254,27 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+341+i*1,"top b2seg4 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+457,"top b2seg4 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+458,"top b2seg4 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg4 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg4 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+459,"top b2seg5 bcd_in", false,-1, 3,0);
         tracep->declBus(c+460,"top b2seg5 seg_out", false,-1, 6,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+357+i*1,"top b2seg5 chars", true,(i+0), 6,0);}}
-        tracep->declBus(c+511,"top b2seg5 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg5 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg5 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg5 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg5 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg5 i0 DATA_LEN", false,-1, 31,0);
         tracep->declBus(c+460,"top b2seg5 i0 out", false,-1, 6,0);
         tracep->declBus(c+459,"top b2seg5 i0 key", false,-1, 3,0);
         tracep->declBus(c+373,"top b2seg5 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+374,"top b2seg5 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+511,"top b2seg5 i0 i0 NR_KEY", false,-1, 31,0);
-        tracep->declBus(c+512,"top b2seg5 i0 i0 KEY_LEN", false,-1, 31,0);
-        tracep->declBus(c+513,"top b2seg5 i0 i0 DATA_LEN", false,-1, 31,0);
-        tracep->declBus(c+514,"top b2seg5 i0 i0 HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+509,"top b2seg5 i0 i0 NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+510,"top b2seg5 i0 i0 KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+511,"top b2seg5 i0 i0 DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+512,"top b2seg5 i0 i0 HAS_DEFAULT", false,-1, 31,0);
         tracep->declBus(c+460,"top b2seg5 i0 i0 out", false,-1, 6,0);
         tracep->declBus(c+459,"top b2seg5 i0 i0 key", false,-1, 3,0);
         tracep->declBus(c+373,"top b2seg5 i0 i0 default_out", false,-1, 6,0);
         tracep->declArray(c+374,"top b2seg5 i0 i0 lut", false,-1, 175,0);
-        tracep->declBus(c+515,"top b2seg5 i0 i0 PAIR_LEN", false,-1, 31,0);
+        tracep->declBus(c+513,"top b2seg5 i0 i0 PAIR_LEN", false,-1, 31,0);
         {int i; for (i=0; i<16; i++) {
                 tracep->declBus(c+380+i*1,"top b2seg5 i0 i0 pair_list", true,(i+0), 10,0);}}
         {int i; for (i=0; i<16; i++) {
@@ -283,7 +283,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declBus(c+412+i*1,"top b2seg5 i0 i0 data_list", true,(i+0), 6,0);}}
         tracep->declBus(c+461,"top b2seg5 i0 i0 lut_out", false,-1, 6,0);
         tracep->declBit(c+462,"top b2seg5 i0 i0 hit", false,-1);
-        tracep->declBus(c+516,"top b2seg5 i0 i0 i", false,-1, 31,0);
+        tracep->declBus(c+514,"top b2seg5 i0 i0 i", false,-1, 31,0);
         tracep->declBus(c+464,"top fmem0 h_count", false,-1, 4,0);
         tracep->declBus(c+465,"top fmem0 v_count", false,-1, 6,0);
         tracep->declBus(c+463,"top fmem0 asci_data", false,-1, 7,0);
@@ -307,14 +307,14 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+493,"top vgac vga_r", false,-1, 7,0);
         tracep->declBus(c+494,"top vgac vga_g", false,-1, 7,0);
         tracep->declBus(c+495,"top vgac vga_b", false,-1, 7,0);
-        tracep->declBus(c+517,"top vgac h_frontporch", false,-1, 31,0);
-        tracep->declBus(c+518,"top vgac h_active", false,-1, 31,0);
-        tracep->declBus(c+519,"top vgac h_backporch", false,-1, 31,0);
-        tracep->declBus(c+520,"top vgac h_total", false,-1, 31,0);
-        tracep->declBus(c+521,"top vgac v_frontporch", false,-1, 31,0);
-        tracep->declBus(c+522,"top vgac v_active", false,-1, 31,0);
-        tracep->declBus(c+523,"top vgac v_backporch", false,-1, 31,0);
-        tracep->declBus(c+524,"top vgac v_total", false,-1, 31,0);
+        tracep->declBus(c+515,"top vgac h_frontporch", false,-1, 31,0);
+        tracep->declBus(c+516,"top vgac h_active", false,-1, 31,0);
+        tracep->declBus(c+517,"top vgac h_backporch", false,-1, 31,0);
+        tracep->declBus(c+518,"top vgac h_total", false,-1, 31,0);
+        tracep->declBus(c+519,"top vgac v_frontporch", false,-1, 31,0);
+        tracep->declBus(c+520,"top vgac v_active", false,-1, 31,0);
+        tracep->declBus(c+521,"top vgac v_backporch", false,-1, 31,0);
+        tracep->declBus(c+522,"top vgac v_total", false,-1, 31,0);
         tracep->declBus(c+472,"top vgac x_cnt", false,-1, 9,0);
         tracep->declBus(c+473,"top vgac y_cnt", false,-1, 9,0);
         tracep->declBus(c+467,"top vgac x_ascii", false,-1, 3,0);
@@ -859,21 +859,19 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullCData(oldp+507,((0xfU & (IData)(vlSelf->asciicode))),4);
         tracep->fullCData(oldp+508,((0xfU & ((IData)(vlSelf->asciicode) 
                                              >> 4U))),4);
-        tracep->fullCData(oldp+509,(vlSelf->top__DOT__vram__DOT__inaddr),8);
-        tracep->fullCData(oldp+510,(vlSelf->top__DOT__vram__DOT__din),8);
-        tracep->fullIData(oldp+511,(0x10U),32);
-        tracep->fullIData(oldp+512,(4U),32);
-        tracep->fullIData(oldp+513,(7U),32);
-        tracep->fullIData(oldp+514,(1U),32);
-        tracep->fullIData(oldp+515,(0xbU),32);
-        tracep->fullIData(oldp+516,(0x10U),32);
-        tracep->fullIData(oldp+517,(0x60U),32);
-        tracep->fullIData(oldp+518,(0x90U),32);
-        tracep->fullIData(oldp+519,(0x310U),32);
-        tracep->fullIData(oldp+520,(0x320U),32);
-        tracep->fullIData(oldp+521,(2U),32);
-        tracep->fullIData(oldp+522,(0x23U),32);
-        tracep->fullIData(oldp+523,(0x203U),32);
-        tracep->fullIData(oldp+524,(0x20dU),32);
+        tracep->fullIData(oldp+509,(0x10U),32);
+        tracep->fullIData(oldp+510,(4U),32);
+        tracep->fullIData(oldp+511,(7U),32);
+        tracep->fullIData(oldp+512,(1U),32);
+        tracep->fullIData(oldp+513,(0xbU),32);
+        tracep->fullIData(oldp+514,(0x10U),32);
+        tracep->fullIData(oldp+515,(0x60U),32);
+        tracep->fullIData(oldp+516,(0x90U),32);
+        tracep->fullIData(oldp+517,(0x310U),32);
+        tracep->fullIData(oldp+518,(0x320U),32);
+        tracep->fullIData(oldp+519,(2U),32);
+        tracep->fullIData(oldp+520,(0x23U),32);
+        tracep->fullIData(oldp+521,(0x203U),32);
+        tracep->fullIData(oldp+522,(0x20dU),32);
     }
 }

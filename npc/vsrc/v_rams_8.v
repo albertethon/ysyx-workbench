@@ -7,16 +7,18 @@ module v_rams_8 (clk, we, inaddr, outaddr, din, dout);
     output reg [7:0] dout;
 
     reg [7:0] ram [8'hFF:0];
+    reg [7:0] key_ram [8'hFF:0];
 
     initial
     begin
         $readmemh("include/scancode.txt", ram);
+        $readmemh("include/keyin.txt",key_ram);
     end
 
     always @(posedge clk)
     begin
         if (we)begin
-            ram[inaddr] <= din;
+            key_ram[inaddr] <= ram[din];
         end
         else
             dout <= ram[outaddr];
