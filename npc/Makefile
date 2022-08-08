@@ -1,7 +1,18 @@
+TOPNAME = top
+NXDC_FILES = constr/top.nxdc
+INC_PATH ?=$(NPC_HOME)/include
+
+VERILATOR_CFLAGS += -MMD --build -cc --trace  \
+				-O3 --x-assign fast --x-initial fast --noassert
+
+BUILD_DIR = ./build
+OBJ_DIR = $(BUILD_DIR)/obj_dir
+BIN = $(BUILD_DIR)/$(TOPNAME)
+
 # Check for sanity to avoid later confusion
 
 ifneq ($(words $(CURDIR)),1)
- $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
+    $(error Unsupported: GNU Make cannot build in directories containing spaces, build elsewhere: '$(CURDIR)')
 endif
 ifeq ($(VERILATOR_ROOT),)
 VERILATOR = verilator
@@ -12,60 +23,40 @@ VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
-#Generate C++ in executable form
-VERILATOR_FLAGS += -cc --exe
-# Optimize
-VERILATOR_FLAGS += -Os -x-assign 0
-# Warn about lint issues; may not want this on less solid designs
-VERILATOR_FLAGS += -Wall
-# Make waveforms
-VERILATOR_FLAGS += --trace
-# Check SystemVerilog assertions
-VERILATOR_FLAGS += --assert
-# Generate coverage analysis
-VERILATOR_FLAGS += --coverage
-# Run Verilator in debug mode
-# VERILATOR_FLAGS += --debug
-#
-# Input files for Verilator
-VERILATOR_INPUT = -f input.vc vsrc/top.v csrc/main.cpp
+default: $(BIN)
 
-default: sim
+$(shell mkdir -p $(BUILD_DIR))
 
-sim:
-################################################################
-	@echo
-	@echo "-- Verilator on-off switch-- "
+# constraint file
+SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
+$(SRC_AUTO_BIND): $(NXDC_FILES)
+	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
 
-	@echo
-	@echo "-- VERILATE ----------------"
-	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
+# project source
+VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
+CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CSRCS += $(SRC_AUTO_BIND)
 
-	@echo
-	@echo "-- BUILD -------------------"
-# To compile, we can either
-# 1. Pass --build to Verilator by editing VERILATOR_FLAGS above.
-# 2. Or, run the make rules Verilator does:
-#	$(MAKE) -j -C obj_dir -f Vtop.mk
-# 3. Or, call a submakefile where we can override the rules ourselves:
-	$(MAKE) -j -C obj_dir -f ../Makefile_obj
-	@echo "-- RUN ---------------------"
-	@rm -rf logs
-	@mkdir -p logs
-	obj_dir/Vtop +trace
+# rules for NVBoard
+include $(NVBOARD_HOME)/scripts/nvboard.mk
 
-	@echo
-	@echo "-- COVERAGE ----------------"
-	@rm -rf logs/annotated
-	$(VERILATOR_COVERAGE) --annotate logs/annotated logs/coverage.dat
+# rules for verilator
+INCFLAGS = $(addprefix -I, $(INC_PATH))# -I means add $(INC_PATH) in search path
+CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+LDFLAGS += -lSDL2 -lSDL2_image
 
-	@echo
-	@echo "-- DONE --------------------"
-	@echo "To see waveforms, open vlt_dump.vcd in a waveform viewer"
-	@echo
+$(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
+	@rm -rf $(OBJ_DIR)
+	$(VERILATOR) $(VERILATOR_CFLAGS) \
+		--top-module $(TOPNAME) $^ \
+		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
+		--Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+#	build/$(TOPNAME) +trace
 
 
-######################################################################
+
+run: $(BIN)
+	@$^
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
 show-config:
@@ -73,5 +64,5 @@ show-config:
 
 maintainer-copy::
 clean mostlyclean distclean maintainer-clean::
-	-rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core
+	-rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core $(BUILD_DIR)
 include ../Makefile
