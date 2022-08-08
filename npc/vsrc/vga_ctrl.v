@@ -37,9 +37,6 @@ module vga_ctrl(
     wire         h_valid;
     wire         v_valid;
 
-    initial begin
-        flash_cnt = 0;
-    end
 
     always @(posedge reset or posedge pclk)begin// 800*525信号产生
         if (reset == 1'b1)begin
@@ -76,20 +73,19 @@ module vga_ctrl(
                     h_count_n <= 0;//h边界重置
                     
                 end else begin
-                    if(y_ascii == 4'hF && y_cnt > v_active)begin
+                    if(y_ascii == 4'hF && y_cnt > v_active && y_cnt < v_backporch)begin
                         y_ascii <= 0;
                         h_count_n <= h_count_n + 1;
                     end
                     else y_ascii <= y_ascii + 1;
                 end
             end
-            else begin
-                if(x_ascii == 4'h8 && x_cnt > h_active)begin
+            else if(x_cnt > h_active && x_cnt < h_backporch-10)begin
+                if(x_ascii == 4'h8 )begin
                     x_ascii <= 0;
                     v_count_n <= v_count_n + 1;
                 end
-                else if(x_cnt <= h_backporch-10)
-                    x_ascii <= x_ascii + 1;
+                else x_ascii <= x_ascii + 1;
             end
         end
 

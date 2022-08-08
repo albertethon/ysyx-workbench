@@ -31,7 +31,7 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___initial__TOP__1\n"); );
     // Variables
     VlWide<5>/*159:0*/ __Vtemp1;
-    VlWide<6>/*191:0*/ __Vtemp2;
+    VlWide<5>/*159:0*/ __Vtemp2;
     VlWide<5>/*159:0*/ __Vtemp3;
     // Body
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = 0U;
@@ -43,24 +43,26 @@ void Vtop___024root___initial__TOP__1(Vtop___024root* vlSelf) {
     VL_READMEM_N(true, 9, 4096, 0, VL_CVT_PACK_STR_NW(5, __Vtemp1)
                  ,  &(vlSelf->top__DOT__asci2dot0__DOT__lattice)
                  , 0, ~0ULL);
+    vlSelf->top__DOT__vram__DOT__oldaddr = 0xffU;
+    vlSelf->top__DOT__vram__DOT__all_cnt = 0U;
+    vlSelf->top__DOT__vram__DOT__line_cnt = 0U;
+    vlSelf->top__DOT__vram__DOT__key_addr = 0U;
     __Vtemp2[0U] = 0x2e686578U;
-    __Vtemp2[1U] = 0x666f6e74U;
-    __Vtemp2[2U] = 0x6573745fU;
-    __Vtemp2[3U] = 0x64652f74U;
-    __Vtemp2[4U] = 0x6e636c75U;
-    __Vtemp2[5U] = 0x69U;
-    VL_READMEM_N(true, 8, 4096, 0, VL_CVT_PACK_STR_NW(6, __Vtemp2)
-                 ,  &(vlSelf->top__DOT__fmem0__DOT__test_font_mem)
-                 , 0, ~0ULL);
-    __Vtemp3[0U] = 0x2e747874U;
-    __Vtemp3[1U] = 0x636f6465U;
-    __Vtemp3[2U] = 0x7363616eU;
-    __Vtemp3[3U] = 0x7564652fU;
-    __Vtemp3[4U] = 0x696e636cU;
-    VL_READMEM_N(true, 8, 256, 0, VL_CVT_PACK_STR_NW(5, __Vtemp3)
+    __Vtemp2[1U] = 0x636f6465U;
+    __Vtemp2[2U] = 0x7363616eU;
+    __Vtemp2[3U] = 0x7564652fU;
+    __Vtemp2[4U] = 0x696e636cU;
+    VL_READMEM_N(true, 8, 256, 0, VL_CVT_PACK_STR_NW(5, __Vtemp2)
                  ,  &(vlSelf->top__DOT__vram__DOT__ram)
                  , 0, ~0ULL);
-    vlSelf->top__DOT__vgac__DOT__flash_cnt = 0U;
+    __Vtemp3[0U] = 0x2e686578U;
+    __Vtemp3[1U] = 0x6579696eU;
+    __Vtemp3[2U] = 0x64652f6bU;
+    __Vtemp3[3U] = 0x6e636c75U;
+    __Vtemp3[4U] = 0x69U;
+    VL_READMEM_N(true, 8, 4096, 0, VL_CVT_PACK_STR_NW(5, __Vtemp3)
+                 ,  &(vlSelf->top__DOT__vram__DOT__key_ram)
+                 , 0, ~0ULL);
     vlSelf->top__DOT__count = 0U;
     vlSelf->top__DOT__sigwe = 0U;
 }
@@ -184,7 +186,7 @@ void Vtop___024root___settle__TOP__2(Vtop___024root* vlSelf) {
                    | (((IData)(vlSelf->ready) << 1U) 
                       | (IData)(vlSelf->overflow)));
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = (0xfffU 
-                                               & ((vlSelf->top__DOT__fmem0__DOT__test_font_mem
+                                               & ((vlSelf->top__DOT__vram__DOT__key_ram
                                                    [
                                                    (((IData)(vlSelf->top__DOT__vgac__DOT__h_count_n) 
                                                      << 7U) 
@@ -4075,11 +4077,16 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__pkb__DOT__count = 0;
     vlSelf->top__DOT__pkb__DOT__ps2_clk_sync = 0;
     vlSelf->top__DOT__pkb__DOT____Vlvbound1 = 0;
-    vlSelf->top__DOT__vram__DOT__inaddr = 0;
-    vlSelf->top__DOT__vram__DOT__din = 0;
     for (int __Vi0=0; __Vi0<256; ++__Vi0) {
         vlSelf->top__DOT__vram__DOT__ram[__Vi0] = 0;
     }
+    for (int __Vi0=0; __Vi0<4096; ++__Vi0) {
+        vlSelf->top__DOT__vram__DOT__key_ram[__Vi0] = 0;
+    }
+    vlSelf->top__DOT__vram__DOT__oldaddr = 0;
+    vlSelf->top__DOT__vram__DOT__all_cnt = 0;
+    vlSelf->top__DOT__vram__DOT__line_cnt = 0;
+    vlSelf->top__DOT__vram__DOT__key_addr = 0;
     for (int __Vi0=0; __Vi0<16; ++__Vi0) {
         vlSelf->top__DOT__b2seg0__DOT__chars[__Vi0] = 0;
     }
@@ -4170,14 +4177,10 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     }
     vlSelf->top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__lut_out = 0;
     vlSelf->top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__hit = 0;
-    for (int __Vi0=0; __Vi0<4096; ++__Vi0) {
-        vlSelf->top__DOT__fmem0__DOT__test_font_mem[__Vi0] = 0;
-    }
     vlSelf->top__DOT__asci2dot0__DOT__y_dot = 0;
     for (int __Vi0=0; __Vi0<4096; ++__Vi0) {
         vlSelf->top__DOT__asci2dot0__DOT__lattice[__Vi0] = 0;
     }
-    vlSelf->top__DOT__vgac__DOT__flash_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__x_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__y_cnt = 0;
     vlSelf->top__DOT__vgac__DOT__x_ascii = 0;

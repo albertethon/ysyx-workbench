@@ -55,8 +55,7 @@ VL_MODULE(Vtop___024root) {
     CData/*2:0*/ top__DOT__pkb__DOT__r_ptr;
     CData/*3:0*/ top__DOT__pkb__DOT__count;
     CData/*2:0*/ top__DOT__pkb__DOT__ps2_clk_sync;
-    CData/*7:0*/ top__DOT__vram__DOT__inaddr;
-    CData/*7:0*/ top__DOT__vram__DOT__din;
+    CData/*7:0*/ top__DOT__vram__DOT__oldaddr;
     CData/*6:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__lut_out;
     CData/*0:0*/ top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__hit;
     CData/*6:0*/ top__DOT__b2seg1__DOT__i0__DOT__i0__DOT__lut_out;
@@ -74,13 +73,16 @@ VL_MODULE(Vtop___024root) {
     CData/*4:0*/ top__DOT__vgac__DOT__h_count_n;
     CData/*6:0*/ top__DOT__vgac__DOT__v_count_n;
     SData/*9:0*/ top__DOT__pkb__DOT__buffer;
+    SData/*11:0*/ top__DOT__vram__DOT__all_cnt;
+    SData/*11:0*/ top__DOT__vram__DOT__line_cnt;
+    SData/*11:0*/ top__DOT__vram__DOT__key_addr;
     SData/*11:0*/ top__DOT__asci2dot0__DOT__y_dot;
-    SData/*9:0*/ top__DOT__vgac__DOT__flash_cnt;
     SData/*9:0*/ top__DOT__vgac__DOT__x_cnt;
     SData/*9:0*/ top__DOT__vgac__DOT__y_cnt;
     IData/*23:0*/ top__DOT__vga_data;
     VlUnpacked<CData/*7:0*/, 8> top__DOT__pkb__DOT__fifo;
     VlUnpacked<CData/*7:0*/, 256> top__DOT__vram__DOT__ram;
+    VlUnpacked<CData/*7:0*/, 4096> top__DOT__vram__DOT__key_ram;
     VlUnpacked<CData/*6:0*/, 16> top__DOT__b2seg0__DOT__chars;
     VlUnpacked<SData/*10:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__b2seg0__DOT__i0__DOT__i0__DOT__key_list;
@@ -105,7 +107,6 @@ VL_MODULE(Vtop___024root) {
     VlUnpacked<SData/*10:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__pair_list;
     VlUnpacked<CData/*3:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__key_list;
     VlUnpacked<CData/*6:0*/, 16> top__DOT__b2seg5__DOT__i0__DOT__i0__DOT__data_list;
-    VlUnpacked<CData/*7:0*/, 4096> top__DOT__fmem0__DOT__test_font_mem;
     VlUnpacked<SData/*8:0*/, 4096> top__DOT__asci2dot0__DOT__lattice;
 
     // LOCAL VARIABLES

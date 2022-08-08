@@ -43,19 +43,23 @@ end
 assign VGA_CLK = clk;
 assign led[1]=ready;
 assign led[0]=overflow;
+
 // 读取键盘输入流并输出scancode
 ps2_keyboard pkb(
    clk,~rst,ps2_clk,ps2_data,scancode,
-   ready,overflow,count
+   ready,overflow,count         
 );
 // 读取scancode并输出对应asciicode
 v_rams_8 vram(
    .clk(clk),
-   .we(sigwe),
-   .inaddr(),
+   .we(ready),
+   .h_count(h_count),
+   .v_count(v_count),
+   .inaddr(count),
    .outaddr(scancode),
-   .din(),
-   .dout(asciicode)
+   .din(scancode),
+   .dout(asciicode),
+   .key_data(ch_asci_data)
 );
 bcd7seg b2seg0(
    .bcd_in(scancode[3:0]),
@@ -82,11 +86,6 @@ bcd7seg b2seg5(
    .seg_out(HEX5[7:1])
 );
 
-font_mem fmem0(
-   .h_count(h_count),
-   .v_count(v_count),
-   .asci_data(ch_asci_data)
-);
 
 asci2dot asci2dot0(
    .asci_data(ch_asci_data),
@@ -151,21 +150,6 @@ assign led[4] = (sw & 10'h0ff)>0?1&sw[8]:0;
 
 endmodule
 // 输入行列信息，输出对应的字符ascii码
-module font_mem (
-   input [4:0] h_count,
-   input [6:0] v_count,
-   output [7:0] asci_data
-);
-
-reg [7:0] test_font_mem [4095:0];
-
-initial begin
-   $readmemh("include/test_font.hex", test_font_mem);
-end
-
-assign asci_data = test_font_mem[{h_count, v_count}];
-
-endmodule
 // 根据ascii码与字符内行内信息得到点阵
 module asci2dot(
    input [7:0] asci_data,
