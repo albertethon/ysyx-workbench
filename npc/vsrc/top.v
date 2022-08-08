@@ -50,6 +50,7 @@ ps2_keyboard pkb(
    ready,overflow,count         
 );
 // 读取scancode并输出对应asciicode
+// 输入行列信息，输出对应的字符ascii码
 v_rams_8 vram(
    .clk(clk),
    .we(ready),
@@ -149,7 +150,6 @@ assign led[4] = (sw & 10'h0ff)>0?1&sw[8]:0;
 
 
 endmodule
-// 输入行列信息，输出对应的字符ascii码
 // 根据ascii码与字符内行内信息得到点阵
 module asci2dot(
    input [7:0] asci_data,
