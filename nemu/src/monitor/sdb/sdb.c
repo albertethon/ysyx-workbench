@@ -80,12 +80,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "si [N] \n"\
+  { "si", "si [N] \n\t"\
             "Execute N instructions, N defaults to 1", cmd_si},
-  { "info","info SUBCMD\n"\
-            "print the process status\n\t"\
-            "r    print the register status\n\t"\
-            "w    print the watchpoint status\n\t", cmd_info},
+  { "info","info SUBCMD\n\t"\
+            "print the process status, SUBCMD and its description are as follows\n\t"\
+            "r\tprint the register status\n\t"\
+            "w\tprint the watchpoint status\n\t", cmd_info},
   
 };
 
