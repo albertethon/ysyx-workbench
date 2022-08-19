@@ -54,10 +54,10 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args){
-  /* Add si cmd */
   if (args != NULL)
   {
     uint64_t cnt;
+    /* 解析参数是否为unsigned long int */
     sscanf(args,"%lu",&cnt);
     cpu_exec(cnt);
   }else{
