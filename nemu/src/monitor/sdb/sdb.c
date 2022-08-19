@@ -67,6 +67,9 @@ static int cmd_si(char *args){
   return 0;
 } 
 
+static int cmd_info(char *args){
+  return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -77,7 +80,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "si [N] :Execute N instructions, N defaults to 1", cmd_si},
+  { "si", "si [N] \n\t\t"\
+            "Execute N instructions, N defaults to 1", cmd_si},
+  { "info","info SUBCMD\n\t\t"\
+            "print the process status\n\t\t"\
+            "r    print the register status\n\t\t"\
+            "w    print the watchpoint status\n\t\t", cmd_info},
   
 };
 
