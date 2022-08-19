@@ -55,9 +55,9 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args){
   /* Add si cmd */
-  uint64_t cnt = 0xffff;
-  // sscanf(args,"%ld",&cnt);
-  printf("size of uint64:%lu",sizeof(cnt));
+  uint64_t cnt;
+  sscanf(args,"%lu",&cnt);
+  cpu_exec(cnt);
   return 0;
 } 
 static int cmd_help(char *args);
