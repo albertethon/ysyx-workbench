@@ -55,9 +55,15 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args){
   /* Add si cmd */
-  uint64_t cnt;
-  sscanf(args,"%lu",&cnt);
-  cpu_exec(cnt);
+  if (args != NULL)
+  {
+    uint64_t cnt;
+    sscanf(args,"%lu",&cnt);
+    cpu_exec(cnt);
+  }else{
+    cpu_exec(1);
+  }
+  
   return 0;
 } 
 static int cmd_help(char *args);
