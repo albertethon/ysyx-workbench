@@ -67,9 +67,7 @@ static int cmd_si(char *args){
   return 0;
 } 
 
-static int cmd_info(char *args){
-  return 0;
-}
+static int cmd_info(char *args);
 static int cmd_help(char *args);
 
 static struct {
@@ -110,6 +108,22 @@ static int cmd_help(char *args) {
       }
     }
     printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  if(args==NULL){
+    cmd_help("info");
+  }else{
+    if(strcmp(args,"r")==0){
+      isa_reg_display();
+    }else if (strcmp(args,"w")==0){
+      /*TODO add watchpoint*/
+    }
+    else {
+      printf("%s not supported\n",args);
+    }
   }
   return 0;
 }
