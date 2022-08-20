@@ -58,6 +58,7 @@ static int cmd_si(char *args){
   {
     uint64_t cnt;
     /* 解析参数是否为unsigned long int */
+    Assert(sscanf(args,"%lu",&cnt)==0,"%s not recgonized,please input numbers",args);
     sscanf(args,"%lu",&cnt);
     cpu_exec(cnt);
   }else{
