@@ -75,7 +75,7 @@ static int cmd_x(char *args){
   for (paddr_t i = 0; i < len; i++)
   {
     // printf("0x%-10x\t0x%08lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
-    printf("0x%-10x\t0x%8lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
+    printf("0x%-10x\t0x%-8lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
   }
   
   return 0;
