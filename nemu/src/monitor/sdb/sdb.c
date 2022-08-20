@@ -114,7 +114,7 @@ static int cmd_help(char *args) {
 
 static int cmd_info(char *args){
   if(args==NULL){
-    cmd_help("info");
+    printf("no argument detected, type help info to get help");
   }else{
     if(strcmp(args,"r")==0){
       isa_reg_display();
