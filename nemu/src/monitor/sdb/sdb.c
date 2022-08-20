@@ -74,7 +74,7 @@ static int cmd_x(char *args){
   sscanf(args,"%d%x",&len,&paddr);
   for (paddr_t i = 0; i < len; i++)
   {
-    printf("%-10x\t%-10lu",paddr+4*i,paddr_read(paddr,4));
+    printf("0x%-10x\t0x%-10lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
   }
   
   return 0;
