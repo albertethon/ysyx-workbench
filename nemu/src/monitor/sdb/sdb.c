@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -67,6 +68,17 @@ static int cmd_si(char *args){
   return 0;
 } 
 
+static int cmd_x(char *args){
+  paddr_t paddr;
+  int len;
+  Assert(sscanf(args,"%d%u",&len,&paddr)==1,"%s not recgonized",args);
+  for (int i = 0; i < len; i++)
+  {
+    printf("%-10u\t%-10lu",paddr,paddr_read(paddr,4));
+  }
+  
+  return 0;
+}
 static int cmd_info(char *args);
 static int cmd_help(char *args);
 
@@ -80,11 +92,14 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "si [N] \n\t"\
             "Execute N instructions, N defaults to 1", cmd_si},
-  { "info","info SUBCMD\n\t"\
+  { "info", "info SUBCMD\n\t"\
             "print the process status, SUBCMD and its description are as follows\n\t"\
             "r\tprint the register status\n\t"\
             "w\tprint the watchpoint status\n\t", cmd_info},
-  
+  { "x", "Examine memory: x N EXPR\n\t"\
+          "N is the count of displayed address\n\t"\
+          "EXPR could be memory address or register name\n\t"\
+          "EXAMPLE:\t x 10 $sp",cmd_x},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
