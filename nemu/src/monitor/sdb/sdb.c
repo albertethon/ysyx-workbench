@@ -72,9 +72,9 @@ static int cmd_x(char *args){
   paddr_t paddr;
   int len;
   sscanf(args,"%d%x",&len,&paddr);
-  for (int i = 0; i < len; i++)
+  for (paddr_t i = 0; i < len; i++)
   {
-    printf("%-10u\t%-10lu",paddr,paddr_read(paddr,4));
+    printf("%-10x\t%-10lu",paddr+4*i,paddr_read(paddr,4));
   }
   
   return 0;
