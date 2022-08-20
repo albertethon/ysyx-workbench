@@ -71,7 +71,7 @@ static int cmd_si(char *args){
 static int cmd_x(char *args){
   paddr_t paddr;
   int len;
-  Assert(sscanf(args,"%d%u",&len,&paddr)==1,"%s not recgonized",args);
+  sscanf(args,"%d%u",&len,&paddr);
   for (int i = 0; i < len; i++)
   {
     printf("%-10u\t%-10lu",paddr,paddr_read(paddr,4));
