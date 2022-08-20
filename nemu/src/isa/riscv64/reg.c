@@ -26,6 +26,7 @@ const char *regs[] = {
 void isa_reg_display() {
   int size=sizeof(regs)/sizeof(char *);
   for(int i=0;i<size;i++){
+    //left-justifies,output reg_name,reg value in hex and dec format
     printf("%s\t0x%-20lx%-20lu\n",regs[i],gpr(i),gpr(i));
   }
 }
