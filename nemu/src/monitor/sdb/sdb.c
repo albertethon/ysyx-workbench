@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -49,9 +50,37 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;
 }
 
+static int cmd_si(char *args){
+  if (args != NULL)
+  {
+    uint64_t cnt;
+    /* 解析参数是否为unsigned long int */
+    Assert(sscanf(args,"%lu",&cnt)==1,"%s not recgonized,please input numbers",args);
+    cpu_exec(cnt);
+  }else{
+    cpu_exec(1);
+  }
+  
+  return 0;
+} 
+
+static int cmd_x(char *args){
+  paddr_t paddr;
+  int len;
+  Assert(sscanf(args,"%d%x",&len,&paddr)==2,"%s not recgonized, type 'help x' to check",args);
+  for (paddr_t i = 0; i < len; i++)
+  {
+    // printf("0x%-10x\t0x%08lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
+    printf("0x%-10x\t0x%-8lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
+  }
+  
+  return 0;
+}
+static int cmd_info(char *args);
 static int cmd_help(char *args);
 
 static struct {
@@ -62,9 +91,16 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
-  /* TODO: Add more commands */
-
+  { "si", "si [N] \n\t"\
+            "Execute N instructions, N defaults to 1", cmd_si},
+  { "info", "info SUBCMD\n\t"\
+            "print the process status, SUBCMD and its description are as follows\n\t"\
+            "r\tprint the register status\n\t"\
+            "w\tprint the watchpoint status\n\t", cmd_info},
+  { "x", "Examine memory: x N EXPR\n\t"\
+          "N is the count of displayed address\n\t"\
+          "EXPR could be memory address or register name\n\t"\
+          "EXAMPLE:\t x 10 $sp",cmd_x},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -88,6 +124,22 @@ static int cmd_help(char *args) {
       }
     }
     printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  if(args==NULL){
+    printf("no argument detected, type \"help info\" to get help\n");
+  }else{
+    if(strcmp(args,"r")==0){
+      isa_reg_display();
+    }else if (strcmp(args,"w")==0){
+      /*TODO add watchpoint*/
+    }
+    else {
+      printf("%s not supported\n",args);
+    }
   }
   return 0;
 }
