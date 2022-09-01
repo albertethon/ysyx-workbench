@@ -82,7 +82,7 @@ static bool make_token(char *e) {
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
-      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so != -1) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;//rm_eo is the offset of the first character after the matching text
 
