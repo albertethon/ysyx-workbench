@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_ARITHMETIC, TK_BRACKETS, TK_ERROR
 
   /* TODO: Add more token types */
 
@@ -37,14 +37,10 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"\\-", '-'},         // minus
-  {"\\*", '*'},         // multiply
-  {"\\/", '/'},         // divide
+  {"[\\+\\-\\*\\/]", TK_ARITHMETIC},
   {"==", TK_EQ},        // equal
   {"\\d+", TK_NUM},     // number
-  {"\\(", '('},         // left bracket
-  {"\\)", ')'},         // right bracket
+  {"[\\(\\)]", TK_BRACKETS},
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -72,7 +68,7 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
-
+// __attribute__((used)) 旨在告诉编译器，即使该符号没被引用也要保留，而不至于在release中优化掉
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
@@ -88,7 +84,7 @@ static bool make_token(char *e) {
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
-        int substr_len = pmatch.rm_eo;
+        int substr_len = pmatch.rm_eo;//rm_eo is the offset of the first character after the matching text
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
@@ -99,11 +95,18 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
+        
+        strncpy(tokens[nr_token].str,substr_start,substr_len);
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_NOTYPE: tokens[nr_token].type = TK_NOTYPE;break;
+          case TK_EQ:     tokens[nr_token].type = TK_EQ;break;
+          case TK_NUM:    tokens[nr_token].type = TK_NUM;break;
+          case TK_ARITHMETIC: tokens[nr_token].type = TK_ARITHMETIC;break;
+          case TK_BRACKETS:   tokens[nr_token].type = TK_BRACKETS;break;
+          default:            tokens[nr_token].type = TK_ERROR;break;
         }
-
+        nr_token ++;
         break;
       }
     }
@@ -123,9 +126,12 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  *success = true;
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  // for(int i=0; tokens[i].str != NULL;i++){
+    
+  // }
+  
 
   return 0;
 }
