@@ -75,16 +75,16 @@ static int nr_token __attribute__((used))  = 0;
 static bool make_token(char *e) {
   int position = 0;
   int i;
-  regmatch_t pmatch;
+  regmatch_t pmatch[2];
 
   nr_token = 0;
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
-      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+      if (regexec(&re[i], e + position, 1, pmatch, 0) == 0 && pmatch[1].rm_so == 0) {
         char *substr_start = e + position;
-        int substr_len = pmatch.rm_eo;//rm_eo is the offset of the first character after the matching text
+        int substr_len = pmatch[1].rm_eo;//rm_eo is the offset of the first character after the matching text
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
