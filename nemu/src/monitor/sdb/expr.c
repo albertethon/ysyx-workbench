@@ -36,11 +36,11 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {".*( +).*", TK_NOTYPE},    // spaces
-  {".*([\\+\\-\\*\\/]).*", TK_ARITHMETIC},
-  {".*(==).*", TK_EQ},        // equal
-  {".*(\\d+).*", TK_NUM},     // number
-  {".*([\\(\\)]).*", TK_BRACKETS},
+  {"( +).*", TK_NOTYPE},    // spaces
+  {"([\\+\\-\\*\\/]).*", TK_ARITHMETIC},
+  {"(==).*", TK_EQ},        // equal
+  {"(\\d+).*", TK_NUM},     // number
+  {"([\\(\\)]).*", TK_BRACKETS},
 };
 
 #define NR_REGEX ARRLEN(rules)
