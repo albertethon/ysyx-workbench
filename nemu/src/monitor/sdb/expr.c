@@ -85,7 +85,7 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 2, pmatch, 0) == 0 && pmatch[0].rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch[1].rm_eo;//rm_eo is the offset of the first character after the matching text
-
+        assert(substr_len <= 32);
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
