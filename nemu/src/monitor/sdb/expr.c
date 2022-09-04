@@ -127,54 +127,95 @@ static bool make_token(char *e) {
   return true;
 }
 
-// static bool check_parentheses(int p,int q){
-//   int left=0;
-//   //判定首位是否是(
-//   if (strcmp(tokens[p].str,"(")!=0)
-//   {
-//     return false;
-//   }
+static bool check_parentheses(int p,int q){
+  int left=0;
+  //判定首位是否是(
+  if (strcmp(tokens[p].str,"(")!=0)
+  {
+    return false;
+  }
   
-//   for(int i=p;i<=q;i++){
-//     if(strcmp(tokens[i].str,"(")==0){
-//       left++;
-//     }else if (strcmp(tokens[i].str,")")==0)
-//     {
-//       left--;
-//       //判定最外层()是否未到末尾
-//       if(left==0 && i!=q)return false;
-//     }
-//   }
-//   if(left==0)return true;
+  for(int i=p;i<=q;i++){
+    if(strcmp(tokens[i].str,"(")==0){
+      left++;
+    }else if (strcmp(tokens[i].str,")")==0)
+    {
+      left--;
+      //判定最外层()是否未到末尾
+      if(left==0 && i!=q)return false;
+    }
+  }
+  if(left==0)return true;
+  return false;
+}
 
-// }
+static word_t eval(int p,int q){
+  char *endptr;
+  if(p>q){
+    Assert(0,"Bad expression,eval(p>q),p:%d  q:%d",p,q);
+  }
+  else if (p==q){
+        /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    int64_t result = strtol(tokens[p].str,&endptr,10);
+    return result;
+  }
+  else if(check_parentheses(p,q) == true){
+    return eval(p+1,q-1);
+  }
+  else{
+    int op=0;// the position of main op in the expression
+    int adop=0;
+    int mulop=0;
 
-// static int64_t eval(int p,int q){
-//   if(p>q){
-//     Assert(0,"Bad expression,eval(p>q),p:%d  q:%d",p,q);
-//   }
-//   else if (p==q){
-//         /* Single token.
-//      * For now this token should be a number.
-//      * Return the value of the number.
-//      */
-//   }
-//   else if(check_parentheses(p,q) == true){
-//     return eval(p+1,q-1);
-//   }
-//   else{
-//     //TODO
-//   }
-// }
+    for (int i = p; i <= q; i++)
+    {
+      int leftpt=0;
+      if(tokens[i].type == TK_BRACKETS){
+        if(tokens[i].str[0] == '(')leftpt ++;
+        else if (tokens[i].str[0] == ')')leftpt --;
+      }
+      else if(leftpt == 0 && tokens[i].type == TK_ARITHMETIC){
+        if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
+          adop = i;
+        }
+        else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
+          mulop = i;
+        }
+      }
+    }
+    
+    if (adop==0){
+      op = adop;
+    }else{
+      op = mulop;
+    }
+
+    word_t val1 = eval(p,op-1);
+    word_t val2 = eval(op+1,q);
+    
+    switch (tokens[op].str[0]){
+      case '+':return val1 + val2;
+      case '-':return val1 - val2;
+      case '*':return val1 * val2;
+      case '/':return val1 / val2;
+    default:Assert(0,"op not recgnized");
+    }
+  }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
+
   *success = true;
   /* TODO: Insert codes to evaluate the expression. */
-
-  
+  word_t result=0;
+  result = eval(0,nr_token-1);
+  printf("result:%ld",result);
   return 0;
 }
