@@ -170,9 +170,8 @@ static word_t eval(int p,int q){
     int adop=0;
     int mulop=0;
 
-    for (int i = p; i <= q; i++)
+    for (int i = p,leftpt=0; i <= q; i++)
     {
-      int leftpt=0;
       if(tokens[i].type == TK_BRACKETS){
         if(tokens[i].str[0] == '(')leftpt ++;
         else if (tokens[i].str[0] == ')')leftpt --;
