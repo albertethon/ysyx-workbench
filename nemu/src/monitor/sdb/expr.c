@@ -188,9 +188,9 @@ static word_t eval(int p,int q){
     }
     
     if (adop==0){
-      op = adop;
-    }else{
       op = mulop;
+    }else{
+      op = adop;
     }
 
     word_t val1 = eval(p,op-1);
