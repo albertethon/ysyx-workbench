@@ -104,11 +104,13 @@ static bool make_token(char *e) {
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
           case TK_ARITHMETIC:
-              tokens[nr_token].type = TK_ARITHMETIC;break;
+              tokens[nr_token].type = TK_ARITHMETIC;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
           case TK_BRACKETS:
-              tokens[nr_token].type = TK_BRACKETS;break;
+              tokens[nr_token].type = TK_BRACKETS;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
         }
