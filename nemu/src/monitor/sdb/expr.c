@@ -95,18 +95,23 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        
-        strncpy(tokens[nr_token].str,substr_start,substr_len);
 
         switch (rules[i].token_type) {
-          case TK_NOTYPE: tokens[nr_token].type = TK_NOTYPE;break;
-          case TK_EQ:     tokens[nr_token].type = TK_EQ;break;
-          case TK_NUM:    tokens[nr_token].type = TK_NUM;break;
-          case TK_ARITHMETIC: tokens[nr_token].type = TK_ARITHMETIC;break;
-          case TK_BRACKETS:   tokens[nr_token].type = TK_BRACKETS;break;
-          default:            tokens[nr_token].type = TK_ERROR;break;
+          case TK_NOTYPE:break;
+          case TK_EQ:   tokens[nr_token++].type = TK_EQ;break;
+          case TK_NUM:
+              tokens[nr_token].type = TK_NUM;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
+          case TK_ARITHMETIC:
+              tokens[nr_token].type = TK_ARITHMETIC;break;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+          case TK_BRACKETS:
+              tokens[nr_token].type = TK_BRACKETS;break;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+          default:
+            tokens[nr_token].type = TK_ERROR;break;
         }
-        nr_token ++;
         break;
       }
     }
@@ -120,6 +125,45 @@ static bool make_token(char *e) {
   return true;
 }
 
+// static bool check_parentheses(int p,int q){
+//   int left=0;
+//   //判定首位是否是(
+//   if (strcmp(tokens[p].str,"(")!=0)
+//   {
+//     return false;
+//   }
+  
+//   for(int i=p;i<=q;i++){
+//     if(strcmp(tokens[i].str,"(")==0){
+//       left++;
+//     }else if (strcmp(tokens[i].str,")")==0)
+//     {
+//       left--;
+//       //判定最外层()是否未到末尾
+//       if(left==0 && i!=q)return false;
+//     }
+//   }
+//   if(left==0)return true;
+
+// }
+
+// static int64_t eval(int p,int q){
+//   if(p>q){
+//     Assert(0,"Bad expression,eval(p>q),p:%d  q:%d",p,q);
+//   }
+//   else if (p==q){
+//         /* Single token.
+//      * For now this token should be a number.
+//      * Return the value of the number.
+//      */
+//   }
+//   else if(check_parentheses(p,q) == true){
+//     return eval(p+1,q-1);
+//   }
+//   else{
+//     //TODO
+//   }
+// }
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -128,10 +172,7 @@ word_t expr(char *e, bool *success) {
   }
   *success = true;
   /* TODO: Insert codes to evaluate the expression. */
-  // for(int i=0; tokens[i].str != NULL;i++){
-    
-  // }
-  
 
+  
   return 0;
 }
