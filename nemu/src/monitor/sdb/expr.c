@@ -37,7 +37,7 @@ static struct rule {
    */
 
   {"( +).*", TK_NOTYPE},    // spaces
-  {"([\\+-\\*/]).*", TK_ARITHMETIC},
+  {"([\\+\\-\\*\\/]).*", TK_ARITHMETIC},
   {"(==).*", TK_EQ},        // equal
   {"([0-9]+u*).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
