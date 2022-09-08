@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
   // engine_start();
 
   // return is_exit_status_bad();
-  FILE *fp = fopen("../tools/gen-expr/build/input","r");
+  FILE *fp = fopen("tools/gen-expr/build/input","r");
   assert(fp != NULL);
   word_t result=0;
   word_t test=0;
