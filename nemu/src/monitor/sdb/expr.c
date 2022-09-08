@@ -37,7 +37,8 @@ static struct rule {
    */
 
   {"( +).*", TK_NOTYPE},    // spaces
-  {"([\\+\\-\\*/]).*", TK_ARITHMETIC},
+  {"([\\+\\*/]).*", TK_ARITHMETIC},
+  {"([\\-]).*",'-'},
   {"(==).*", TK_EQ},        // equal
   {"([0-9]+u*).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
@@ -111,6 +112,9 @@ static bool make_token(char *e) {
               tokens[nr_token].type = TK_BRACKETS;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
+          case '-':
+              tokens[nr_token].type = '-';
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
           default:
             tokens[nr_token].type = TK_ERROR;break;
         }
