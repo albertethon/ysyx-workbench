@@ -39,7 +39,7 @@ static struct rule {
   {"( +).*", TK_NOTYPE},    // spaces
   {"([\\+\\-\\*\\/]).*", TK_ARITHMETIC},
   {"(==).*", TK_EQ},        // equal
-  {"([0-9]+)(u*).*", TK_NUM},     // number
+  {"([0-9]+[u]).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
 };
 
@@ -159,7 +159,7 @@ static word_t eval(int p,int q){
      * For now this token should be a number.
      * Return the value of the number.
      */
-    int64_t result = strtol(tokens[p].str,&endptr,10);
+    word_t result = strtol(tokens[p].str,&endptr,10);
     return result;
   }
   else if(check_parentheses(p,q) == true){
