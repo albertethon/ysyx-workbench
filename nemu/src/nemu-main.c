@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   /* Start engine. */
-  // engine_start();
+  engine_start();
 
-  // return is_exit_status_bad();
-  FILE *fp = fopen("tools/gen-expr/build/input","r");
+  return is_exit_status_bad();
+/*  FILE *fp = fopen("tools/gen-expr/build/input","r");
   assert(fp != NULL);
   word_t result=0;
   word_t test=0;
@@ -48,5 +48,5 @@ int main(int argc, char *argv[]) {
     }
   }
   fclose(fp);
-
+*/
 }
