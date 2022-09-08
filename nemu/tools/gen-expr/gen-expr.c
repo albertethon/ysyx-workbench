@@ -31,14 +31,64 @@ static char *code_format =
 "  return 0; "
 "}";
 
+static void gen_num(){
+  int num = rand();
+  char s[32]={};
+  sprintf(s,"%du",num);
+  strcat(buf,s);
+}
+
+static inline void gen(char* c){
+  strcat(buf,c);
+}
+
+static void gen_rand_op(){
+  int choose = rand()%4;
+  switch (choose)
+  {
+  case 0:
+    strcat(buf,"+");
+    break;
+  case 1:
+    strcat(buf,"-");
+    break;
+  case 2:
+    strcat(buf,"*");
+    break;
+  case 3:
+    strcat(buf,"/");
+    break;
+  default:
+    break;
+  }
+}
+
 static void gen_rand_expr() {
-  buf[0] = '\0';
+  int choose = rand()%100;
+  int len = strlen(buf);
+  if (len > sizeof(buf)-10000)
+  {
+    gen("1u");
+  }
+  else{
+    if(choose < 30)gen_num();
+    else if(choose < 50){
+      gen("(");gen_rand_expr();gen(")");
+    }
+    else if(choose < 70){
+      gen_rand_expr();gen(" ");
+    }
+    else {
+      gen_rand_expr();gen_rand_op();gen_rand_expr();
+    }
+    
+  }
 }
 
 int main(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
-  int loop = 1;
+  int loop = 5000;
   if (argc > 1) {
     sscanf(argv[1], "%d", &loop);
   }
@@ -60,10 +110,15 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 
     int result;
-    fscanf(fp, "%d", &result);
-    pclose(fp);
+    int fresult;
+    fresult = fscanf(fp, "%d", &result);// get the result of c print
+    if(fresult != EOF){  // split the expr that divide 0
+      printf("%u %s\n", result, buf);
+    }
 
-    printf("%u %s\n", result, buf);
+    pclose(fp);
+    memset(buf,'\0',sizeof(buf));
+    
   }
   return 0;
 }

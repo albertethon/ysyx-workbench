@@ -86,8 +86,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch[1].rm_eo;//rm_eo is the offset of the first character after the matching text
         Assert(substr_len <= 32,"arguments %s is too long, should be less than 32b",substr_start);
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -215,6 +215,6 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   word_t result=0;
   result = eval(0,nr_token-1);
-  printf("result:%ld",result);
-  return 0;
+  printf("result:%ld\n",result);
+  return result;
 }
