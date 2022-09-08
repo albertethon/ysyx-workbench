@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_ARITHMETIC, TK_BRACKETS, TK_ERROR
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_BRACKETS, TK_ERROR
 
   /* TODO: Add more token types */
 
@@ -37,8 +37,10 @@ static struct rule {
    */
 
   {"( +).*", TK_NOTYPE},    // spaces
-  {"([\\-\\+\\*/]).*", TK_ARITHMETIC},
+  {"([\\+]).*",'+'},
   {"([\\-]).*",'-'},
+  {"([\\*]).*",'*'},
+  {"([\\/]).*",'/'},
   {"(==).*", TK_EQ},        // equal
   {"([0-9]+u*).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
@@ -104,17 +106,17 @@ static bool make_token(char *e) {
               tokens[nr_token].type = TK_NUM;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
-          case TK_ARITHMETIC:
-              tokens[nr_token].type = TK_ARITHMETIC;
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+              tokens[nr_token].type = rules[i].token_type;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
           case TK_BRACKETS:
               tokens[nr_token].type = TK_BRACKETS;
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
-          case '-':
-              tokens[nr_token].type = '-';
-              strncpy(tokens[nr_token++].str,substr_start,substr_len);
           default:
             tokens[nr_token].type = TK_ERROR;break;
         }
@@ -180,7 +182,7 @@ static word_t eval(int p,int q){
         if(tokens[i].str[0] == '(')leftpt ++;
         else if (tokens[i].str[0] == ')')leftpt --;
       }
-      else if(leftpt == 0 && tokens[i].type == TK_ARITHMETIC){
+      else if(leftpt == 0){
         if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
           adop = i;
         }
