@@ -98,7 +98,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
+        Assert(nr_token < 33,"the token number of expression out of bound:32\n");
         switch (rules[i].token_type) {
           case TK_NOTYPE:break;
           case TK_EQ:   tokens[nr_token++].type = TK_EQ;break;
