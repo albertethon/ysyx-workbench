@@ -175,7 +175,7 @@ static word_t eval(int p,int q){
     int op=0;// the position of main op in the expression
     int adop=0;
     int mulop=0;
-
+    int eqop=0;
     for (int i = p,leftpt=0; i <= q; i++)
     {
       if(tokens[i].type == TK_BRACKETS){
@@ -189,23 +189,35 @@ static word_t eval(int p,int q){
         else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
           mulop = i;
         }
+        else if(strcmp(tokens[i].str,"==") == 0){
+          eqop = i;
+        }
+        //TODO deal '=='
       }
     }
-    
     if (adop==0){
       op = mulop;
-    }else{
+    }else {
       op = adop;
     }
+    if (eqop != 0){
+      op = eqop;
+    }
+    
 
     word_t val1 = eval(p,op-1);
-    word_t val2 = eval(op+1,q);
+    word_t val2 = eval(op+1+(eqop!=0),q);
     
     switch (tokens[op].str[0]){
       case '+':return val1 + val2;
       case '-':return val1 - val2;
       case '*':return val1 * val2;
       case '/':return val1 / val2;
+      case '=':
+        if (tokens[op].str[1]=='='){
+          return (val1 == val2);
+        }
+        
     default:Assert(0,"op not recgnized");
     }
   }
