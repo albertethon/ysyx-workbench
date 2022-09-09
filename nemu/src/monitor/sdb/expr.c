@@ -47,7 +47,6 @@ static struct rule {
 };
 
 #define NR_REGEX ARRLEN(rules)
-
 static regex_t re[NR_REGEX] = {};
 
 /* Rules are used for many times.
@@ -74,6 +73,7 @@ typedef struct token {
 // __attribute__((used)) 旨在告诉编译器，即使该符号没被引用也要保留，而不至于在release中优化掉
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
+static int len_token = sizeof(tokens)/sizeof(Token);
 
 static bool make_token(char *e) {
   int position = 0;
@@ -98,7 +98,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        Assert(nr_token < sizeof(tokens)/sizeof(Token),"the token number of expression out of bound:32\n");
+        Assert(nr_token < len_token,"the token number of expression out of bound:%d\n",len_token);
         switch (rules[i].token_type) {
           case TK_NOTYPE:break;
           case TK_EQ:   tokens[nr_token++].type = TK_EQ;break;
