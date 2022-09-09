@@ -39,7 +39,9 @@ int main(int argc, char *argv[]) {
   word_t result=0;
   word_t test=0;
   bool success=false;
-  while(fscanf(fp,"%lu %s",&result,buf) != EOF){
+  while(!feof(fp)){
+    if(fscanf(fp,"%lu",&result)==EOF)break;
+    if(fgets(buf,1024,fp)==NULL)break;
     test = expr(buf,&success);
     if(success){
       Assert(test==result,"not right,rst:%lu\ttest:%lu",result,test);
