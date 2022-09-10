@@ -19,6 +19,8 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
+#define MAXN_EXPR 32
+
 //TODO generate long expr but less than 32
 // this should be enough
 static char buf[65536] = {};
@@ -30,6 +32,7 @@ static char *code_format =
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
+static int len_tokens = 0;
 
 static void gen_num(){
   int num = rand();
@@ -64,24 +67,48 @@ static void gen_rand_op(){
 }
 
 static void gen_rand_expr() {
-  int choose = rand()%100;
+  int choose = rand()%4;
   int len = strlen(buf);
-  if (len > sizeof(buf)-10000)
-  {
+  if (len > sizeof(buf)-10000){
     gen("1u");
+    len_tokens++;
   }
   else{
-    if(choose < 30)gen_num();
-    else if(choose < 50){
-      gen("(");gen_rand_expr();gen(")");
+    if((MAXN_EXPR - len_tokens) >= 3){
+      switch (choose)
+      {
+        case 0:
+          len_tokens += 3;
+          gen_rand_expr();gen_rand_op();gen_rand_expr();
+          break;
+        case 1:
+          len_tokens += 3;
+          gen("(");gen_rand_expr();gen(")");
+          break;
+        case 2:
+          if(buf[len-1] != ' '){
+            len_tokens ++;
+            gen_num();
+          }
+          break;
+        case 3:
+          len_tokens ++;
+          gen_rand_expr();gen(" ");
+          break;
+        default:
+          break;
+      }
+    }else if((MAXN_EXPR - len_tokens) >= 1){
+      if(choose < 1){
+        len_tokens++;
+        gen_rand_expr();
+        gen(" ");
+      }else if(buf[len-1]!=' '){
+        gen_num();
+      }
+    }else if(buf[len-1]!=' '){
+      gen_num();
     }
-    else if(choose < 70){
-      gen_rand_expr();gen(" ");
-    }
-    else {
-      gen_rand_expr();gen_rand_op();gen_rand_expr();
-    }
-    
   }
 }
 
@@ -118,6 +145,7 @@ int main(int argc, char *argv[]) {
 
     pclose(fp);
     memset(buf,'\0',sizeof(buf));
+    len_tokens = 0;
     
   }
   return 0;
