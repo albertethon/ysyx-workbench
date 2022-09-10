@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
       Assert(0,"can't make token:%s",buf);
     }
   }
+  Log("success!!!\n");
   fclose(fp);
   return 0;
 }
