@@ -29,7 +29,7 @@ static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
 "  unsigned long result = %s; "
-"  printf(\"%%ld\", result); "
+"  printf(\"%%lu\", result); "
 "  return 0; "
 "}";
 static int len_tokens = 0;
