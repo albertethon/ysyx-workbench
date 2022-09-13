@@ -119,6 +119,7 @@ static bool make_token(char *e) {
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
           case TK_NLINE:
+              memset(tokens,'\0',nr_token);
               break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
