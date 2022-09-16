@@ -119,7 +119,6 @@ static bool make_token(char *e) {
               strncpy(tokens[nr_token++].str,substr_start,substr_len);
               break;
           case TK_NLINE:
-              memset(tokens,'\0',nr_token);
               break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
@@ -238,5 +237,6 @@ word_t expr(char *e, bool *success) {
   word_t result=0;
   result = eval(0,nr_token-1);
   printf("result:%lu\n",result);
+  memset(tokens,0,sizeof(tokens));
   return result;
 }
