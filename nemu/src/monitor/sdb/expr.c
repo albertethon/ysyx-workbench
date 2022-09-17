@@ -184,18 +184,17 @@ static word_t eval(int p,int q){
       if(tokens[i].type == TK_BRACKETS){
         if(tokens[i].str[0] == '(')leftpt ++;
         else if (tokens[i].str[0] == ')')leftpt --;
-      }
+      }//left op eval first
       else if(leftpt == 0){
         if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
-          adop = i;
+          adop = (adop==0)?i:adop;
         }
         else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
-          mulop = i;
+          mulop = (mulop==0)?i:mulop;
         }
         else if(strcmp(tokens[i].str,"==") == 0){
-          eqop = i;
+          eqop = (eqop==0)?i:eqop;
         }
-        //TODO deal '=='
       }
     }
     if (adop==0){
