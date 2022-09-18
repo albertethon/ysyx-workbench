@@ -42,7 +42,7 @@ static struct rule {
   {"([\\*]).*",'*'},
   {"([\\/]).*",'/'},
   {"(==).*", TK_EQ},        // equal
-  {"([0-9]+u*).*", TK_NUM},     // number
+  {"([0-9]+(lu)?).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
 };

@@ -37,7 +37,7 @@ static int len_tokens = 0;
 static void gen_num(){
   int num = rand();
   char s[32]={};
-  sprintf(s,"%du",num);
+  sprintf(s,"%dlu",num);
   strcat(buf,s);
 }
 
@@ -70,7 +70,7 @@ static void gen_rand_expr() {
   int choose = rand()%4;
   int len = strlen(buf);
   if (len > sizeof(buf)-10000){
-    gen("1u");
+    gen("1lu");
     len_tokens++;
   }
   else{
