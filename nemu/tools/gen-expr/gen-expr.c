@@ -136,11 +136,11 @@ int main(int argc, char *argv[]) {
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
-    int result;
+    unsigned long result;
     int fresult;
-    fresult = fscanf(fp, "%d", &result);// get the result of c print
+    fresult = fscanf(fp, "%lu", &result);// get the result of c print
     if(fresult != EOF){  // split the expr that divide 0
-      printf("%u %s\n", result, buf);
+      printf("%lu %s\n", result, buf);
     }
 
     pclose(fp);
