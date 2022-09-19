@@ -20,6 +20,7 @@ void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
+/*
 static char buf[65536] = {};
 
 static void test_expr(){
@@ -41,6 +42,7 @@ static void test_expr(){
   Log("success!!!\n");
   fclose(fp);
 }
+*/
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
@@ -50,10 +52,11 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
+  // test_expr();
+  // return 0;
   /* Start engine. */
-  // engine_start();
+  engine_start();
 
-  // return is_exit_status_bad();
-  test_expr();
-  return 0;
+  return is_exit_status_bad();
+
 }
