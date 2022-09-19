@@ -22,18 +22,7 @@ void engine_start();
 int is_exit_status_bad();
 static char buf[65536] = {};
 
-int main(int argc, char *argv[]) {
-  /* Initialize the monitor. */
-#ifdef CONFIG_TARGET_AM
-  am_init_monitor();
-#else
-  init_monitor(argc, argv);
-#endif
-
-  /* Start engine. */
-  // engine_start();
-
-  // return is_exit_status_bad();
+static void test_expr(){
   FILE *fp = fopen("tools/gen-expr/build/input","r");
   assert(fp != NULL);
   word_t result=0;
@@ -51,5 +40,20 @@ int main(int argc, char *argv[]) {
   }
   Log("success!!!\n");
   fclose(fp);
+}
+
+int main(int argc, char *argv[]) {
+  /* Initialize the monitor. */
+#ifdef CONFIG_TARGET_AM
+  am_init_monitor();
+#else
+  init_monitor(argc, argv);
+#endif
+
+  /* Start engine. */
+  // engine_start();
+
+  // return is_exit_status_bad();
+  test_expr();
   return 0;
 }
