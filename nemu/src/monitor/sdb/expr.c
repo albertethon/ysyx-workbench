@@ -187,13 +187,13 @@ static word_t eval(int p,int q){
       }//left op eval first
       else if(leftpt == 0){
         if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
-          adop = (adop==0)?i:adop;
+          adop = i;
         }
         else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
-          mulop = (mulop==0)?i:mulop;
+          mulop = i;
         }
         else if(strcmp(tokens[i].str,"==") == 0){
-          eqop = (eqop==0)?i:eqop;
+          eqop = i;
         }
       }
     }
