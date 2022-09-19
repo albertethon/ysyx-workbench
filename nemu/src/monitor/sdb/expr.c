@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_BRACKETS, TK_ERROR, TK_NLINE
 
   /* TODO: Add more token types */
 
@@ -36,13 +36,18 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"==", TK_EQ},        // equal
+  {"( +).*", TK_NOTYPE},    // spaces
+  {"([\\+]).*",'+'},
+  {"([\\-]).*",'-'},
+  {"([\\*]).*",'*'},
+  {"([\\/]).*",'/'},
+  {"(==).*", TK_EQ},        // equal
+  {"([0-9]+(lu)?).*", TK_NUM},     // number
+  {"([\\(\\)]).*", TK_BRACKETS},
+  {"(\n).*",TK_NLINE},
 };
 
 #define NR_REGEX ARRLEN(rules)
-
 static regex_t re[NR_REGEX] = {};
 
 /* Rules are used for many times.
@@ -66,26 +71,27 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
-
+// __attribute__((used)) 旨在告诉编译器，即使该符号没被引用也要保留，而不至于在release中优化掉
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
+static int len_token = sizeof(tokens)/sizeof(Token);
 
 static bool make_token(char *e) {
   int position = 0;
   int i;
-  regmatch_t pmatch;
+  regmatch_t pmatch[2];
 
   nr_token = 0;
 
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
-      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+      if (regexec(&re[i], e + position, 2, pmatch, 0) == 0 && pmatch[0].rm_so == 0) {
         char *substr_start = e + position;
-        int substr_len = pmatch.rm_eo;
-
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        int substr_len = pmatch[1].rm_eo;//rm_eo is the offset of the first character after the matching text
+        Assert(substr_len <= 32,"arguments %s is too long, should be less than 32b",substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -93,11 +99,30 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
+        Assert(nr_token < len_token,"the token number of expression out of bound:%d\n",len_token);
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_NOTYPE:break;
+          case TK_EQ:   tokens[nr_token++].type = TK_EQ;break;
+          case TK_NUM:
+              tokens[nr_token].type = TK_NUM;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+              tokens[nr_token].type = rules[i].token_type;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
+          case TK_BRACKETS:
+              tokens[nr_token].type = TK_BRACKETS;
+              strncpy(tokens[nr_token++].str,substr_start,substr_len);
+              break;
+          case TK_NLINE:
+              break;
+          default:
+            tokens[nr_token].type = TK_ERROR;break;
         }
-
         break;
       }
     }
@@ -111,6 +136,94 @@ static bool make_token(char *e) {
   return true;
 }
 
+static bool check_parentheses(int p,int q){
+  int left=0;
+  //判定首位是否是(
+  if (strcmp(tokens[p].str,"(")!=0)
+  {
+    return false;
+  }
+  
+  for(int i=p;i<=q;i++){
+    if(strcmp(tokens[i].str,"(")==0){
+      left++;
+    }else if (strcmp(tokens[i].str,")")==0)
+    {
+      left--;
+      //判定最外层()是否未到末尾
+      if(left==0 && i!=q)return false;
+    }
+  }
+  if(left==0)return true;
+  return false;
+}
+
+static word_t eval(int p,int q){
+  char *endptr;
+  if(p>q){
+    Assert(0,"Bad expression,eval(p>q),p:%d  q:%d",p,q);
+  }
+  else if (p==q){
+        /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    word_t result = strtol(tokens[p].str,&endptr,10);
+    return result;
+  }
+  else if(check_parentheses(p,q) == true){
+    return eval(p+1,q-1);
+  }
+  else{
+    int op=0;// the position of main op in the expression
+    int adop=0;
+    int mulop=0;
+    int eqop=0;
+    for (int i = p,leftpt=0; i <= q; i++)
+    {
+      if(tokens[i].type == TK_BRACKETS){
+        if(tokens[i].str[0] == '(')leftpt ++;
+        else if (tokens[i].str[0] == ')')leftpt --;
+      }//left op eval first
+      else if(leftpt == 0){
+        if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
+          adop = i;
+        }
+        else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
+          mulop = i;
+        }
+        else if(strcmp(tokens[i].str,"==") == 0){
+          eqop = i;
+        }
+      }
+    }
+    if (adop==0){
+      op = mulop;
+    }else {
+      op = adop;
+    }
+    if (eqop != 0){
+      op = eqop;
+    }
+    
+
+    word_t val1 = eval(p,op-1);
+    word_t val2 = eval(op+1+(eqop!=0),q);
+    
+    switch (tokens[op].str[0]){
+      case '+':return val1 + val2;
+      case '-':return val1 - val2;
+      case '*':return val1 * val2;
+      case '/':return val1 / val2;
+      case '=':
+        if (tokens[op].str[1]=='='){
+          return (val1 == val2);
+        }
+        
+    default:Assert(0,"op not recgnized");
+    }
+  }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -118,8 +231,11 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
 
+  *success = true;
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  word_t result=0;
+  result = eval(0,nr_token-1);
+  // printf("result:%lu\n",result);
+  memset(tokens,0,sizeof(tokens));
+  return result;
 }

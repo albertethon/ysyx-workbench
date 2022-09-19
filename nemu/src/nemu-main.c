@@ -14,11 +14,35 @@
 ***************************************************************************************/
 
 #include <common.h>
+#include "monitor/sdb/sdb.h"
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
+/*
+static char buf[65536] = {};
+
+static void test_expr(){
+  FILE *fp = fopen("tools/gen-expr/build/input","r");
+  assert(fp != NULL);
+  word_t result=0;
+  word_t test=0;
+  bool success=false;
+  while(!feof(fp)){
+    if(fscanf(fp,"%lu",&result)==EOF)break;
+    if(fgets(buf,1024,fp)==NULL)break;
+    test = expr(buf,&success);
+    if(success){
+      Assert(test==result,"not right,rst:%lu\ttest:%lu",result,test);
+    }else{
+      Assert(0,"can't make token:%s",buf);
+    }
+  }
+  Log("success!!!\n");
+  fclose(fp);
+}
+*/
 
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
@@ -28,8 +52,11 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
+  // test_expr();
+  // return 0;
   /* Start engine. */
   engine_start();
 
   return is_exit_status_bad();
+
 }
