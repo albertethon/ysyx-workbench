@@ -83,7 +83,7 @@ static int cmd_x(char *args){
 static int cmd_info(char *args);
 static int cmd_help(char *args);
 static int cmd_expr(char *args){
-  bool success;
+  bool success=false;
   expr(args,&success);
   return 0;
 }
