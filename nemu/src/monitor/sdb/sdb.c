@@ -84,7 +84,8 @@ static int cmd_info(char *args);
 static int cmd_help(char *args);
 static int cmd_expr(char *args){
   bool success=false;
-  expr(args,&success);
+  word_t expr_val = expr(args,&success);
+  printf("val:%lu\n",expr_val);
   return 0;
 }
 
