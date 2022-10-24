@@ -107,29 +107,20 @@ static bool make_token(char *e) {
          */
         Assert(nr_token < len_token,"the token number of expression out of bound:%d\n",len_token);
         switch (rules[i].token_type) {
-          case TK_NOTYPE: break;
+          case TK_NOTYPE:
+          case TK_NLINE:  break;
           case TK_EQ:
           case TK_NEQ:
           case TK_AND:    tokens[nr_token++].type = rules[i].token_type;break;
-          case TK_NUM:
-            tokens[nr_token].type = TK_NUM;
-            strncpy(tokens[nr_token++].str,substr_start,substr_len);
-            break;
           case '+':
           case '-':
           case '*':
           case '/':
+          case TK_BRACKETS:
+          case TK_NUM:
+          case TK_HEX:
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str,substr_start,substr_len);
-            break;
-          case TK_BRACKETS:
-            tokens[nr_token].type = TK_BRACKETS;
-            strncpy(tokens[nr_token++].str,substr_start,substr_len);
-            break;
-          case TK_HEX:
-            tokens[nr_token].type = TK_HEX;
-            strncpy(tokens[nr_token++].str,substr_start,substr_len);
-          case TK_NLINE:
             break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
@@ -179,7 +170,13 @@ static word_t eval(int p,int q){
      * For now this token should be a number.
      * Return the value of the number.
      */
-    word_t result = strtol(tokens[p].str,&endptr,10);
+    word_t result=0;
+    if(tokens[p].type == TK_NUM)
+      result = strtol(tokens[p].str,&endptr,10);
+    else if(tokens[p].type == TK_HEX){
+      result = strtol(tokens[p].str,&endptr,16);
+      Assert(endptr != tokens[p].str,"Hex number not recgonized\n");
+    }
     return result;
   }
   else if(check_parentheses(p,q) == true){
@@ -197,13 +194,13 @@ static word_t eval(int p,int q){
         else if (tokens[i].str[0] == ')')leftpt --;
       }//left op eval first
       else if(leftpt == 0){
-        if(tokens[i].str[0] == '+' || tokens[i].str[0] == '-'){
+        if(tokens[i].type == '+' || tokens[i].type == '-'){
           adop = i;
         }
-        else if(tokens[i].str[0] == '*' || tokens[i].str[0] == '/'){
+        else if(tokens[i].type == '*' || tokens[i].type == '/'){
           mulop = i;
         }
-        else if(strcmp(tokens[i].str,"==") == 0){
+        else if(tokens[i].type == TK_EQ){
           eqop = i;
         }
       }
@@ -221,17 +218,16 @@ static word_t eval(int p,int q){
     word_t val1 = eval(p,op-1);
     word_t val2 = eval(op+1+(eqop!=0),q);
     
-    switch (tokens[op].str[0]){
+    switch (tokens[op].type){
       case '+':return val1 + val2;
       case '-':return val1 - val2;
       case '*':return val1 * val2;
       case '/':Assert(val2 != 0,"Error:divided by zero\n");
                 return val1 / val2;
-      case '=':
-        if (tokens[op].str[1]=='='){
-          return (val1 == val2);
-        }
-        
+      case TK_EQ:
+        return (val1 == val2);
+      case TK_NEQ:
+        return (val1 != val2);
     default:Assert(0,"op not recgnized");
     }
   }
