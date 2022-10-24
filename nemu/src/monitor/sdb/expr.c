@@ -46,7 +46,7 @@ static struct rule {
   {"(==).*", TK_EQ},        // equal
   {"(!=).*",TK_NEQ},
   {"(&&).*",TK_AND},
-  {"(||).*",TK_OR},
+  {"(\\|\\|).*",TK_OR},
   {"([0-9]+(lu)?).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
