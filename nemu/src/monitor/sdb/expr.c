@@ -21,7 +21,8 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_BRACKETS, TK_ERROR, TK_NLINE
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_BRACKETS,
+  TK_REG, TK_ERROR, TK_NLINE, TK_NEQ, TK_AND, TK_DEREF,
 
   /* TODO: Add more token types */
 
@@ -42,9 +43,14 @@ static struct rule {
   {"([\\*]).*",'*'},
   {"([\\/]).*",'/'},
   {"(==).*", TK_EQ},        // equal
+  {"(!=).*",TK_NEQ},
+  {"(&&).*",TK_AND},
   {"([0-9]+(lu)?).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
+  {"(0x[0-9a-fA-F]*).*",TK_HEX},
+  {"($[a-z0-9]*).*",TK_REG},
+  
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -101,25 +107,30 @@ static bool make_token(char *e) {
          */
         Assert(nr_token < len_token,"the token number of expression out of bound:%d\n",len_token);
         switch (rules[i].token_type) {
-          case TK_NOTYPE:break;
-          case TK_EQ:   tokens[nr_token++].type = TK_EQ;break;
+          case TK_NOTYPE: break;
+          case TK_EQ:
+          case TK_NEQ:
+          case TK_AND:    tokens[nr_token++].type = rules[i].token_type;break;
           case TK_NUM:
-              tokens[nr_token].type = TK_NUM;
-              strncpy(tokens[nr_token++].str,substr_start,substr_len);
-              break;
+            tokens[nr_token].type = TK_NUM;
+            strncpy(tokens[nr_token++].str,substr_start,substr_len);
+            break;
           case '+':
           case '-':
           case '*':
           case '/':
-              tokens[nr_token].type = rules[i].token_type;
-              strncpy(tokens[nr_token++].str,substr_start,substr_len);
-              break;
+            tokens[nr_token].type = rules[i].token_type;
+            strncpy(tokens[nr_token++].str,substr_start,substr_len);
+            break;
           case TK_BRACKETS:
-              tokens[nr_token].type = TK_BRACKETS;
-              strncpy(tokens[nr_token++].str,substr_start,substr_len);
-              break;
+            tokens[nr_token].type = TK_BRACKETS;
+            strncpy(tokens[nr_token++].str,substr_start,substr_len);
+            break;
+          case TK_HEX:
+            tokens[nr_token].type = TK_HEX;
+            strncpy(tokens[nr_token++].str,substr_start,substr_len);
           case TK_NLINE:
-              break;
+            break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
         }
