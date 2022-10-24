@@ -23,6 +23,7 @@
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_BRACKETS,
   TK_REG, TK_ERROR, TK_NLINE, TK_NEQ, TK_AND, TK_DEREF,
+  TK_OR,
 
   /* TODO: Add more token types */
 
@@ -45,6 +46,7 @@ static struct rule {
   {"(==).*", TK_EQ},        // equal
   {"(!=).*",TK_NEQ},
   {"(&&).*",TK_AND},
+  {"(||).*",TK_OR},
   {"([0-9]+(lu)?).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
@@ -187,6 +189,8 @@ static word_t eval(int p,int q){
     int adop=0;
     int mulop=0;
     int eqop=0;
+    int logop=0;
+    //最左边先算，函数栈先入后算
     for (int i = p,leftpt=0; i <= q; i++)
     {
       if(tokens[i].type == TK_BRACKETS){
@@ -194,40 +198,51 @@ static word_t eval(int p,int q){
         else if (tokens[i].str[0] == ')')leftpt --;
       }//left op eval first
       else if(leftpt == 0){
-        if(tokens[i].type == '+' || tokens[i].type == '-'){
-          adop = i;
-        }
-        else if(tokens[i].type == '*' || tokens[i].type == '/'){
-          mulop = i;
-        }
-        else if(tokens[i].type == TK_EQ){
-          eqop = i;
+        switch (tokens[i].type)
+        {
+        case '+':
+        case '-':     adop = i;break;
+        case '*':
+        case '/':     mulop = i;break;
+        case TK_EQ:   
+        case TK_NEQ:  eqop = i;break;
+        case TK_AND:
+        case TK_OR:   logop = i;break;
+        default:
+          break;
         }
       }
     }
-    if (adop==0){
-      op = mulop;
-    }else {
-      op = adop;
-    }
-    if (eqop != 0){
-      op = eqop;
-    }
     
+    //优先级最低最后算，函数栈先入后算
+    if(logop != 0){
+      op = logop;
+    }else if(eqop != 0){
+      op = eqop;
+    }else if(adop != 0){
+      op = adop;
+    }else if(mulop != 0){
+      op = mulop;
+    }
 
+    
     word_t val1 = eval(p,op-1);
-    word_t val2 = eval(op+1+(eqop!=0),q);
+    word_t val2 = eval(op+1,q);
     
     switch (tokens[op].type){
-      case '+':return val1 + val2;
-      case '-':return val1 - val2;
-      case '*':return val1 * val2;
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
       case '/':Assert(val2 != 0,"Error:divided by zero\n");
                 return val1 / val2;
       case TK_EQ:
         return (val1 == val2);
       case TK_NEQ:
         return (val1 != val2);
+      case TK_AND:
+        return (val1 && val2);
+      case TK_OR:
+        return (val1 || val2);
     default:Assert(0,"op not recgnized");
     }
   }
