@@ -113,6 +113,7 @@ static bool make_token(char *e) {
           case TK_NLINE:  break;
           case TK_EQ:
           case TK_NEQ:
+          case TK_OR:
           case TK_AND:    tokens[nr_token++].type = rules[i].token_type;break;
           case '+':
           case '-':
