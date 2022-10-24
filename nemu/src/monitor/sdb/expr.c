@@ -122,8 +122,7 @@ static bool make_token(char *e) {
           case TK_NUM:
           case TK_HEX:
             tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token++].str,substr_start,substr_len);
-            break;
+            strncpy(tokens[nr_token++].str,substr_start,substr_len);break;
           default:
             tokens[nr_token].type = TK_ERROR;break;
         }
