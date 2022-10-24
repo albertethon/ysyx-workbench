@@ -37,7 +37,6 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-
   {"( +).*", TK_NOTYPE},    // spaces
   {"([\\+]).*",'+'},
   {"([\\-]).*",'-'},
@@ -47,10 +46,10 @@ static struct rule {
   {"(!=).*",TK_NEQ},
   {"(&&).*",TK_AND},
   {"(\\|\\|).*",TK_OR},
+  {"(0x[0-9a-fA-F]*).*",TK_HEX},
   {"([0-9]+(lu)?).*", TK_NUM},     // number
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
-  {"(0x[0-9a-fA-F]*).*",TK_HEX},
   {"(\\$[a-z0-9]*).*",TK_REG},
   
 };
