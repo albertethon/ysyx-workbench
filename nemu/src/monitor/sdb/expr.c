@@ -51,7 +51,7 @@ static struct rule {
   {"([\\(\\)]).*", TK_BRACKETS},
   {"(\n).*",TK_NLINE},
   {"(0x[0-9a-fA-F]*).*",TK_HEX},
-  {"($[a-z0-9]*).*",TK_REG},
+  {"(\\$[a-z0-9]*).*",TK_REG},
   
 };
 
