@@ -40,7 +40,8 @@ word_t isa_reg_str2val(const char *s, bool *success) {
   }
   while (!*success && i<32)
   {
-    char *temp = strcat("$",regs[i++]);
+    char *temp = "$";
+    strcat(temp,regs[i++]);
     if(strcmp(s,temp)!=0)continue;
     else {
       *success = true;
