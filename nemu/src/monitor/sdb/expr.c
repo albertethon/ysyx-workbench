@@ -119,6 +119,7 @@ static bool make_token(char *e) {
           case '*':
           case '/':
           case TK_BRACKETS:
+          case TK_REG:
           case TK_NUM:
           case TK_HEX:
             tokens[nr_token].type = rules[i].token_type;
@@ -177,6 +178,11 @@ static word_t eval(int p,int q){
     else if(tokens[p].type == TK_HEX){
       result = strtol(tokens[p].str,&endptr,16);
       Assert(endptr != tokens[p].str,"Hex number not recgonized\n");
+    }
+    else if(tokens[p].type == TK_REG){
+      bool success;
+      result = isa_reg_str2val(tokens[p].str,&success);
+      Assert(success,"%s not recgonized in reg\n",tokens[p].str);
     }
     return result;
   }
