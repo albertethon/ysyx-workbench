@@ -14,12 +14,11 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+#include <memory/vaddr.h>
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_BRACKETS,
   TK_REG, TK_ERROR, TK_NLINE, TK_NEQ, TK_AND, TK_DEREF,
@@ -167,6 +166,9 @@ static word_t eval(int p,int q){
   if(p>q){
     Assert(0,"Bad expression,eval(p>q),p:%d  q:%d",p,q);
   }
+  else if(tokens[p].type == TK_DEREF){
+    return vaddr_read(eval(p+1,q),8);
+  }
   else if (p==q){
         /* Single token.
      * For now this token should be a number.
@@ -196,7 +198,7 @@ static word_t eval(int p,int q){
     int eqop=0;
     int logop=0;
     //最左边先算，函数栈先入后算
-    for (int i = p,leftpt=0; i <= q; i++)
+    for (int i = p,leftpt=0; i <= q; i++) 
     {
       if(tokens[i].type == TK_BRACKETS){
         if(tokens[i].str[0] == '(')leftpt ++;
