@@ -261,6 +261,13 @@ word_t expr(char *e, bool *success) {
 
   *success = true;
   /* TODO: Insert codes to evaluate the expression. */
+  for(int i = 0;i < nr_token ; i++){
+    if(tokens[i].type=='*' && (i==0 || (tokens[i-1].type !=TK_NUM &&
+    tokens[i-1].type != TK_HEX && tokens[i-1].type != TK_REG &&
+    tokens[i-1].str[0] != ')'))){
+      tokens[i].type = TK_DEREF;
+    }
+  }
   word_t result=0;
   result = eval(0,nr_token-1);
   // printf("result:%lu\n",result);
