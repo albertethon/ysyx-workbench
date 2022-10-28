@@ -88,6 +88,12 @@ static int cmd_p(char *args){
   printf("val:%lu\n",expr_val);
   return 0;
 }
+static int cmd_d(char *args){
+  return 0;
+}
+static int cmd_w(char *args){
+  return 0;
+}
 
 static struct {
   const char *name;
@@ -108,6 +114,8 @@ static struct {
           "EXPR could be memory address or register name\n\t"\
           "EXAMPLE:\t x 10 $sp",cmd_x},
   { "p", "p [EXPR] to find the sum of EXPR",cmd_p},
+  { "w", "w [EXPR] to set watchpoint towards EXPR,",cmd_w},
+  { "d", "d [N] to delete No.N watchpoint",cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
