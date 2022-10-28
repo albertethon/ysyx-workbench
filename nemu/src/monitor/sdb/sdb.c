@@ -89,9 +89,11 @@ static int cmd_p(char *args){
   return 0;
 }
 static int cmd_d(char *args){
+  delete_wp(args);
   return 0;
 }
 static int cmd_w(char *args){
+  add_wp(args);
   return 0;
 }
 

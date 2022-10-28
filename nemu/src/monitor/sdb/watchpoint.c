@@ -109,5 +109,20 @@ void display_wp(){
     }
   }
 }
+
+void add_wp(char *e){
+  WP *tmp=new_wp();
+  bool success=false;
+  word_t value = expr(e,&success);
+  tmp->s = e;
+  tmp->old_value = value;
+  
+}
+
+void delete_wp(char *e){
+  int no;
+  Assert(sscanf(e,"%d",&no)==1,"%s not recgonized as number\n",e);
+  free_wp(& wp_pool[no]);
+}
 /* TODO: Implement the functionality of watchpoint */
 
