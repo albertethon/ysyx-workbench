@@ -150,7 +150,7 @@ static int cmd_info(char *args){
     if(strcmp(args,"r")==0){
       isa_reg_display();
     }else if (strcmp(args,"w")==0){
-      /*TODO add watchpoint*/
+      display_wp();
     }
     else {
       printf("%s not supported\n",args);
