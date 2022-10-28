@@ -82,7 +82,7 @@ static int cmd_x(char *args){
 }
 static int cmd_info(char *args);
 static int cmd_help(char *args);
-static int cmd_expr(char *args){
+static int cmd_p(char *args){
   bool success=false;
   word_t expr_val = expr(args,&success);
   printf("val:%lu\n",expr_val);
@@ -107,7 +107,7 @@ static struct {
           "N is the count of displayed address\n\t"\
           "EXPR could be memory address or register name\n\t"\
           "EXAMPLE:\t x 10 $sp",cmd_x},
-  { "expr", "expr [EXPR] to find the sum of EXPR",cmd_expr},
+  { "p", "p [EXPR] to find the sum of EXPR",cmd_p},
 };
 
 #define NR_CMD ARRLEN(cmd_table)

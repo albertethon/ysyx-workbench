@@ -39,5 +39,49 @@ void init_wp_pool() {
   free_ = wp_pool;
 }
 
+WP* new_wp(){
+  if(head == NULL){
+    head = free_;
+    head->next = NULL;
+    free_ = free_->next;
+  }else{
+    if(free_ == NULL)Assert(0,"watchpoints are too much(<32)\n");
+    else{
+      WP* temp = head;
+      head = free_;
+      head->next = temp;
+      free_ = free_->next;
+    }
+  }
+  return head;
+}
+
+void free_wp(WP *wp){
+  WP *cur=head;
+  //如果要释放第一个节点
+  if(wp->NO == head->NO){
+    cur->next = free_;
+    free_ = cur;
+    head = head->next;
+  }else{
+    while (cur->next!=NULL)
+    {//如果是第n+1个节点
+      if(wp->NO == cur->next->NO){
+        WP *temp = cur->next;
+        cur->next = temp->next;//剪切出来
+
+        temp->next = free_;//放入free_链表头
+        free_ = temp;
+        break;
+      }else{
+        cur = cur->next;
+      }
+    }
+    Assert(0,"can't find watchpoint in list\n");
+  }
+  
+}
+
+
 /* TODO: Implement the functionality of watchpoint */
 
