@@ -105,6 +105,7 @@ void display_wp(){
     printf("Num\tType\t\tEnb\tAddress\tWhat\n");
     while(cur != NULL){
       printf("%d\twatchpoint\ty\t\t\t\t%s\n",cur->NO,cur->s);
+      cur = cur->next;
     }
   }
 }
