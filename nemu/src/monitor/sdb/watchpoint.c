@@ -96,5 +96,9 @@ void scan_wp(){
     cur = cur->next;
   }
 }
+
+void wp_display(){
+
+}
 /* TODO: Implement the functionality of watchpoint */
 
