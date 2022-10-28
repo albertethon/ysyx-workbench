@@ -109,10 +109,10 @@ static struct {
             "print the process status, SUBCMD and its description are as follows\n\t"\
             "r\tprint the register status\n\t"\
             "w\tprint the watchpoint status\n\t", cmd_info},
-  { "x", "Examine memory: x N EXPR\n\t"\
+  { "x", "Examine memory: x N HEXADDR\n\t"\
           "N is the count of displayed address\n\t"\
-          "EXPR could be memory address or register name\n\t"\
-          "EXAMPLE:\t x 10 $sp",cmd_x},
+          "HEXADDR are memory address in hex format\n\t"\
+          "EXAMPLE:\t x 10 0x80000000",cmd_x},
   { "p", "p [EXPR] to find the sum of EXPR",cmd_p},
   { "w", "w [EXPR] to set watchpoint towards EXPR,",cmd_w},
   { "d", "d [N] to delete No.N watchpoint",cmd_d},
