@@ -97,8 +97,16 @@ void scan_wp(){
   }
 }
 
-void wp_display(){
-
+void display_wp(){
+  WP *cur = head;
+  if(cur == NULL){
+    printf("No watchpoints\n");
+  }else{
+    printf("Num\tType\t\tEnb\tAddress\tWhat\n");
+    while(cur != NULL){
+      printf("%d\twatchpoint\ty\t\t\t\t%s\n",cur->NO,cur->s);
+    }
+  }
 }
 /* TODO: Implement the functionality of watchpoint */
 
