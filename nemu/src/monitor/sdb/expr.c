@@ -17,6 +17,7 @@
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
+#include "sdb.h"
 #include <regex.h>
 #include <memory/vaddr.h>
 enum {
