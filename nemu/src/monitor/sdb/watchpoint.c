@@ -43,8 +43,8 @@ void init_wp_pool() {
 WP* new_wp(){
   if(head == NULL){
     head = free_;
-    head->next = NULL;
     free_ = free_->next;
+    head->next = NULL;
   }else{
     if(free_ == NULL)Assert(0,"watchpoints are too much(<32)\n");
     else{
