@@ -50,8 +50,8 @@ WP* new_wp(){
     else{
       WP* temp = head;
       head = free_;
-      head->next = temp;
       free_ = free_->next;
+      head->next = temp;
     }
   }
   return head;
