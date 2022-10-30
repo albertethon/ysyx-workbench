@@ -45,7 +45,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     if(strcmp(s,temp)!=0)continue;
     else {
       *success = true;
-      return gpr(i);
+      return gpr(i-1);
     }
   }
   
