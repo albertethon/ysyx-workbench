@@ -90,7 +90,7 @@ void scan_wp(){
     word_t new_value = expr(cur->s,&success);
     if(success && new_value != cur->old_value){
       cur->old_value = new_value;
-      printf("%d\twatchpoint\t%lu\n",cur->NO,new_value);
+      printf("%d\twatchpoint\t%s\t%lu\n",cur->NO,cur->s,new_value);
       nemu_state.state = NEMU_STOP;
     }
     cur = cur->next;
