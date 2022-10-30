@@ -109,6 +109,7 @@ void display_wp(){
       cur = cur->next;
     }
       cur = cur->next;
+      strcat(cur->s,"test");
   }
 }
 
