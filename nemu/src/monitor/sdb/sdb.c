@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -49,10 +50,52 @@ static int cmd_c(char *args) {
 
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;
 }
 
+static int cmd_si(char *args){
+  if (args != NULL)
+  {
+    uint64_t cnt;
+    /* 解析参数是否为unsigned long int */
+    Assert(sscanf(args,"%lu",&cnt)==1,"%s not recgonized,please input numbers",args);
+    cpu_exec(cnt);
+  }else{
+    cpu_exec(1);
+  }
+  
+  return 0;
+} 
+
+static int cmd_x(char *args){
+  paddr_t paddr;
+  int len;
+  Assert(sscanf(args,"%d%x",&len,&paddr)==2,"%s not recgonized, type 'help x' to check",args);
+  for (paddr_t i = 0; i < len; i++)
+  {
+    // printf("0x%-10x\t0x%08lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
+    printf("0x%-10x\t0x%-8lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
+  }
+  
+  return 0;
+}
+static int cmd_info(char *args);
 static int cmd_help(char *args);
+static int cmd_p(char *args){
+  bool success=false;
+  word_t expr_val = expr(args,&success);
+  printf("val:%lu\n",expr_val);
+  return 0;
+}
+static int cmd_d(char *args){
+  delete_wp(args);
+  return 0;
+}
+static int cmd_w(char *args){
+  add_wp(args);
+  return 0;
+}
 
 static struct {
   const char *name;
@@ -62,9 +105,19 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
-  /* TODO: Add more commands */
-
+  { "si", "si [N] \n\t"\
+            "Execute N instructions, N defaults to 1", cmd_si},
+  { "info", "info SUBCMD\n\t"\
+            "print the process status, SUBCMD and its description are as follows\n\t"\
+            "r\tprint the register status\n\t"\
+            "w\tprint the watchpoint status\n\t", cmd_info},
+  { "x", "Examine memory: x N HEXADDR\n\t"\
+          "N is the count of displayed address\n\t"\
+          "HEXADDR are memory address in hex format\n\t"\
+          "EXAMPLE:\t x 10 0x80000000",cmd_x},
+  { "p", "p [EXPR] to find the sum of EXPR",cmd_p},
+  { "w", "w [EXPR] to set watchpoint towards EXPR,",cmd_w},
+  { "d", "d [N] to delete No.N watchpoint",cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -88,6 +141,22 @@ static int cmd_help(char *args) {
       }
     }
     printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
+
+static int cmd_info(char *args){
+  if(args==NULL){
+    printf("no argument detected, type \"help info\" to get help\n");
+  }else{
+    if(strcmp(args,"r")==0){
+      isa_reg_display();
+    }else if (strcmp(args,"w")==0){
+      display_wp();
+    }
+    else {
+      printf("%s not supported\n",args);
+    }
   }
   return 0;
 }

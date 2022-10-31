@@ -24,8 +24,30 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+  int size=sizeof(regs)/sizeof(char *);
+  for(int i=0;i<size;i++){
+    //left-justifies,output reg_name,reg value in hex and dec format
+    printf("%s\t0x%-20lx%-20lu\n",regs[i],gpr(i),gpr(i));
+  }
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  *success = false;
+  int i=1;
+  if(strcmp(s,regs[0])==0){
+    *success = true;
+    return gpr(0);
+  }
+  while (!*success && i<32)
+  {
+    char temp[32] = "$";
+    strcat(temp,regs[i++]);
+    if(strcmp(s,temp)!=0)continue;
+    else {
+      *success = true;
+      return gpr(i-1);
+    }
+  }
+  
   return 0;
 }
