@@ -82,9 +82,18 @@ static int cmd_x(char *args){
 }
 static int cmd_info(char *args);
 static int cmd_help(char *args);
-static int cmd_expr(char *args){
-  bool success;
-  expr(args,&success);
+static int cmd_p(char *args){
+  bool success=false;
+  word_t expr_val = expr(args,&success);
+  printf("val:%lu\n",expr_val);
+  return 0;
+}
+static int cmd_d(char *args){
+  delete_wp(args);
+  return 0;
+}
+static int cmd_w(char *args){
+  add_wp(args);
   return 0;
 }
 
@@ -102,11 +111,13 @@ static struct {
             "print the process status, SUBCMD and its description are as follows\n\t"\
             "r\tprint the register status\n\t"\
             "w\tprint the watchpoint status\n\t", cmd_info},
-  { "x", "Examine memory: x N EXPR\n\t"\
+  { "x", "Examine memory: x N HEXADDR\n\t"\
           "N is the count of displayed address\n\t"\
-          "EXPR could be memory address or register name\n\t"\
-          "EXAMPLE:\t x 10 $sp",cmd_x},
-  { "expr", "expr [EXPR] to find the sum of EXPR",cmd_expr},
+          "HEXADDR are memory address in hex format\n\t"\
+          "EXAMPLE:\t x 10 0x80000000",cmd_x},
+  { "p", "p [EXPR] to find the sum of EXPR",cmd_p},
+  { "w", "w [EXPR] to set watchpoint towards EXPR,",cmd_w},
+  { "d", "d [N] to delete No.N watchpoint",cmd_d},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -141,7 +152,7 @@ static int cmd_info(char *args){
     if(strcmp(args,"r")==0){
       isa_reg_display();
     }else if (strcmp(args,"w")==0){
-      /*TODO add watchpoint*/
+      display_wp();
     }
     else {
       printf("%s not supported\n",args);
