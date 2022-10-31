@@ -60,5 +60,5 @@ else
 include $(NEMU_HOME)/scripts/native.mk
 endif
 
-count:
+count:run-env
   $(find . -type f | xargs cat | wc -l)
