@@ -108,8 +108,7 @@ void display_wp(){
       printf("%d\twatchpoint\ty\taddress\t%s\n",cur->NO,cur->s);
       cur = cur->next;
     }
-      cur = cur->next;
-      strcat(cur->s,"test");
+    
   }
 }
 
