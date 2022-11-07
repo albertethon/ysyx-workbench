@@ -31,6 +31,11 @@ __attribute__((always_inline))
 static inline void pattern_decode(const char *str, int len,
     uint64_t *key, uint64_t *mask, uint64_t *shift) {
   uint64_t __key = 0, __mask = 0, __shift = 0;
+  /*
+  key:1,0
+  mask:掩码信息
+  shift:opcode距离最低位比特数量
+  */
 #define macro(i) \
   if ((i) >= len) goto finish; \
   else { \
