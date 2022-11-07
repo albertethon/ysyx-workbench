@@ -26,6 +26,7 @@ CFLAGS  := -O2 -MMD -Wall -Werror $(INCLUDES) $(CFLAGS)
 LDFLAGS := -O2 $(LDFLAGS)
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o) $(CXXSRC:%.cc=$(OBJ_DIR)/%.o)
+PRES = $(SRCS:%.c=$(OBJ_DIR)/%.i) $(CXXSRC:%.cc=$(OBJ_DIR)/%.i)
 
 # Compilation patterns
 $(OBJ_DIR)/%.o: %.c
@@ -44,6 +45,11 @@ $(OBJ_DIR)/%.i:%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -E -C -o $@ $<
 
+$(OBJ_DIR)/%.i:%.cc
+	@mkdir -p $(dir $@)
+	@$(CXX) $(CFLAGS) $(CXXFLAGS) -E -C -o $@ $<
+
+
 # Depencies
 -include $(OBJS:.o=.d)
 
@@ -53,7 +59,7 @@ $(OBJ_DIR)/%.i:%.c
 
 app: $(BINARY)
 
-$(BINARY): $(OBJS) $(ARCHIVES)
+$(BINARY): $(OBJS) $(ARCHIVES) $(PRES)
 	@echo + LD $@
 	@$(LD) -o $@ $(OBJS) $(LDFLAGS) $(ARCHIVES) $(LIBS)
 
