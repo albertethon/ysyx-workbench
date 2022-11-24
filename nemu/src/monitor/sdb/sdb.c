@@ -72,7 +72,7 @@ static int cmd_x(char *args){
   paddr_t paddr;
   int len;
 
-  char *tempval = "";
+  char tempval[20];
 
   Assert(sscanf(args,"%d%s",&len,tempval)==2,"%s not recgonized, type 'help x' to check",args);
   // Assert(sscanf(args,"%d%x",&len,&paddr)==2,"%s not recgonized, type 'help x' to check",args);
