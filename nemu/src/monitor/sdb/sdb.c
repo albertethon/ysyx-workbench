@@ -79,7 +79,7 @@ static int cmd_x(char *args){
 
   bool success=false;
   word_t expr_val = expr(tempval,&success);
-  printf("val:\t0x%lx\t%lu\n",expr_val,expr_val);
+  // printf("val:\t0x%lx\t%lu\n",expr_val,expr_val);
 
   paddr = (word_t)expr_val;
 
