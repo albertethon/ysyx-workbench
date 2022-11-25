@@ -60,7 +60,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;
     case TYPE_B: destI(immB(i)); src1R(rs1); src2R(rs2); 
-    printf("src1:%lx\tsrc2:%lx\tdest:%lx\ts->dnpc:%lx\n",src1,src2,dest,s->dnpc)
+    printf("src1:%lx\tsrc2:%lx\tdest:%lx\ts->dnpc:%lx\n",src1,src2,dest,s->dnpc);
     break;
     case TYPE_U: src1I(immU(i)); break;
     case TYPE_J: src1I(immJ(i)); break;
