@@ -45,8 +45,8 @@ static word_t immB(uint32_t i) {
   printf("BITS(i, 11, 8) << 1 = %llx\n",(BITS(i, 11, 8) << 1));
   printf("BITS(i, 7, 7) << 11 = %llx\n",(BITS(i, 7, 7) << 11));
 
-  return (BITS(i,31,31) << 12) | (BITS(i, 30, 25) << 5) |\
-                                        (BITS(i, 11, 8) << 1) | (BITS(i, 7, 7) << 11); }
+  return (BITS(i,31,31) << 12) | SEXT((BITS(i, 30, 25) << 5), 13) |\
+                                        SEXT((BITS(i, 11, 8) << 1), 13) | SEXT((BITS(i, 7, 7) << 11), 13); }
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
