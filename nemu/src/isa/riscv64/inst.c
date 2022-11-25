@@ -60,7 +60,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;
     case TYPE_B: destI(immB(i)); src1R(rs1); src2R(rs2); 
-    printf("dest:%lx\ts->dnpc:%lx\n",*dest,s->dnpc);
+    // printf("dest:%lx\ts->dnpc:%lx\n",*dest,s->dnpc);
     break;
     case TYPE_U: src1I(immU(i)); break;
     case TYPE_J: src1I(immJ(i)); break;
@@ -101,7 +101,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 000 ????? 00110 11", addiw  , I, R(dest) = SEXT(BITS(src1 + src2,31,0), 64));//x[rd] = sext((x[rs1] + sext(imm))[31:0])
   INSTPAT("??????? 00000 ????? 000 ????? 11000 11", beqz   , B, if(src1==0)   s->dnpc = s->pc + dest);//if(rs1==0)pc+=sext(offset)
   INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, if(src1==src2)s->dnpc = s->pc + dest);//if(rs1==rs2)pc+=sext(offset)
-  INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2)s->dnpc = s->pc + dest;printf("src1:%lx\tsrc2:%lx\tdest:%lx\ts->dnpc:%lx\n",src1,src2,dest,s->dnpc));//if(rs1!=rs2) pc += sext(offset)
+  INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2)s->dnpc = s->pc + dest);//if(rs1!=rs2) pc += sext(offset)
   INSTPAT("??????? ????? ????? ??? 00000 11011 11", j      , J, s->dnpc = src1 + s->pc);//pc+=sext(offset)
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->snpc; s->dnpc = src1 + s->pc);//x[rd] = pc+4; pc+=sext(offset)
   INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(dest) = s->snpc; s->dnpc = (src1 + src2)&0xfffffffe);//t=pc+4;pc=(x[rs1]+sext(offset))&~1;x[rd]=t
