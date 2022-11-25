@@ -39,8 +39,15 @@ static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | SEXT(BITS(i, 11, 7),5); }
 static word_t immJ(uint32_t i) { return (BITS(i,31,31) << 20) | (SEXT(BITS(i, 30, 21), 10) << 1) |\
                                         (BITS(i,20,20) << 11) | (SEXT(BITS(i, 19, 12), 8) << 12); }
-static word_t immB(uint32_t i) { return SEXT((BITS(i,31,31) << 12) | (SEXT(BITS(i, 30, 25), 6) << 5) |\
-                                        (SEXT(BITS(i, 11, 8), 4) << 1) | (BITS(i, 7, 7) << 11), 13); }
+static word_t immB(uint32_t i) { 
+  printf("BITS(i,31,31) << 12 = %llx\n",BITS(i,31,31) << 12);
+  printf("SEXT(BITS(i, 30, 25), 6) << 5 = %llx\n",(SEXT(BITS(i, 30, 25), 6) << 5));
+  printf("SEXT(BITS(i, 11, 8), 4) << 1 = %llx\n",(SEXT(BITS(i, 11, 8), 4) << 1));
+  printf("BITS(i, 7, 7) << 11 = %llx\n",(BITS(i, 7, 7) << 11));
+  printf("BITS(i,31,31) << 12 = %llx\n",(BITS(i,31,31) << 12));
+
+  return (BITS(i,31,31) << 12) | (SEXT(BITS(i, 30, 25), 6) << 5) |\
+                                        (SEXT(BITS(i, 11, 8), 4) << 1) | (BITS(i, 7, 7) << 11); }
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
@@ -92,7 +99,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 000 ????? 00110 11", addiw  , I, R(dest) = SEXT(BITS(src1 + src2,31,0), 64));//x[rd] = sext((x[rs1] + sext(imm))[31:0])
   INSTPAT("??????? 00000 ????? 000 ????? 11000 11", beqz   , B, if(src1==0)   s->dnpc = s->pc + dest);//if(rs1==0)pc+=sext(offset)
   INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, if(src1==src2)s->dnpc = s->pc + dest);//if(rs1==rs2)pc+=sext(offset)
-  INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2)s->dnpc = s->pc + dest;printf("src1:%lx\tsrc2:%lx\tdest:%lx\ts->dnpc:%lx\n",src1,src2,dest,s->dnpc));//if(rs1!=rs2) pc += sext(offset)
+  INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2)s->dnpc = s->pc + dest;printf("src1:%llx\tsrc2:%llx\tdest:%llx\ts->dnpc:%llx\n",src1,src2,dest,s->dnpc));//if(rs1!=rs2) pc += sext(offset)
   INSTPAT("??????? ????? ????? ??? 00000 11011 11", j      , J, s->dnpc = src1 + s->pc);//pc+=sext(offset)
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->snpc; s->dnpc = src1 + s->pc);//x[rd] = pc+4; pc+=sext(offset)
   INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(dest) = s->snpc; s->dnpc = (src1 + src2)&0xfffffffe);//t=pc+4;pc=(x[rs1]+sext(offset))&~1;x[rd]=t
