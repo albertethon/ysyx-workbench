@@ -40,11 +40,11 @@ static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | SEXT(B
 static word_t immJ(uint32_t i) { return (BITS(i,31,31) << 20) | (SEXT(BITS(i, 30, 21), 10) << 1) |\
                                         (BITS(i,20,20) << 11) | (SEXT(BITS(i, 19, 12), 8) << 12); }
 static word_t immB(uint32_t i) { 
-  printf("BITS(i,31,31) << 12 = %lx\n",BITS(i,31,31) << 12);
-  printf("SEXT(BITS(i, 30, 25), 6) << 5 = %lx\n",(SEXT(BITS(i, 30, 25), 6) << 5));
-  printf("SEXT(BITS(i, 11, 8), 4) << 1 = %lx\n",(SEXT(BITS(i, 11, 8), 4) << 1));
-  printf("BITS(i, 7, 7) << 11 = %lx\n",(BITS(i, 7, 7) << 11));
-  printf("BITS(i,31,31) << 12 = %lx\n",(BITS(i,31,31) << 12));
+  printf("BITS(i,31,31) << 12 = %llx\n",BITS(i,31,31) << 12);
+  printf("SEXT(BITS(i, 30, 25), 6) << 5 = %llx\n",(SEXT(BITS(i, 30, 25), 6) << 5));
+  printf("SEXT(BITS(i, 11, 8), 4) << 1 = %llx\n",(SEXT(BITS(i, 11, 8), 4) << 1));
+  printf("BITS(i, 7, 7) << 11 = %llx\n",(BITS(i, 7, 7) << 11));
+  printf("BITS(i,31,31) << 12 = %llx\n",(BITS(i,31,31) << 12));
 
   return (BITS(i,31,31) << 12) | (SEXT(BITS(i, 30, 25), 6) << 5) |\
                                         (SEXT(BITS(i, 11, 8), 4) << 1) | (BITS(i, 7, 7) << 11); }
