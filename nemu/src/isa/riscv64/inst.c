@@ -36,7 +36,7 @@ enum {
 
 static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
-static word_t immS(uint32_t i) { return SEXT(BITS(i, 31, 25), 7) << 5 | SEXT(BITS(i, 11, 7),5); }
+static word_t immS(uint32_t i) { return SEXT(BITS(i, 31, 25), 7) << 5 | BITS(i, 11, 7); }
 static word_t immJ(uint32_t i) { return SEXT((BITS(i,31,31) << 20) | (BITS(i, 30, 21) << 1) |\
                                             (BITS(i,20,20) << 11) | (BITS(i, 19, 12) << 12), 20); }
 static word_t immB(uint32_t i) { 
@@ -108,7 +108,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? ??? 00000 11011 11", j      , J, s->dnpc = src1 + s->pc);//pc+=sext(offset)
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->snpc; s->dnpc = src1 + s->pc);//x[rd] = pc+4; pc+=sext(offset)
   INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(dest) = s->snpc; s->dnpc = (src1 + src2)&0xfffffffe);//t=pc+4;pc=(x[rs1]+sext(offset))&~1;x[rd]=t
-  INSTPAT("??????? ????? ????? 100 ????? 00000 11", lbu    , I, R(dest) = SEXT(Mr(src1 + src2, 1), 8)checkrdr1r2);//x[rd] = sext(M[x[rs1] + sext(offset)][7:0])
+  INSTPAT("??????? ????? ????? 100 ????? 00000 11", lbu    , I, R(dest) = SEXT(Mr(src1 + src2, 1), 8));//x[rd] = sext(M[x[rs1] + sext(offset)][7:0])
   INSTPAT("??????? ????? ????? 010 ????? 00000 11", lw     , I, R(dest) = SEXT(BITS(Mr(src1 + src2, 4), 31, 0), 31));//load word:x[rd] = sext(M[x[rs1] + sext(offset)][31:0])
   INSTPAT("??????? ????? ????? ??? ????? 01101 11", lui    , U, R(dest) = src1);//x[rd] = sext(imm[31:12]<<12)
   INSTPAT("0000000 00000 ????? 000 ????? 00100 11", mv     , I, R(dest) = src1);//x[rd] = x[rs1]
