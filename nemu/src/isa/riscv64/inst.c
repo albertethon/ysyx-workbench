@@ -66,7 +66,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_J: src1I(immJ(i)); break;
   }
 }
-#define checkrdr1r2 ;printf("dest:%lx\tsrc1:%lx\tsrc2:%lx\tm[%lx]:%lx\n",dest,src1,src2,src1+dest-1,Mr(src1+dest-1,4))
+#define checkrdr1r2 ;printf("dest:%lx\tsrc1:%lx\tsrc2 & 0x03f:%lx\n",dest,src1,src2&0x03f)
 
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
@@ -127,7 +127,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 011 ????? 00100 11", sltiu  , I, R(dest) = (src1 < src2)?1:0);//x[rd] = x[rs1] < imm
   INSTPAT("0000000 ????? ????? 011 ????? 01100 11", sltu   , R, R(dest) = (src1 < src2)?1:0);//x[rd] = x[rs1] < x[rs2]
   INSTPAT("0000000 ????? ????? 001 ????? 01110 11", sllw   , R, R(dest) = SEXT(BITS(src1 << BITS(src2,4,0), 31, 0),31));//x[rd] = sext((x[rs1] << x[rs2][4:0])[31:0])
-  INSTPAT("000000 ?????? ????? 001 ????? 00100 11", slli   , I, R(dest) = src1 << (src2 & 0x03f));//x[rd] = x[rs1] << shamt
+  INSTPAT("000000 ?????? ????? 001 ????? 00100 11", slli   , I, R(dest) = src1 << (src2 & 0x03f)checkrdr1r2);//x[rd] = x[rs1] << shamt
   INSTPAT("000000 ?????? ????? 001 ????? 00110 11", slliw  , I, R(dest) = SEXT(BITS(src1 << (src2 & 0x03f), 31, 0), 31));//x[rd] = sext(x[rs1] << shamt[31:0])
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(dest) = src1 - src2);//x[rd] = x[rs1] - x[rs2]
   INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw     , S, Mw(src1 + dest, 4, BITS(src2,32,0)));//store word:M[x[rs1] + sext(offset)] = x[rs2][31:0]
