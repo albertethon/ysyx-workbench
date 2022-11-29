@@ -66,7 +66,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_J: src1I(immJ(i)); break;
   }
 }
-#define checkrdr1r2 ;printf("dest:%lx\tsrc1:%lx\tsrc2:%lx\t src2&0x03f:%lx\n",dest,src1,src2,src2&0x03f)
+#define checkrdr1r2 ;printf("dest:%lx\tsrc1:%lx\tsrc2:%lx\t src1<<src2&0x03f:%lx\n",dest,src1,src2,src1<<(src2&0x03f))
 
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
