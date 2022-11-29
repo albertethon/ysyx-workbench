@@ -120,6 +120,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 00000 ????? 000 ????? 00100 11", mv     , I, R(dest) = src1);//x[rd] = x[rs1]
   INSTPAT("1111111 11111 ????? 100 ????? 00100 11", not    , I, R(dest) = ~src1);//xori rd,rs1,-1
   INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(dest) = src1 | src2);//x[rd] = x[rs1] | x[rs2]
+  INSTPAT("0000001 ????? ????? 110 ????? 01110 11", remw   , R, R(dest) = SEXT(SEXT(BITS(src1, 31, 0),31) % SEXT(BITS(src2, 31, 0),31), 31));
   INSTPAT("0000000 00001 ????? 011 ????? 00100 11", seqz   , I, R(dest) = (src1!=0)?0:1);//if 0, x[rd]=1, else sltiu rd, rs1, 1
   INSTPAT("0000000 00000 ????? 000 ????? 00110 11", sext.w , I, R(dest) = SEXT(BITS(src1,31,0), 31));//if 0, x[rd]=1, else sltiu rd, rs1, 1
   INSTPAT("0000000 ????? 00000 011 ????? 01100 11", snez   , R, R(dest) = (src2!=0)?1:0);//if x[rs2]==0; x[rd]=0; otherwise x[rd]=1
