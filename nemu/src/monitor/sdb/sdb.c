@@ -71,7 +71,18 @@ static int cmd_si(char *args){
 static int cmd_x(char *args){
   paddr_t paddr;
   int len;
-  Assert(sscanf(args,"%d%x",&len,&paddr)==2,"%s not recgonized, type 'help x' to check",args);
+
+  char tempval[20];
+
+  Assert(sscanf(args,"%d%s",&len,tempval)==2,"%s not recgonized, type 'help x' to check",args);
+  // Assert(sscanf(args,"%d%x",&len,&paddr)==2,"%s not recgonized, type 'help x' to check",args);
+
+  bool success=false;
+  word_t expr_val = expr(tempval,&success);
+  // printf("val:\t0x%lx\t%lu\n",expr_val,expr_val);
+
+  paddr = (word_t)expr_val;
+
   for (paddr_t i = 0; i < len; i++)
   {
     // printf("0x%-10x\t0x%08lx\n",paddr+4*i,paddr_read(paddr+4*i,4));
@@ -80,12 +91,13 @@ static int cmd_x(char *args){
   
   return 0;
 }
+
 static int cmd_info(char *args);
 static int cmd_help(char *args);
 static int cmd_p(char *args){
   bool success=false;
   word_t expr_val = expr(args,&success);
-  printf("val:%lu\n",expr_val);
+  printf("val:\t0x%lx\t%lu\n",expr_val,expr_val);
   return 0;
 }
 static int cmd_d(char *args){
