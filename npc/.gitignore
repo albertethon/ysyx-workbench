@@ -12,3 +12,4 @@
 !*.vc
 !.gitignore
 !README.md
+build/
