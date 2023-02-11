@@ -26,12 +26,17 @@ $(BINARY): compile_git
 
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += $(ARGS_DIFF)
+## -b 传入参数表示用批处理模式运行，不用输入c,在monitor.c中设置参数处理逻辑
 
 # Command to execute NEMU
-IMG ?=
+IMG ?= 
 NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
-
+NEMU_EXEC_B := $(BINARY) $(ARGS) -b $(IMG)
 run-env: $(BINARY) $(DIFF_REF_SO)
+
+batch: run-env
+	$(call git_commit, "run NEMU")
+	$(NEMU_EXEC_B)
 
 run: run-env
 	$(call git_commit, "run NEMU")

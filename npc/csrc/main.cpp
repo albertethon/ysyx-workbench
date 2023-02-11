@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <dump.h>
-#include <nvboard.h>
+#include <cputest.h>
+// #include <nvboard.h>
 
 static TOP_NAME dut;
 
-void nvboard_bind_all_pins(Vtop* top);
+void nvboard_bind_all_pins(Vcpu* top);
 
 void single_cycle(){
   dut.clk = 0; dut.eval();
@@ -22,8 +22,9 @@ static void reset(int n){
 
 int main(int argc, char** argv, char** env) {
 
-  dump_and_test();
+  cputest();
 
+/* 
   nvboard_bind_all_pins(&dut);
   nvboard_init();
 
@@ -36,5 +37,6 @@ int main(int argc, char** argv, char** env) {
     single_cycle();
   }
   nvboard_quit();
+ */
 
 }

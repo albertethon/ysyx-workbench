@@ -15,6 +15,7 @@ endif
 
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
+#### $(findstring <find>,<in>) 找到返回find,否则返回空
 
 ### Print build info message
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
@@ -23,17 +24,24 @@ $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 ifeq ($(wildcard $(AM_HOME)/am/include/am.h),)
   $(error $$AM_HOME must be an AbstractMachine repo)
 endif
+#### wildcard 扩展变量(通配符)为具体
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
 ifeq ($(filter $(ARCHS), $(ARCH)), )
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
+#### shell 执行OS命令并返回输出
+#### notdir 去除文件夹信息
+#### basename 取前缀
+#### $(filter <pattern...>,<text>)过滤函数, 用pattern 过滤text返回符合pat的词
+#### ARCH在make输入命令时给出
 
 ### Extract instruction set architecture (`ISA`) and platform from `$ARCH`. Example: `ARCH=x86_64-qemu -> ISA=x86_64; PLATFORM=qemu`
 ARCH_SPLIT = $(subst -, ,$(ARCH))
 ISA        = $(word 1,$(ARCH_SPLIT))
 PLATFORM   = $(word 2,$(ARCH_SPLIT))
+#### subst <from>,<to>,<text>字符替换
 
 ### Check if there is something to build
 ifeq ($(flavor SRCS), undefined)
@@ -54,6 +62,7 @@ $(shell mkdir -p $(DST_DIR))
 IMAGE_REL = build/$(NAME)-$(ARCH)
 IMAGE     = $(abspath $(IMAGE_REL))
 ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
+#### abspath:get full path
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
@@ -62,6 +71,7 @@ LINKAGE   = $(OBJS) \
   $(addsuffix -$(ARCH).a, $(join \
     $(addsuffix /build/, $(addprefix $(AM_HOME)/, $(LIBS))), \
     $(LIBS) ))
+#### join <list1>,<list2> 按单词分别对应连接
 
 ## 3. General Compilation Flags
 
@@ -145,7 +155,7 @@ image: image-dep
 archive: $(ARCHIVE)
 image-dep: $(OBJS) am $(LIBS)
 	@echo \# Creating image [$(ARCH)]
-.PHONY: image image-dep archive run $(LIBS)
+.PHONY: image image-dep archive run batch $(LIBS)
 
 ### Clean a single project (remove `build/`)
 clean:
