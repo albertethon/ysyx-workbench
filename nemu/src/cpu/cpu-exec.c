@@ -24,16 +24,25 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
-
+#define MAX_RING_LEN 128
+#define MAX_RING_WIDTH 20
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
-
+char tmp_ring_buff[MAX_RING_WIDTH][MAX_RING_LEN];
+int tmp_line=0;
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
+#ifdef CONFIG_ITRACE_RING
+  if(ITRACE_RING){
+    sprintf(tmp_ring_buff[tmp_line%MAX_RING_WIDTH],"%s\n",_this->logbuf);
+    tmp_line++;
+  }
+#endif
+#else
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
@@ -81,6 +90,13 @@ static void execute(uint64_t n) {
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
+#ifdef CONFIG_ITRACE_RING
+  for (size_t i = 0; i < MAX_RING_WIDTH; i++)
+  {
+    if((tmp_line-1)%MAX_RING_WIDTH == i)log_write("--> %s",tmp_ring_buff[i]);
+    else log_write("\t%s",tmp_ring_buff[i]);
+  }
+#endif
 }
 
 static void statistic() {
