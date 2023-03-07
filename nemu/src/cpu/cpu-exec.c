@@ -30,21 +30,48 @@ CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
+#ifdef CONFIG_ITRACE_RING
 char tmp_ring_buff[MAX_RING_WIDTH][MAX_RING_LEN];
 int tmp_line=0;
+#endif
+#ifdef CONFIG_FTRACE
+char *ftrace(word_t);
+char *old_func_name=NULL;
+char depth[200]={0};
+char *dptr=depth;
+uint32_t old_inst=0;
+#endif
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
 #ifdef CONFIG_ITRACE_RING
-  if(ITRACE_RING){
     sprintf(tmp_ring_buff[tmp_line%MAX_RING_WIDTH],"%s\n",_this->logbuf);
     tmp_line++;
+#else
+if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
+#endif
+#ifdef CONFIG_FTRACE
+  char *func_name = ftrace(dnpc);
+  if(old_func_name==NULL || strcmp(old_func_name,func_name)!=0){
+    uint32_t inst = _this->isa.inst.val;
+    char *c = "call";
+    if(inst == 0x00008067){//if inst is ret
+      if(inst==old_inst)//if old inst is ret,delete ' ',else stay
+        *(--dptr) = 0;
+      c = "ret";
+    }else{
+      if(old_inst != 0x00008067)//if old inst is ret,stay
+        *dptr++ = ' ';
+    }
+    old_func_name = func_name;
+    old_inst = inst;
+    if(func_name!=NULL)
+      ftrace_write("%s%s\t%s\n",depth,c,func_name);
   }
 #endif
-#else
-  if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
+
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 

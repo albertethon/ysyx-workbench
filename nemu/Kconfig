@@ -151,8 +151,13 @@ config ITRACE_COND
 
 config ITRACE_RING
   depends on ITRACE
-  string "Turn on the iringbuf when the condition is true"
-  default "true"
+  bool "Turn on the iringbuf when the condition is true"
+  default y
+
+config FTRACE
+  depends on ITRACE
+  bool "Turn on the ftrace when the condition is true"
+  default y
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF

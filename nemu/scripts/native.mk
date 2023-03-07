@@ -24,7 +24,8 @@ $(BINARY): compile_git
 
 # Some convenient rules
 
-override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
+override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt \
+--mtrace=$(BUILD_DIR)/nemu-mtrace.txt
 override ARGS += $(ARGS_DIFF)
 ## -b 传入参数表示用批处理模式运行，不用输入c,在monitor.c中设置参数处理逻辑
 
